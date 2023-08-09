@@ -2,12 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply leading-tight font-bold tracking-tight;
   }
+
 }
 
-*/
+@layer components {
+  label {
+    @apply block font-bold;
+  }
+
+  select,
+  .form-input {
+    @apply block p-2;
+    @apply text-inherit;
+    @apply bg-transparent;
+    @apply border-stone-500/50;
+    @apply dark:shadow-inner;
+  }
+
+  select { @apply pr-10; }
+  a {
+    @apply font-medium underline;
+  }
+  .btn {
+    @apply inline-block px-4 py-2 leading-tight tracking-tight font-bold no-underline cursor-pointer text-stone-900 bg-stone-200 hover:bg-orange-100;
+  }
+  .btn--primary {
+    @apply text-white bg-orange-700 hover:bg-orange-600;
+  }
+}

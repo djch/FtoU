@@ -1,0 +1,42 @@
+<%= form_with(model: @customer, class: "max-w-screen-md") do |form| %>
+  <div class="my-4">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-input w-64", required: true %>
+  </div>
+  <div class="my-4">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, class: "form-input w-48", required: true %>
+  </div>
+  <div class="my-4">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "form-input w-80" %>
+  </div>
+  <div class="my-4">
+    <%= form.label :delivery_notes %>
+    <%= form.text_area :delivery_notes, rows: 5, class: "form-input w-96" %>
+  </div>
+  <div class="my-4 p-4 bg-stone-100 dark:bg-stone-950 w-96">
+    <% if @customer.street_address.present? %>
+      <h2 class="text-lg/tight">Current delivery address:</h2>
+      <p class="my-2">
+        <%= @customer.street_address %>
+        <br><%= @customer.town %>, <%= @customer.state %>
+        <br><%= @customer.postcode %>
+      </p>
+    <% else %>
+      <p class="mb-3">Please add a delivery address</p>
+    <% end %>
+    <div data-controller="places">
+      <%= form.label "Address finder" %>
+      <input data-places-target="autocomplete" type="text" placeholder="Enter address" class="form-input w-full bg-white dark:bg-stone-900">
+      <input data-places-target="street" type="hidden" name="customer[street_address]" value="<%= @customer&.street_address %>">
+      <input data-places-target="town" type="hidden" name="customer[town]" value="<%= @customer&.town %>">
+      <input data-places-target="state" type="hidden" name="customer[state]" value="<%= @customer&.state %>">
+      <input data-places-target="postcode" type="hidden" name="customer[postcode]" value="<%= @customer&.postcode %>">
+      <input data-places-target="country" type="hidden" name="customer[country]" value="<%= @customer&.country %>">
+    </div>
+  </div>
+  <div class="my-4">
+    <%= form.submit 'Save customer', class: "btn btn--primary" %>
+  </div>
+<% end %>

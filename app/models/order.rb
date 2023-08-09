@@ -20,9 +20,11 @@ class Order < ApplicationRecord
 
   private
 
-  def copy_customer_address
-    self.street_address = customer.street_address
-    self.town           = customer.town
-    self.state          = customer.state
-    self.postcode       = customer.postcode
-    self.country
+    def copy_customer_address
+      self.street_address = customer.street_address
+      self.town           = customer.town
+      self.state          = customer.state
+      self.postcode       = customer.postcode
+      self.country        = customer.country
+    end
+end

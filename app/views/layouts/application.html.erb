@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ftou</title>
+    <title>Firewood to U</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD84iWVqsaw7nPExLsiJtnsNgygJUqH4eI&libraries=places&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google_maps_api_key) %>&libraries=places&callback=initMap"></script>
+
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="text-stone-950 bg-white dark:text-stone-50 dark:bg-stone-900">
+    <div class="container mx-auto max-w-screen-xl min-h-screen p-4">
+      <h2 class="text-2xl mb-4">Firewood Order Database</h2>
+      <nav class="flex flex-wrap gap-x-5 gap-y-3 mb-6 pb-4 border-b border-stone-400/30">
+        <%= link_to "Schedule", '#', class: "lg:text-lg/none font-bold text-orange-700 underline" %>
+        <%= link_to "Orders", '#', class: "lg:text-lg/none font-bold text-orange-700 underline" %>
+        <%= link_to "Products", "#", class: "lg:text-lg/none font-bold text-orange-700 underline" %>
+        <%= link_to "Customers", customers_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
+        <%= link_to "Users", "#", class: "lg:text-lg/none font-bold text-orange-700 underline" %>
+      </nav>
+      <section id="messages">
+        <% flash.each do |type, message| %>
+          <%= content_tag :div, message, class: 'italic text-green-700', role: "alert" %>
+        <% end %>
+      </section>
+      <main class="my-4">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

@@ -1,0 +1,12 @@
+<header class="mb-6">
+  <h1 class="font-bold text-2xl/tight">Customers</h1>
+  <p>Look up customer details, update their contact info or review their history</p>
+</header>
+
+<div class="my-6">
+  <%= link_to "Add a new customer", new_customer_path, class: "btn" %>
+</div>
+
+<ul role="list" class="divide-y divide-stone-500/20 overflow-hidden ring-1 ring-gray-500/20">
+  <%= render @customers %>
+</ul>
