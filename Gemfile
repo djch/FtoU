@@ -76,3 +76,7 @@ group :test do
 end
 
 gem "local_time", "~> 2.1"
+
+gem "name_of_person", "~> 1.1"
+
+gem "geared_pagination", "~> 1.1"
