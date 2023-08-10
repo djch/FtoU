@@ -2,6 +2,7 @@ class Customer < ApplicationRecord
   include Addressable
   has_many :orders
 
-  validates :name, presence: true
+  has_person_name
+
   validates :phone, presence: true
 end

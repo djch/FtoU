@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_003422) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_043314) do
   create_table "customers", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "phone"
     t.string "email"
     t.string "street_address"
@@ -59,7 +60,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_003422) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

@@ -1,22 +1,25 @@
 # Basic user
 user_one:
-  name: "Dan Charlesworth"
+  first_name: "Dan"
+  last_name: "Charlesworth"
   email: "dan@getbusi.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'Password!') %>
   sign_in_count: 0
 
 # Another user
 user_two:
-  name: "Dion Daley"
+  first_name: "Dion"
+  last_name: "Daley"
   email: "dgdaley@example.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'Password!') %>
   sign_in_count: 0
 
 # Locked user
 user_locked:
-  name: "Eddy Resignerson"
+  first_name: "Sumner"
+  last_name: "Redstone"
   email: "locked.user@example.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'Password!') %>
   sign_in_count: 5
   failed_attempts: 5
   locked_at: <%= Time.now.utc %>
