@@ -75,8 +75,10 @@ group :test do
   gem "webdrivers"
 end
 
+# Authentication
+gem "devise", "~> 4.9"
+
+# Handy stuff
 gem "local_time", "~> 2.1"
-
 gem "name_of_person", "~> 1.1"
-
 gem "geared_pagination", "~> 1.1"
