@@ -1,0 +1,32 @@
+<%= form_with(model: user, class: "contents") do |form| %>
+
+  <div class="my-4">
+      <%= form.label :name, "Full name" %>
+      <%= form.text_field :name, class: "form-input w-full", required: true %>
+  </div>
+  <div class="my-4">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "form-input w-full" %>
+  </div>
+  <% if user.new_record? %>
+    <div class="my-4">
+      <%= form.label :password %>
+      <span><em>At least 8 characters, please</em></span>
+      <%= form.password_field :password, class: "form-input w-full", required: true %>
+    </div>
+    <div class="my-4">
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation, class: "form-input w-full", required: true %>
+    </div>
+  <% end %>
+  <div class="my-6">
+    <% if user.new_record? %>
+      <%= form.submit 'Create this user', class: "btn btn--primary block w-full" %>
+    <% else %>
+      <%= form.submit 'Save changes', class: "btn btn--primary block w-full" %>
+      <p class="my-3 text-center text-sm">
+        Note: If <%= user.name.first %>'s password needs changing, they should reset it via the login page or contact Getbusi
+      </p>
+    <% end %>
+  </div>
+<% end %>

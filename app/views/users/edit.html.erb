@@ -1,0 +1,10 @@
+<div class="max-w-[480px] mx-auto">
+  <header class="my-6 text-center lg:text-lg">
+    <h1 class="text-2xl">Editing User: <%= @user.name %></h1>
+    <p>Update <%= @user.name.first %>'s login details or remove their access</p>
+  </header>
+  <%= render "form", user: @user %>
+  <p class="text-center">
+    <%= link_to "Never mind, go back", users_path %>
+  </p>
+</div>

@@ -15,7 +15,7 @@
 
   <body class="text-stone-950 bg-white dark:text-stone-50 dark:bg-stone-900">
     <div class="container mx-auto max-w-screen-xl min-h-screen p-4">
-      <h2 class="text-2xl mb-4">Firewood Order Database</h2>
+      <h2 class="text-2xl mb-4">FtoU Online</h2>
       <% if user_signed_in? %>
         <nav class="flex flex-wrap gap-5 justify-between mb-4">
           <div class="flex flex-wrap gap-x-5 gap-y-3">
@@ -23,9 +23,9 @@
             <%= link_to "Orders", '#', class: "lg:text-lg/none font-bold text-orange-700 underline" %>
             <%= link_to "Products", "#", class: "lg:text-lg/none font-bold text-orange-700 underline" %>
             <%= link_to "Customers", customers_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
-            <%= link_to "Users", "#", class: "lg:text-lg/none font-bold text-orange-700 underline" %>
+            <%= link_to "Staff", users_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
           </div>
-          <div class="leading-none text-stone-900/50">
+          <div class="leading-none text-stone-500">
             Signed in as: <%= current_user.name %>
             |
             <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "underline" %>
