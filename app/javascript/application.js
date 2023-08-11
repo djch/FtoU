@@ -5,6 +5,9 @@ import "controllers"
 import LocalTime from "local-time"
 LocalTime.start()
 
+import "trix"
+import "@rails/actiontext"
+
 window.initMap = function() {
   document.dispatchEvent(new Event('googleMapsLoaded'));
 };
