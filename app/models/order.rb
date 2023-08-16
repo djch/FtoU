@@ -14,8 +14,12 @@ class Order < ApplicationRecord
   # Callback to copy address from the associated customer
   before_create :copy_customer_address
 
-  def total_price
+  def price
     order_items.sum(&:total_price)
+  end
+
+  def total_price
+    price + delivery_fee
   end
 
   private
