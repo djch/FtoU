@@ -42,4 +42,5 @@
     @apply inline-block font-medium underline;
   }
 }
+
 @import 'actiontext.css';
