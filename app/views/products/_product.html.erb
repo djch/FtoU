@@ -1,18 +1,22 @@
-<li class="overflow-hidden border border-stone-200">
+<li class="overflow-hidden border border-stone-300 dark:border-stone-600">
 
-  <div class="flex items-center gap-x-4 border-b border-stone-500/5 bg-stone-50 p-6">
+  <div class="p-6 flex items-center gap-x-4 border-b border-stone-300 dark:border-stone-600">
     <div class="text-lg/tight font-bold"><%= product.title %></div>
     <div class="relative ml-auto">
-      <button type="button" class="-m-2.5 btn">Edit</button>
+      <%= link_to "Edit", edit_product_path(product), class: "btn" %>
     </div>
   </div>
-
-  <dl class="-my-3 divide-y divide-stone-500/10 px-6 py-4 leading-6">
+  <dl class="-my-3 divide-y divide-stone-500/20 px-6 py-4 leading-6">
     <div class="flex justify-between gap-x-4 py-3">
         <%= product.description %>
     </div>
-    <div class="py-3 text-right">
-      $<%= product.price %> per <%= product.unit %>
+    <div class="py-3 flex gap-x-4 justify-between items-center">
+      <span class="<%= product.available ? 'text-green-600' : 'text-amber-600' %> uppercase tracking-tight text-sm">
+        <%= product.available ? 'Available' : 'Unavailable' %>
+      </span>
+      <span>
+        <%= number_to_currency(product.price, unit: '$') %> /<%= product.unit %>
+      </span>
     </div>
   </dl>
 </li>

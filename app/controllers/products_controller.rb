@@ -7,10 +7,6 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
-  # GET /products/1
-  def show
-  end
-
   # GET /products/new
   def new
     @product = Product.new
@@ -39,15 +35,19 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
+# PATCH/PUT /products/1
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
-      else
+    if @product.update(product_params)
+      redirect_to products_path, notice: "Product was successfully updated." # Redirect to the index
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append(
+            'messages', partial: 'shared/errors',
+            locals: { errors: @product.errors }
+          ), status: :unprocessable_entity
+        end
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
   end

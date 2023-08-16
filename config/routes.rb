@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users, except: [:show]
 
   resources :customers
-  resources :products
+  resources :products, except: [:show]
 
   # Defines the root path route ("/")
   # root "articles#index"
