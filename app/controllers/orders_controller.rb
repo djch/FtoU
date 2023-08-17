@@ -5,6 +5,14 @@ class OrdersController < ApplicationController
   # GET /orders
   def index
     @orders = Order.all
+    @orders = Order.all.by_status(params[:status]).by_paid(params[:paid]).by_date(params[:date])
+    @orders = @orders.by_paid(params[:paid]) if params[:paid].present?
+    @orders = @orders.by_date(params[:date]) if params[:date].present?
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # GET /orders/1

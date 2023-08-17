@@ -1,0 +1,22 @@
+<%= form_with url: orders_path, method: :get, local: true, class: "flex items-center gap-x-4" do |f| %>
+
+  <!-- By date -->
+  <%= f.label :date, "Filter by date received", class: "sr-only" %>
+  <%= f.select :date, options_for_select([
+    ['Received any time', ''],
+    ['Received today', 'today'],
+    ['Received yesterday', 'yesterday'],
+    ['Received this week', 'this_week'],
+    ['Received last week', 'last_week'],
+    ['Received this month', 'this_month'],
+    ['Received last month', 'last_month']
+  ], params[:date]), {}, { onchange: 'this.form.submit();', class: 'form-input w-auto pr-10' } %>
+
+  <!-- By Status -->
+  <%= f.label :status, "Filter by status", class: "sr-only" %>
+  <%= f.select :status, options_for_select([['Any status', '']] + %w(pending confirmed cancelled delivered).map { |status| [status.capitalize, status] }, params[:status]), {}, { onchange: 'this.form.submit();', class: 'form-input w-auto pr-10' } %>
+
+  <!-- By Paid -->
+  <%= f.label :paid, "Filter by paid", class: "sr-only" %>
+  <%= f.select :paid, options_for_select([['Paid and unpaid', ''], ['Paid', 'true'], ['Unpaid', 'false']], params[:paid]), {}, { onchange: 'this.form.submit();', class: 'form-input w-auto pr-10' } %>
+<% end %>

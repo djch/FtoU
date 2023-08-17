@@ -22,6 +22,27 @@ class Order < ApplicationRecord
     price + delivery_fee
   end
 
+  scope :by_date, lambda { |date|
+      case date
+      when 'today'
+        where("DATE(created_at) = ?", Date.today)
+      when 'yesterday'
+        where("DATE(created_at) = ?", Date.yesterday)
+      when 'this_week'
+        where("created_at >= ?", Date.today.beginning_of_week)
+      when 'last_week'
+        where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_week - 1.week, Date.today.end_of_week - 1.week)
+      when 'this_month'
+        where("created_at >= ?", Date.today.beginning_of_month)
+      when 'last_month'
+        where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_month - 1.month, Date.today.end_of_month - 1.month)
+      else
+        all
+      end
+    }
+  scope :by_status, -> (status) { where(status: status) if status.present? }
+  scope :by_paid, -> (paid) { where(paid: ActiveModel::Type::Boolean.new.cast(paid)) if paid.present? }
+
   private
 
     def copy_customer_address

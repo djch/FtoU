@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_034832) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_024927) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -90,7 +90,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_034832) do
     t.datetime "updated_at", null: false
     t.decimal "delivery_fee", precision: 10, scale: 2, default: "50.0"
     t.boolean "paid", default: false
+    t.index ["created_at"], name: "index_orders_on_created_at"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["delivery_date"], name: "index_orders_on_delivery_date"
+    t.index ["paid"], name: "index_orders_on_paid"
+    t.index ["postcode"], name: "index_orders_on_postcode"
+    t.index ["status"], name: "index_orders_on_status"
+    t.index ["town"], name: "index_orders_on_town"
   end
 
   create_table "products", force: :cascade do |t|

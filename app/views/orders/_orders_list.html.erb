@@ -1,0 +1,32 @@
+<div class="mt-8 flow-root">
+  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-lock min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <table class="min-w-full divide-y divide-stone-300">
+        <thead>
+          <tr>
+            <th scope="col" class="sticky top-0 z-10 py-3 pl-4 pr-3 text-left text-sm font-bold uppercase tracking-wide sm:pl-0">Order</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Date</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Customer</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Total</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Products</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Status</th>
+            <th scope="col" class="sticky top-0 z-10 relative py-3 pl-3 pr-4 sm:pr-0">
+              <span class="sr-only">Edit</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-stone-300/30">
+          <% if @orders.any? %>
+            <%= render @orders %>
+          <% else %>
+            <tr>
+              <td colspan="7" class="text-center py-5">
+                No orders matched your filters. <%= link_to "Reset filters", orders_path, class: "text-orange-700" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
