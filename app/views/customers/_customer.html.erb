@@ -20,7 +20,7 @@
   <div class="flex shrink-0 items-center gap-x-4">
     <div class="hidden sm:flex sm:flex-col sm:items-end">
       <span>
-        <%= customer.orders.count %> orders
+        <%= pluralize(customer.orders.count, 'order') %>
       </span>
     </div>
     <svg class="h-5 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

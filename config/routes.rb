@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :customers
   resources :products, except: [:show]
+  resources :orders
 
   # Defines the root path route ("/")
   # root "articles#index"

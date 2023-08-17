@@ -1,7 +1,7 @@
 <div class="max-w-[480px] mx-auto">
-  <header class="my-6 text-center lg:text-lg">
+  <header class="mt-8 text-center lg:text-lg">
     <h1 class="text-2xl">Editing User: <%= @user.name %></h1>
-    <p>Update <%= @user.name.first %>'s login details or remove their access</p>
+    <p>Update <%= @user.name.first %>'s login details</p>
   </header>
   <%= render "form", user: @user %>
   <p class="text-center">

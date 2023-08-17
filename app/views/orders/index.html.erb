@@ -1,0 +1,29 @@
+<header class="mb-6">
+  <h1 class="font-bold text-2xl/tight">Orders</h1>
+  <p>Browse to any order received through the online form</p>
+</header>
+
+<div class="mt-8 flow-root">
+  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-lock min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      <table class="min-w-full divide-y divide-stone-300">
+        <thead>
+          <tr>
+            <th scope="col" class="sticky top-0 z-10 py-3 pl-4 pr-3 text-left text-sm font-bold uppercase tracking-wide sm:pl-0">Order</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Date</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Customer</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Total</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Products</th>
+            <th scope="col" class="sticky top-0 z-10 px-3 py-3 text-left text-sm font-bold uppercase tracking-wide">Status</th>
+            <th scope="col" class="sticky top-0 z-10 relative py-3 pl-3 pr-4 sm:pr-0">
+              <span class="sr-only">Edit</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-stone-300/30">
+          <%= render @orders %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
