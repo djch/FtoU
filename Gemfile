@@ -82,3 +82,5 @@ gem "devise", "~> 4.9"
 gem "local_time", "~> 2.1"
 gem "name_of_person", "~> 1.1"
 gem "geared_pagination", "~> 1.1"
+
+gem "pg_search", "~> 2.3"

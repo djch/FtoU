@@ -3,7 +3,15 @@ class CustomersController < ApplicationController
   before_action :find_customer, only: [:show, :edit, :update, :destroy]
 
   def index
-    @customers = Customer.all
+    def index
+
+      if params[:query].present?
+        @customers = Customer.search_by_name(params[:query])
+      else
+        @customers = Customer.all
+      end
+    end
+
   end
 
   def new

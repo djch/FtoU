@@ -1,8 +1,11 @@
 class Customer < ApplicationRecord
   include Addressable
-  has_many :orders
+  include PgSearch::Model
 
+  pg_search_scope :search_by_name, against: [:first_name, :last_name]
   has_person_name
+
+  has_many :orders
 
   validates :phone, presence: true
 end
