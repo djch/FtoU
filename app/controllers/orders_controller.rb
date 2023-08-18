@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
+    @order_items = @order.order_items
   end
 
   # GET /orders/new

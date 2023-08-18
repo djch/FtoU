@@ -18,21 +18,21 @@ products_data = [
   },
   {
     title: "Bagged Firewood",
-    price: 120,
+    price: 12,
     unit: "bag",
     available: true,
     description: "<div>10KG bag of dried hardwood</div>"
   },
   {
     title: "Bagged Kindling",
-    price: 120,
+    price: 12,
     unit: "bag",
     available: true,
     description: "<div>10KG bag of dried kindling<br>Lights quickly and easily to get your fire started</div>"
   },
   {
     title: "Bagged Sawdust",
-    price: 120,
+    price: 12,
     unit: "bag",
     available: true,
     description: "<div>10KG bag of dried sawdust<br>Lights quickly and easily to get your fire started</div>"

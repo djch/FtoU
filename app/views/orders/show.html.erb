@@ -1,15 +1,141 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<header class="mb-6">
+  <h1 class="font-bold text-2xl/tight">Order #<%= @order.id %></h1>
+  <p>Received <%= local_time_ago(@order.created_at) %></p>
+</header>
 
-    <%= render @order %>
-
-    <%= link_to 'Edit this order', edit_order_path(@order), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this order', order_path(@order), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+<div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+  <!-- Order metadata -->
+  <div class="lg:col-start-3 lg:row-end-1">
+    <h2 class="sr-only">Summary</h2>
+    <div class="bg-stone-50 shadow-sm ring-1 ring-stone-400/30">
+      <dl class="flex flex-wrap">
+        <div class="flex-auto pl-6 pt-6">
+          <dt class="font-semibold leading-6">Amount</dt>
+          <dd class="mt-1 text-base font-semibold leading-6">$10,560.00</dd>
+        </div>
+        <div class="flex-none self-end px-6 pt-4">
+          <dt class="sr-only">Status</dt>
+          <dd class="bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/20">Paid</dd>
+        </div>
+        <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-stone-400/20 px-6 pt-6">
+          <dt class="flex-none">
+            <span class="sr-only">Client</span>
+            <svg class="h-6 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clip-rule="evenodd" />
+            </svg>
+          </dt>
+          <dd class="font-medium leading-6">Alex Curren</dd>
+        </div>
+        <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+          <dt class="flex-none">
+            <span class="sr-only">Due date</span>
+            <svg class="h-6 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M5.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H6a.75.75 0 01-.75-.75V12zM6 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H6zM7.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H8a.75.75 0 01-.75-.75V12zM8 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H8zM9.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V10zM10 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H10zM9.25 14a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V14zM12 9.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V10a.75.75 0 00-.75-.75H12zM11.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H12a.75.75 0 01-.75-.75V12zM12 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H12zM13.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H14a.75.75 0 01-.75-.75V10zM14 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H14z" />
+              <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+            </svg>
+          </dt>
+          <dd class="leading-6">
+            <time datetime="2023-01-31">January 31, 2023</time>
+          </dd>
+        </div>
+        <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+          <dt class="flex-none">
+            <span class="sr-only">Status</span>
+            <svg class="h-6 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M2.5 4A1.5 1.5 0 001 5.5V6h18v-.5A1.5 1.5 0 0017.5 4h-15zM19 8.5H1v6A1.5 1.5 0 002.5 16h15a1.5 1.5 0 001.5-1.5v-6zM3 13.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zm4.75-.75a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z" clip-rule="evenodd" />
+            </svg>
+          </dt>
+          <dd class="leading-6">Paid with MasterCard</dd>
+        </div>
+      </dl>
+      <div class="mt-6 border-t border-stone-400/20 px-6 py-6">
+        <a href="#" class="font-semibold leading-6">Download receipt <span aria-hidden="true">&rarr;</span></a>
+      </div>
     </div>
-    <%= link_to 'Back to orders', orders_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-16">
+    <h2 class="mb-6 text-xl leading-6">Order</h2>
+    <% if @order.delivery_date %>
+      <p>Scheduled for delivery on <%= local_time(@order.delivery_date) %></p>
+    <% else %>
+      <p>Delivery not scheduled</p>
+    <% end %>
+    <dl class="mt-4 grid grid-cols-1 leading-6 sm:grid-cols-2">
+      <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
+        <dt class="font-bold uppercase">To</dt>
+        <dd class="mt-2">
+          <p class="mb-2"><%= @order.customer.name %></p>
+          <p class="mb-2">
+            <% if @order.customer.company_name %>
+              <%= @order.customer.company_name %><br>
+            <% end %>
+            <%= @order.customer.street_address %><br>
+            <%= @order.customer.town %>, <%= @order.customer.state %> <%= @order.customer.postcode %>
+          </p>
+          <p><%= @order.customer.phone %></p>
+        </dd>
+      </div>
+      <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">
+        <dt class="font-bold uppercase">From</dt>
+        <dd class="mt-2">
+          <p class="mb-2">Firewood To U</p>
+          <p class="mb-2">
+            165 Mornington Rd
+            <br>
+            Mornington, TAS 7018
+          </p>
+          <p>0467 849 053</p>
+        </dd>
+      </div>
+    </dl>
+    <table class="mt-16 w-full whitespace-nowrap text-left leading-6">
+      <colgroup>
+        <col class="w-full">
+        <col>
+        <col>
+        <col>
+      </colgroup>
+      <thead class="border-b border-stone-200">
+        <tr>
+          <th scope="col" class="px-0 py-3 font-semibold">Items</th>
+          <th scope="col" class="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell">Qty</th>
+          <th scope="col" class="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"></th>
+          <th scope="col" class="py-3 pl-8 pr-0 text-right font-semibold">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'orders/order_item', collection: @order_items %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row" class="px-0 pb-0 pt-6 font-normal sm:hidden">Subtotal</th>
+          <th scope="row" colspan="3" class="hidden px-0 pb-0 pt-6 text-right font-normal sm:table-cell">Subtotal</th>
+          <td class="pb-0 pl-8 pr-0 pt-6 text-right tabular-nums">
+            <%= number_to_currency(@order.price, unit: '$') %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="pt-4 font-normal sm:hidden">Delivery fee</th>
+          <th scope="row" colspan="3" class="hidden pt-4 text-right font-normal sm:table-cell">Delivery fee</th>
+          <td class="pb-0 pl-8 pr-0 pt-4 text-right tabular-nums">
+            <%= number_to_currency(@order.delivery_fee, unit: '$') %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="pt-4 font-semibold sm:hidden">Total</th>
+          <th scope="row" colspan="3" class="hidden pt-4 text-right font-semibold sm:table-cell">Total</th>
+          <td class="pb-0 pl-8 pr-0 pt-4 text-right font-semibold tabular-nums">
+            <%= number_to_currency(@order.total_price, unit: '$') %>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="lg:col-start-3">
+    <!-- Delivery -->
+
   </div>
 </div>
