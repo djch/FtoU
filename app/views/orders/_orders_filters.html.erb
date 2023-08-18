@@ -18,5 +18,5 @@
 
   <!-- By Paid -->
   <%= f.label :paid, "Filter by paid", class: "sr-only" %>
-  <%= f.select :paid, options_for_select([['Paid and unpaid', ''], ['Paid', 'true'], ['Unpaid', 'false']], params[:paid]), {}, { onchange: 'this.form.submit();', class: 'form-input w-auto pr-10' } %>
+  <%= f.select :paid, options_for_select([['Paid or unpaid', ''], ['Paid', 'true'], ['Unpaid', 'false']], params[:paid]), {}, { onchange: 'this.form.submit();', class: 'form-input w-auto pr-10' } %>
 <% end %>
