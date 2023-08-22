@@ -6,7 +6,7 @@
     <%= local_date(order.created_at) %>
   </td>
   <td class="whitespace-nowrap px-3 py-4">
-    <%= link_to order.customer.name.familiar, customer_path(order.customer) %>
+    <%= link_to order.customer.name.familiar, customer_path(order.customer), data: { turbo: "false" } %>
   </td>
   <td class="whitespace-nowrap px-3 py-4">
     <%= number_to_currency(order.total_price, unit: '$') %>

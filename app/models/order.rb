@@ -7,11 +7,10 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_items, allow_destroy: true, reject_if: :all_blank
 
-  # Validation for the status field
+  # Validations
   validates :status, presence: true, inclusion: { in: %w(pending confirmed cancelled delivered) }
-  validates :delivery_date, presence: true
 
-  # Callback to copy address from the associated customer
+  # Copy address from the customer to the order
   before_create :copy_customer_address
 
   def price
@@ -22,6 +21,7 @@ class Order < ApplicationRecord
     price + delivery_fee
   end
 
+  default_scope { order(created_at: :desc) }
   scope :by_date, lambda { |date|
       case date
       when 'today'

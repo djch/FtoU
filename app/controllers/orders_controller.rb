@@ -46,13 +46,20 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1
   def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to order_url(@order), notice: "Order was successfully updated." }
-        format.json { render :show, status: :ok, location: @order }
-      else
+    if @order.update(order_params)
+      respond_to do |format|
+        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.turbo_stream
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append(
+            'messages', partial: 'shared/errors',
+            locals: { errors: @order.errors }
+          ), status: :unprocessable_entity
+        end
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -75,6 +82,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.fetch(:order, {})
+      params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee)
     end
 end
