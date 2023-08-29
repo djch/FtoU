@@ -95,7 +95,7 @@
           <%= form.hidden_field :delivery_date, value: nil %>
           <%= form.submit 'Cancel the order',
                           class: 'block font-bold text-orange-700 underline cursor-pointer',
-                          data: { turbo_confirm: 'Cancelling the order will also reset the delivery date' } %>
+                          data: { turbo_confirm: 'Cancelling the order will also clear the delivery date' } %>
         <% end %>
       <% end %>
     </div>
