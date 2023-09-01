@@ -23,6 +23,8 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @products = Product.where(available: true)
+    @current_step = params[:step] || 1
   end
 
   # GET /orders/1/edit
@@ -32,15 +34,15 @@ class OrdersController < ApplicationController
   # POST /orders
   def create
     @order = Order.new(order_params)
+    @current_step = params[:step] || 1
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @current_step < 3
+      @current_step += 1
+      render turbo_stream: turbo_stream.replace('order-step', partial: "step#{@current_step}")
+    elsif @order.save
+      redirect_to @order, notice: 'Order was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -82,6 +84,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee)
+      params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee, :product_ids => [])
     end
 end

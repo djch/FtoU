@@ -1,0 +1,14 @@
+<!-- Product selection fields -->
+<h1 class="text-2xl">What kind of firewood?</h1>
+<p class="my-2">Start by selecting the products you would like to order:</p>
+
+<div class="my-8">
+  <% @products.each do |product| %>
+    <div class="my-4 flex items-center gap-2">
+      <%= form.check_box :product_ids, { multiple: true, value: product.id, id: "product_#{product.id}" } %>
+      <%= form.label "product_ids_#{product.id}", product.title %>
+    </div>
+  <% end %>
+</div>
+
+<button class="btn" type="submit" data-step="2">Next: How Much?</button>

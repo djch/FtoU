@@ -2,5 +2,12 @@
   <header class="my-6 lg:text-lg">
     <h1 class="text-2xl">Order Form</h1>
   </header>
-  <%= render "form", order: @order %>
+</div>
+
+<div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-16">
+  <%= form_with(model: @order, data: { turbo_frame: "order-form" }) do |form| %>
+    <%= turbo_frame_tag 'order-step' do %>
+      <%= render partial: "step#{@current_step}", locals: { form: form } %>
+    <% end %>
+  <% end %>
 </div>
