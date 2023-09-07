@@ -1,0 +1,22 @@
+<table class="mt-16 w-full whitespace-nowrap text-left leading-6">
+  <colgroup>
+    <col class="w-full">
+    <col>
+    <col>
+    <col>
+  </colgroup>
+  <thead class="border-b border-stone-200">
+    <tr>
+      <th scope="col" class="px-0 py-3 font-semibold">Items</th>
+      <th scope="col" class="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell">Qty</th>
+      <th scope="col" class="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"></th>
+      <th scope="col" class="py-3 pl-8 pr-0 text-right font-semibold">Price</th>
+    </tr>
+  </thead>
+  <tbody id="order-items-list">
+    <%= render partial: 'orders/order_item', collection: @order_items %>
+  </tbody>
+  <tfoot id="order-totals">
+    <%= render partial: 'orders/order_totals', locals: { order: @order } %>
+  </tfoot>
+</table>

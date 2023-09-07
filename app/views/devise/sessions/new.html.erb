@@ -5,12 +5,12 @@
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="my-4">
       <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "block w-full" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input w-full" %>
     </div>
 
     <div class="my-4">
       <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "current-password", class: "block w-full" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-input w-full" %>
     </div>
 
     <div class="mt-8 mb-4">

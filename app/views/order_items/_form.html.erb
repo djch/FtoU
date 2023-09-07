@@ -1,0 +1,9 @@
+<%# app/views/quotes/_quote.html.erb %>
+
+<%= f.fields_for :order_items, OrderItem.new do |of| %>
+  <div class="product">
+    <%= of.collection_select :product_id, @products, :id, :name %>
+    <%= of.label :quantity, "Quantity:" %>
+    <%= of.number_field :quantity, min: 1, value: 1 %>
+  </div>
+<% end %>

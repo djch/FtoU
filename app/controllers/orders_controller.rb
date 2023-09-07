@@ -23,8 +23,21 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
-    @products = Product.where(available: true)
-    @current_step = params[:step] || 1
+    @products = Product.all
+
+    # Initialize session data if not already present
+    session[:order_data] ||= { "items" => [] }
+
+    order_items_data = session[:order_data]["items"]
+
+    @order_items = order_items_data.map do |item|
+      product = Product.find_by(id: item["product_id"])
+      if product
+        OrderItem.new(product: product, quantity: item["quantity"])
+      else
+        nil
+      end
+    end.compact
   end
 
   # GET /orders/1/edit
@@ -34,13 +47,11 @@ class OrdersController < ApplicationController
   # POST /orders
   def create
     @order = Order.new(order_params)
-    @current_step = params[:step] || 1
+    @order.status = 'pending'
 
-    if @current_step < 3
-      @current_step += 1
-      render turbo_stream: turbo_stream.replace('order-step', partial: "step#{@current_step}")
-    elsif @order.save
-      redirect_to @order, notice: 'Order was successfully created.'
+    if @order.save
+      session.delete(:order_data)
+      redirect_to order_confirmation_path(@order), notice: 'Order was successfully created.'
     else
       render :new
     end

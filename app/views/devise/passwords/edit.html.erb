@@ -11,16 +11,16 @@
       <% if @minimum_password_length %>
         <em>At least <%= @minimum_password_length %> characters, please</em>
       <% end %>
-      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "block w-full" %>
+      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-input w-full" %>
     </div>
 
     <div class="my-4">
       <%= f.label :password_confirmation, "Confirm new password" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "block w-full" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input w-full" %>
     </div>
 
     <div class="mt-8 mb-4">
-      <%= f.submit "Change my password", class: "btn btn--primary block w-full text-lg" %>
+      <%= f.submit "Change my password", class: "btn btn--primary form-input w-full text-lg" %>
     </div>
   <% end %>
 </div>

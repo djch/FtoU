@@ -14,7 +14,11 @@ class Order < ApplicationRecord
   before_create :copy_customer_address
 
   def price
-    order_items.sum(&:price)
+    if order_items.any?(&:new_record?)
+      order_items.sum(&:live_price)
+    else
+      order_items.sum(&:price)
+    end
   end
 
   def total_price
