@@ -4,8 +4,8 @@ class OrdersController < ApplicationController
 
   # GET /orders
   def index
-    @orders = Order.all
-    @orders = Order.all.by_status(params[:status]).by_paid(params[:paid]).by_date(params[:date])
+    @orders = Order.where.not(customer: nil)
+    @orders = @orders.by_status(params[:status]).by_paid(params[:paid]).by_date(params[:date])
     @orders = @orders.by_paid(params[:paid]) if params[:paid].present?
     @orders = @orders.by_date(params[:date]) if params[:date].present?
 
@@ -23,6 +23,10 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    session_order_items.each do |item|
+      @order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
+    end
+
     @products = Product.all
 
     # Initialize session data if not already present
@@ -96,5 +100,11 @@ class OrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee, :product_ids => [])
+    end
+
+    def session_order_items
+      (session[:order_data] || { "items" => [] })["items"].map do |item|
+        { product_id: item["product_id"], quantity: item["quantity"] }
+      end
     end
 end

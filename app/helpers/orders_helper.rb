@@ -15,4 +15,11 @@ module OrdersHelper
     end
   end
 
+  def short_number_to_currency(amount, options = {})
+    if amount && amount % 1 == 0  # Check if it's a whole number
+      number_to_currency(amount, options.merge(precision: 0))
+    else
+      number_to_currency(amount, options)
+    end
+  end
 end

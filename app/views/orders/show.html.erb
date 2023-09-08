@@ -55,48 +55,7 @@
     </dl>
 
     <!-- !Order Items -->
-    <table class="mt-16 w-full whitespace-nowrap text-left leading-6">
-      <colgroup>
-        <col class="w-full">
-        <col>
-        <col>
-        <col>
-      </colgroup>
-      <thead class="border-b border-stone-200">
-        <tr>
-          <th scope="col" class="px-0 py-3 font-semibold">Items</th>
-          <th scope="col" class="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell">Qty</th>
-          <th scope="col" class="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"></th>
-          <th scope="col" class="py-3 pl-8 pr-0 text-right font-semibold">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render partial: 'orders/order_item', collection: @order_items %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <th scope="row" class="px-0 pb-0 pt-6 font-normal sm:hidden">Subtotal</th>
-          <th scope="row" colspan="3" class="hidden px-0 pb-0 pt-6 text-right font-normal sm:table-cell">Subtotal</th>
-          <td class="pb-0 pl-8 pr-0 pt-6 text-right tabular-nums">
-            <%= number_to_currency(@order.price, unit: '$') %>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="pt-4 font-normal sm:hidden">Delivery fee</th>
-          <th scope="row" colspan="3" class="hidden pt-4 text-right font-normal sm:table-cell">Delivery fee</th>
-          <td class="pb-0 pl-8 pr-0 pt-4 text-right tabular-nums">
-            <%= number_to_currency(@order.delivery_fee, unit: '$') %>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row" class="pt-4 font-semibold sm:hidden">Total</th>
-          <th scope="row" colspan="3" class="hidden pt-4 text-right font-semibold sm:table-cell">Total</th>
-          <td class="pb-0 pl-8 pr-0 pt-4 text-right font-semibold tabular-nums">
-            <%= number_to_currency(@order.total_price, unit: '$') %>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+    <%= render 'orders/order_summary', order: @order, order_items: @order_items %>
   </div>
 
   <div class="lg:col-start-3">

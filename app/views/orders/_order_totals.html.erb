@@ -1,21 +1,18 @@
 <tr>
-  <th scope="row" class="px-0 pb-0 pt-6 font-normal sm:hidden">Subtotal</th>
-  <th scope="row" colspan="3" class="hidden px-0 pb-0 pt-6 text-right font-normal sm:table-cell">Subtotal</th>
+  <th scope="row" colspan="2" class="px-0 pb-0 pt-6 text-right font-normal">Subtotal</th>
   <td class="pb-0 pl-8 pr-0 pt-6 text-right tabular-nums">
-    <%= number_to_currency(@order.price, unit: '$') %>
+    <%= short_number_to_currency(@order.price, unit: '$') %>
   </td>
 </tr>
 <tr>
-  <th scope="row" class="pt-4 font-normal sm:hidden">Delivery fee</th>
-  <th scope="row" colspan="3" class="hidden pt-4 text-right font-normal sm:table-cell">Delivery fee</th>
+  <th scope="row" colspan="2" class="pt-4 text-right font-normal">Delivery fee</th>
   <td class="pb-0 pl-8 pr-0 pt-4 text-right tabular-nums">
-    <%= number_to_currency(@order.delivery_fee, unit: '$') %>
+    <%= short_number_to_currency(@order.delivery_fee, unit: '$') %>
   </td>
 </tr>
 <tr>
-  <th scope="row" class="pt-4 font-semibold sm:hidden">Total</th>
-  <th scope="row" colspan="3" class="hidden pt-4 text-right font-semibold sm:table-cell">Total</th>
+  <th scope="row" colspan="2" class="pt-4 text-right font-semibold">Total</th>
   <td class="pb-0 pl-8 pr-0 pt-4 text-right font-semibold tabular-nums">
-    <%= number_to_currency(@order.total_price, unit: '$') %>
+    <%= short_number_to_currency(@order.total_price, unit: '$') %>
   </td>
 </tr>

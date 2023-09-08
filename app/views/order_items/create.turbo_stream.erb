@@ -1,7 +1,5 @@
-<%= turbo_stream.append "order-items-list" do %>
-   <%= render partial: 'orders/order_item', collection: @order_items %>
+<%= turbo_stream.update "order-items-list" do %>
+  <%= render partial: 'orders/order_item', collection: @order_items %>
 <% end %>
 
-<%= turbo_stream.update "order-totals" do %>
-  <%= render partial: "orders/order_totals", locals: { order: @order } %>
-<% end %>
+<%= turbo_stream.update "order-totals", partial: "orders/order_totals", locals: { order: @temp_order } %>

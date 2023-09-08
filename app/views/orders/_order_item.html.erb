@@ -1,14 +1,13 @@
 <%# app/views/orders/_order_item.html.erb %>
-<tr class="border-b border-stone-100">
+<tr class="border-b border-stone-100" id="order-item-<%= order_item.product.id %>">
   <td class="max-w-0 px-0 py-5 align-top">
     <div class="truncate"><%= order_item.product.title %></div>
   </td>
-  <td class="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums sm:table-cell">
+  <td class="py-5 pl-8 pr-0 text-right align-top tabular-nums">
     <%= pluralize(order_item.quantity, "#{order_item.product.unit}") %>
   </td>
-  <td class="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell"></td>
   <td class="py-5 pl-8 pr-0 text-right align-top tabular-nums">
     <% price_to_show = order_item.persisted? ? order_item.price : order_item.live_price %>
-    <%= number_to_currency(price_to_show, unit: '$') %>
+    <%= short_number_to_currency(price_to_show, unit: '$') %>
   </td>
 </tr>

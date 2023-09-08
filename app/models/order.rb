@@ -14,9 +14,12 @@ class Order < ApplicationRecord
   before_create :copy_customer_address
 
   def price
+    Rails.logger.info "Order Items in Price Method: #{order_items.inspect}"
     if order_items.any?(&:new_record?)
+      Rails.logger.info "Using live_price for order_items: #{order_items.map(&:live_price).inspect}"
       order_items.sum(&:live_price)
     else
+      Rails.logger.info "Using price for order_items: #{order_items.map(&:price).inspect}"
       order_items.sum(&:price)
     end
   end
