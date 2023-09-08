@@ -2,7 +2,7 @@
 <tr class="border-b border-stone-100 leading-tight" id="order-item-<%= order_item.product.id %>">
   <td class="max-w-0 px-0 py-5 align-middle">
     <div class="truncate"><%= order_item.product.title %></div>
-    <p class="mt-1 text-sm text-stone-600">
+    <p class="mt-1 text-sm text-stone-700 dark:text-stone-400">
       <% if order_item.product.unit == 'bucket' %>
         per ½ tonne bucket
       <% elsif order_item.product.unit == 'bag' %>
