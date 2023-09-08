@@ -1,4 +1,5 @@
 class OrderItemsController < ApplicationController
+
   def create
     order_data = session[:order_data] || {}
     order_data["items"] ||= []
@@ -19,15 +20,9 @@ class OrderItemsController < ApplicationController
 
     session[:order_data] = order_data
 
-    Rails.logger.info "Order Data in Session After: #{session[:order_data].inspect}"
-
     @order = Order.new
     @order_items = session_order_items.map do |item|
       product = Product.find_by(id: item[:product_id])
-      if product.nil?
-        Rails.logger.error "Couldn't find Product with ID: #{item[:product_id]}"
-        next
-      end
       OrderItem.new(product: product, quantity: item[:quantity])
     end.compact
 
@@ -40,10 +35,33 @@ class OrderItemsController < ApplicationController
       @temp_order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
     end
 
-    Rails.logger.info "Constructed Order Items: #{@order_items.inspect}"
-
     respond_to do |format|
       format.turbo_stream
+    end
+  end
+
+  def destroy
+    if params[:id]
+      # Destroying an OrderItem from a finalized order in the database
+      order_item = OrderItem.find(params[:id])
+      order_item.destroy
+    else
+      # Destroying an OrderItem from an unsubmitted order in the session
+      product_id = params[:product_id].to_i
+      session[:order_data]["items"].delete_if { |item| item["product_id"] == product_id }
+
+      # For updating the view after deletion
+      @order = Order.new
+      @order.order_items = session_order_items.map do |item|
+        product = Product.find_by(id: item[:product_id])
+        OrderItem.new(product: product, quantity: item[:quantity])
+      end.compact
+    end
+
+    # Redirect or render appropriate response
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to orders_new_path, notice: 'Item was successfully removed.' }
     end
   end
 
