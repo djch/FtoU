@@ -1,73 +1,79 @@
 <%# app/views/orders/new.html.erb %>
 <div class="max-w-screen-md">
   <header class="my-6 lg:text-lg">
-    <h1 class="text-xl">Order Form</h1>
+    <h1 class="text-3xl">Order Form</h1>
   </header>
 </div>
 
-<!-- !Order Items -->
-<div role="list" class="my-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-20">
+  <fieldset>
 
-  <% @products.each do |product| %>
-    <div class="p-4 overflow-hidden border border-stone-300 dark:border-stone-600">
-      <div class="text-base/tight font-bold"><%= product.title %></div>
-      <div class="min-h-[4rem] my-4">
-          <%= product.description %>
-      </div>
-      <div class="pt-4 flex gap-x-4 justify-between items-center border-t border-stone-500/20">
-        <span class="tracking-tight">
-          <%= short_number_to_currency(product.price, unit: '$') %> /<%= product.unit %>
-        </span>
-        <span>
-          <%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" } do %>
-            <%= hidden_field_tag :product_id, product.id %>
-            <div class="flex items-center gap-4">
-              <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-16" %>
-              <%= submit_tag "Add", class: "btn" %>
-            </div>
-          <% end %>
-        </span>
-      </div>
+    <div class="mb-6 prose prose-stone prose-sm">
+      <p>
+        <strong>IMPORTANT:</strong>
+        <br>
+        <ul>
+          <li>Split firewood is measured by the bucket-load (approx. half a tonne)</li>
+          <li>There is a 2-bucket minimum per order</li>
+          <li>Delivery fees start at $50 (Rosny and Hobart areas)</li>
+        </ul>
+      </p>
     </div>
-  <% end %>
+
+    <!-- !Order Items -->
+    <h2 class="text-xl mb-4">Which products and how much?</h2>
+
+    <%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" }, class: "mb-6" do %>
+      <div class="flex gap-x-4 items-center">
+        <span class="flex items-center gap-2">
+          <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-select w-64" %>
+          <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-12" %>
+        </span>
+        <%= submit_tag "Add", class: "btn py-3" %>
+      </div>
+    <% end %>
+
+    <div class="mt-6 p-6 border border-1 border-stone-600/20">
+      <%= render 'orders/order_summary', order: @order, order_items: @order_items %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <!-- !Customer Details -->
+    <%= form_with model: @order, local: true do |form| %>
+      <h2 class="text-xl mb-4">Where are we delivering it?</h2>
+      <div class="my-4 p-4 bg-stone-100 dark:bg-stone-950 w-full">
+         <p class="mb-3">Please provide a delivery address</p>
+         <div data-controller="places">
+           <%= form.label "Address finder" %>
+           <input data-places-target="autocomplete" type="text" placeholder="Enter address" class="form-input w-full bg-white dark:bg-stone-900">
+           <input data-places-target="street" type="hidden" name="order[street_address]">
+           <input data-places-target="town" type="hidden" name="order[town]">
+           <input data-places-target="state" type="hidden" name="order[state]">
+           <input data-places-target="postcode" type="hidden" name="order[postcode]">
+           <input data-places-target="country" type="hidden" name="order[country]">
+         </div>
+       </div>
+
+      <h2 class="text-xl mb-4">Who is it for?</h2>
+      <div class="my-4">
+       <%= form.label :name, "Full name" %>
+       <%= form.text_field :name, class: "form-input w-full", required: true %>
+      </div>
+      <div class="my-4">
+       <%= form.label :phone, "Phone number" %>
+       <%= form.text_field :phone, class: "form-input w-full", required: true %>
+      </div>
+      <div class="my-4">
+       <%= form.label :email, "Email address" %>
+       <%= form.text_field :email, class: "form-input w-full" %>
+      </div>
+      <div class="my-4">
+       <%= form.label :delivery_notes %>
+       <%= form.text_area :delivery_notes, rows: 5, class: "form-input w-full" %>
+      </div>
+      <%= form.submit "Place Order", class: "btn btn--primary" %>
+
+    <% end %>
+  </fieldset>
 </div>
-
-<%= render 'orders/order_summary', order: @order, order_items: @order_items %>
-
-<!-- !Customer Details -->
-<%= form_with model: @order, local: true do |form| %>
-  <div class="mt-6">
-    <h2 class="text-xl mb-4">Customer Details</h2>
-
-    <div class="my-4">
-      <%= form.label :name, "Full name" %>
-      <%= form.text_field :name, class: "form-input w-64", required: true %>
-    </div>
-    <div class="my-4">
-      <%= form.label :phone, "Phone number" %>
-      <%= form.text_field :phone, class: "form-input w-48", required: true %>
-    </div>
-    <div class="my-4">
-      <%= form.label :email, "Email address" %>
-      <%= form.text_field :email, class: "form-input w-80" %>
-    </div>
-    <div class="my-4">
-      <%= form.label :delivery_notes %>
-      <%= form.text_area :delivery_notes, rows: 5, class: "form-input w-80" %>
-    </div>
-    <div class="my-4 p-4 bg-stone-100 dark:bg-stone-950 w-80">
-      <p class="mb-3">Please provide a delivery address</p>
-      <div data-controller="places">
-        <%= form.label "Address finder" %>
-        <input data-places-target="autocomplete" type="text" placeholder="Enter address" class="form-input w-full bg-white dark:bg-stone-900">
-        <input data-places-target="street" type="hidden" name="order[street_address]">
-        <input data-places-target="town" type="hidden" name="order[town]">
-        <input data-places-target="state" type="hidden" name="order[state]">
-        <input data-places-target="postcode" type="hidden" name="order[postcode]">
-        <input data-places-target="country" type="hidden" name="order[country]">
-      </div>
-    </div>
-
-    <%= form.submit "Place Order", class: "btn btn--primary" %>
-  </div>
-<% end %>
