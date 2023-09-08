@@ -25,7 +25,7 @@ class Order < ApplicationRecord
   end
 
   def total_price
-    price + delivery_fee
+    price + (delivery_fee || 0)
   end
 
   default_scope { order(created_at: :desc) }
