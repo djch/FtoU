@@ -1,4 +1,4 @@
 <%# app/views/order_items/destroy.turbo_stream.erb %>
 <%= turbo_stream.remove "order-item-#{params[:product_id]}" %>
 
-<%= turbo_stream.update "order-totals", partial: "orders/order_totals", locals: { order: @temp_order } %>
+<%= turbo_stream.update "order-totals", partial: "orders/items_totals", locals: { order: @temp_order } %>

@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
   # GET /orders
   def index
-    @orders = Order.where.not(customer: nil)
+    @orders = Order.recently_created.where.not(customer: nil)
     @orders = @orders.by_status(params[:status]).by_paid(params[:paid]).by_date(params[:date])
     @orders = @orders.by_paid(params[:paid]) if params[:paid].present?
     @orders = @orders.by_date(params[:date]) if params[:date].present?
@@ -50,12 +50,39 @@ class OrdersController < ApplicationController
 
   # POST /orders
   def create
+    # Step 1: Handle Order Creation with Associated Order Items
     @order = Order.new(order_params)
     @order.status = 'pending'
 
+    # Fetch order items from the session
+    session_order_items.each do |item|
+      @order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
+    end
+
+    # Step 2: Match or Create a Customer
+    customer = Customer.find_by(email: params[:order][:email]) ||
+               Customer.find_by(phone: params[:order][:phone])
+
+    if customer.nil?
+      customer = Customer.create(customer_params)
+    end
+
+    # Step 3: Associate the Order with the Customer
+    @order.customer = customer
+
+    # Step 4: Update the Customer's Address
+    customer.update(address_params)
+
     if @order.save
       session.delete(:order_data)
-      redirect_to order_confirmation_path(@order), notice: 'Order was successfully created.'
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            'order_form', partial: 'orders/confirmation', locals: { order: @order }
+          )
+        end
+        format.html { redirect_to some_path, notice: 'Order was successfully created.' }
+      end
     else
       render :new
     end
@@ -91,13 +118,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def confirmation_preview
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items
+    render 'orders/confirmation_preview', layout: 'application'
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee, :product_ids => [])
     end
@@ -106,5 +137,13 @@ class OrdersController < ApplicationController
       (session[:order_data] || { "items" => [] })["items"].map do |item|
         { product_id: item["product_id"], quantity: item["quantity"] }
       end
+    end
+
+    def customer_params
+      params.require(:order).permit(:name, :email, :phone)
+    end
+
+    def address_params
+      params.require(:order).permit(:street_address, :town, :state, :postcode, :country)
     end
 end

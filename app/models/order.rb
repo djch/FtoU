@@ -8,18 +8,42 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_items, allow_destroy: true, reject_if: :all_blank
 
   # Validations
+  validate :at_least_one_order_item
   validates :status, presence: true, inclusion: { in: %w(pending confirmed cancelled delivered) }
+  validates_associated :order_items
 
-  # Copy address from the customer to the order
   before_create :copy_customer_address
 
+  # Scopes
+  scope :recently_created, -> { order(created_at: :desc) }
+  scope :by_status, -> (status) { where(status: status) if status.present? }
+  scope :by_paid, -> (paid) { where(paid: ActiveModel::Type::Boolean.new.cast(paid)) if paid.present? }
+
+  # Class Methods
+  def self.by_date(date)
+    case date
+    when 'today'
+      where("DATE(created_at) = ?", Date.today)
+    when 'yesterday'
+      where("DATE(created_at) = ?", Date.yesterday)
+    when 'this_week'
+      where("created_at >= ?", Date.today.beginning_of_week)
+    when 'last_week'
+      where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_week - 1.week, Date.today.end_of_week - 1.week)
+    when 'this_month'
+      where("created_at >= ?", Date.today.beginning_of_month)
+    when 'last_month'
+      where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_month - 1.month, Date.today.end_of_month - 1.month)
+    else
+      all
+    end
+  end
+
+  # Instance Methods
   def price
-    Rails.logger.info "Order Items in Price Method: #{order_items.inspect}"
     if order_items.any?(&:new_record?)
-      Rails.logger.info "Using live_price for order_items: #{order_items.map(&:live_price).inspect}"
       order_items.sum(&:live_price)
     else
-      Rails.logger.info "Using price for order_items: #{order_items.map(&:price).inspect}"
       order_items.sum(&:price)
     end
   end
@@ -27,28 +51,6 @@ class Order < ApplicationRecord
   def total_price
     price + (delivery_fee || 0)
   end
-
-  default_scope { order(created_at: :desc) }
-  scope :by_date, lambda { |date|
-      case date
-      when 'today'
-        where("DATE(created_at) = ?", Date.today)
-      when 'yesterday'
-        where("DATE(created_at) = ?", Date.yesterday)
-      when 'this_week'
-        where("created_at >= ?", Date.today.beginning_of_week)
-      when 'last_week'
-        where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_week - 1.week, Date.today.end_of_week - 1.week)
-      when 'this_month'
-        where("created_at >= ?", Date.today.beginning_of_month)
-      when 'last_month'
-        where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_month - 1.month, Date.today.end_of_month - 1.month)
-      else
-        all
-      end
-    }
-  scope :by_status, -> (status) { where(status: status) if status.present? }
-  scope :by_paid, -> (paid) { where(paid: ActiveModel::Type::Boolean.new.cast(paid)) if paid.present? }
 
   private
 
@@ -58,5 +60,11 @@ class Order < ApplicationRecord
       self.state          = customer.state
       self.postcode       = customer.postcode
       self.country        = customer.country
+    end
+
+    def at_least_one_order_item
+      if order_items.empty? || order_items.all? { |item| item.marked_for_destruction? }
+        errors.add(:base, 'Order should have at least one item.')
+      end
     end
 end

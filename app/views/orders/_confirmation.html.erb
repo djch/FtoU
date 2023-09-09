@@ -1,0 +1,12 @@
+<%# app/views/orders/_confirmation.html.erb %>
+<article class="max-w-screen-md mx-auto">
+  <header class="my-6 text-center">
+    <h1 class="text-4xl">Order Received</h1>
+    <p class="mt-2 text-xl leading-snug">
+      Thanks, <%= @order.customer.first_name %>.
+      We'll be in touch in the next few days to confirm a delivery date and payment options.
+    </p>
+  </header>
+
+  <%= render partial: 'summary', locals: { order: @order, order_items: @order.order_items } %>
+</article>
