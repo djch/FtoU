@@ -55,7 +55,9 @@
     </dl>
 
     <!-- !Order Items -->
-    <%= render 'orders/order_summary', order: @order, order_items: @order_items %>
+    <div class="mt-16">
+      <%= render 'orders/order_summary', order: @order, order_items: @order_items %>
+    </div>
   </div>
 
   <div class="lg:col-start-3">

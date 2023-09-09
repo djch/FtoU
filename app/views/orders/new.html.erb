@@ -10,7 +10,7 @@
 
     <!-- !Order Items -->
     <h2 class="text-xl mb-4">
-     <%= badge_tag('1', extra_classes: 'sm:-ml-4 sm:mr-2') %>  Which products and how much?
+     <%= badge_tag('1', extra_classes: 'sm:mr-2') %>  Which products and how much
     </h2>
 
     <%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" }, class: "mb-6" do %>
@@ -44,7 +44,7 @@
     <!-- !Customer Details -->
     <%= form_with model: @order, local: true do |form| %>
       <h2 class="text-xl mb-4">
-        <%= badge_tag('2', extra_classes: 'sm:-ml-4 sm:mr-2') %> Where are we delivering it?
+        <%= badge_tag('2', extra_classes: 'sm:mr-2') %> Delivery address
       </h2>
       <div class="my-4 p-6 bg-stone-100 dark:bg-stone-950 w-full">
          <p class="mb-3">Please provide a delivery address</p>
@@ -60,7 +60,7 @@
        </div>
 
       <h2 class="mt-8 text-xl mb-4">
-        <%= badge_tag('3', extra_classes: 'sm:-ml-4 sm:mr-2') %> Who is it for?
+        <%= badge_tag('3', extra_classes: 'sm:mr-2') %> Contact info
       </h2>
       <div class="my-4">
        <%= form.label :name, "Full name" %>

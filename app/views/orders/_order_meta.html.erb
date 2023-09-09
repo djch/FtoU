@@ -8,7 +8,7 @@
       </div>
       <div class="flex-none self-end px-6 pt-4">
         <dt class="sr-only">Status</dt>
-        <span class="uppercase <%= status_color_class(@order.status) %>">
+        <span class="uppercase px-1.5 py-0.5 font-semibold <%= status_color_class(@order.status) %>">
           <%= @order.status %>
         </span>
       </div>
@@ -45,7 +45,7 @@
           </svg>
         </dt>
         <dd class="leading-6">
-          <span class="uppercase <%= @order.paid ? 'text-green-600' : 'text-red-600' %>">
+          <span class="uppercase px-1.5 py-0.5 font-semibold text-white dark:text-stone-800 <%= @order.paid ? 'bg-green-600 dark:bg-green-400' : 'bg-red-600 dark:bg-red-400' %>">
             <%= @order.paid ? 'Paid' : 'Unpaid' %>
           </span>
         </dd>

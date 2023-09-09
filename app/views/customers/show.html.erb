@@ -11,17 +11,17 @@
   </div>
 </header>
 <dl class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:text-lg">
-  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1 sm:px-0">
+  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1">
     <dt class="font-semibold leading-6 uppercase tracking-tight">Phone</dt>
     <dd class="mt-1 leading-6 sm:mt-2"><%= @customer.phone %></dd>
   </div>
-  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1 sm:px-0">
+  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1">
     <dt class="font-semibold leading-6 uppercase tracking-tight">Email</dt>
     <dd class="mt-1 leading-6 sm:mt-2">
       <%= mail_to @customer.email %>
     </dd>
   </div>
-  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1 sm:px-0">
+  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1">
     <dt class="font-semibold leading-6 uppercase tracking-tight">Address</dt>
     <dd class="mt-1 leading-6 sm:mt-2">
       <%= @customer.street_address %>
@@ -29,7 +29,7 @@
       <br><%= @customer.postcode %>
     </dd>
   </div>
-  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1 sm:px-0">
+  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1">
     <dt class="font-semibold leading-6 uppercase tracking-tight">Company</dt>
     <dd class="mt-1 leading-6 sm:mt-2">
       <% if @customer.company_name.present? %>
@@ -39,7 +39,7 @@
       <% end %>
     </dd>
   </div>
-  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-2 sm:px-0">
+  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-2">
     <dt class="font-semibold leading-6 uppercase tracking-tight">Notes</dt>
     <dd class="mt-1 leading-6 sm:mt-2">
       <% if @customer.delivery_notes.present? %>
@@ -49,7 +49,7 @@
       <% end %>
     </dd>
   </div>
-  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-2 sm:px-0">
+  <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-2">
     <dt class="font-semibold leading-6 uppercase tracking-tight">Orders</dt>
     <dd class="mt-2">
       <ul role="list" class="divide-y divide-stone-100 border border-stone-400/50">

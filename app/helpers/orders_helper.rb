@@ -3,15 +3,15 @@ module OrdersHelper
   def status_color_class(status)
     case status
     when "pending"
-      "text-amber-600"
+      "bg-amber-600 text-white dark:bg-amber-400 dark:text-stone-800"
     when "confirmed"
-      "text-blue-600"
+      "bg-blue-600 text-white dark:bg-blue-400 dark:text-stone-800"
     when "cancelled"
-      "text-red-600"
+      "bg-red-600 text-white dark:bg-red-400 dark:text-stone-800"
     when "delivered"
-      "text-green-600"
+      "bg-green-600 text-white dark:bg-green-400 dark:text-stone-800"
     else
-      "text-stone-800"
+      "bg-stone-800 text-white"
     end
   end
 
