@@ -17,19 +17,22 @@
     <% price_to_show = order_item.persisted? ? order_item.price : order_item.live_price %>
     <%= short_number_to_currency(price_to_show, unit: '$') %>
   </td>
-  <td class="py-4 pl-6 pr-0 text-right align-middle tabular-nums">
-    <% if order_item.persisted? %>
-      <%= button_to order_item_path(order_item), method: :delete, remote: true, data: { turbo: "true" }, class: "text-orange-700" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-          <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
-        </svg>
+  <%# Only allow order items to be removed if the user is staff or it's not finalised %>
+  <% if !order_item.persisted? || user_signed_in? %>
+    <td class="py-4 pl-6 pr-0 text-right align-middle tabular-nums">
+      <% if order_item.persisted? %>
+        <%= button_to order_item_path(order_item), method: :delete, remote: true, data: { turbo: "true" }, class: "text-orange-700" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
+          </svg>
+        <% end %>
+      <% else %>
+        <%= button_to destroy_order_item_by_product_path(product_id: order_item.product.id), method: :delete, remote: true, data: { turbo: "true" }, class: "text-orange-700" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
+          </svg>
+        <% end %>
       <% end %>
-    <% else %>
-      <%= button_to destroy_order_item_by_product_path(product_id: order_item.product.id), method: :delete, remote: true, data: { turbo: "true" }, class: "text-orange-700" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-          <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
-        </svg>
-      <% end %>
-    <% end %>
-  </td>
+    </td>
+  <% end %>
 </tr>
