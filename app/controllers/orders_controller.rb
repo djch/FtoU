@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @order.build_customer  # init customer fields
     session_order_items.each do |item|
       @order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
     end
@@ -51,7 +52,7 @@ class OrdersController < ApplicationController
   # POST /orders
   def create
     # Step 1: Handle Order Creation with Associated Order Items
-    @order = Order.new(order_params)
+    @order = Order.new(order_params.except(:customer_attributes))
     @order.status = 'pending'
 
     # Fetch order items from the session
@@ -60,18 +61,26 @@ class OrdersController < ApplicationController
     end
 
     # Step 2: Match or Create a Customer
-    customer = Customer.find_by(email: params[:order][:email]) ||
-               Customer.find_by(phone: params[:order][:phone])
+    email = order_params[:customer_attributes][:email]
+    phone = order_params[:customer_attributes][:phone]
 
-    if customer.nil?
-      customer = Customer.create(customer_params)
+    customer = Customer.find_by(email: email) || Customer.find_by(phone: phone)
+    customer ||= Customer.new(email: email)
+
+    customer_data = order_params.slice(:street_address, :town, :state, :postcode, :country).merge(order_params[:customer_attributes])
+
+    if customer.new_record?
+      customer.assign_attributes(customer_data)
+      unless customer.save
+        @order.errors.add(:customer, :invalid, message: "Customer details are invalid.")
+        render :new and return
+      end
+    else
+      customer.update(customer_data)
     end
 
     # Step 3: Associate the Order with the Customer
     @order.customer = customer
-
-    # Step 4: Update the Customer's Address
-    customer.update(address_params)
 
     if @order.save
       @order_items = @order.order_items.reload
@@ -127,25 +136,29 @@ class OrdersController < ApplicationController
 
   private
 
-  def set_order
-    @order = Order.find(params[:id])
-  end
-
-  def order_params
-    params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee, :name, :company_name, :phone, :product_ids => [])
-  end
-
-  def session_order_items
-    (session[:order_data] || { "items" => [] })["items"].map do |item|
-      { product_id: item["product_id"], quantity: item["quantity"] }
+    def set_order
+      @order = Order.find(params[:id])
     end
-  end
 
-  def customer_params
-    params.require(:order).permit(:name, :email, :phone, :company_name, :delivery_notes)
-  end
 
-  def address_params
-    params.require(:order).permit(:street_address, :town, :state, :postcode, :country)
-  end
+    def session_order_items
+      (session[:order_data] || { "items" => [] })["items"].map do |item|
+        { product_id: item["product_id"], quantity: item["quantity"] }
+      end
+    end
+
+    def order_params
+      params.require(:order).permit(
+        :paid, :status, :delivery_date, :notes, :delivery_fee,
+        :name, :company_name, :phone,
+        :street_address, :town, :state, :postcode, :country,
+        :product_ids => [],
+        customer_attributes: customer_attributes
+      )
+    end
+
+    def customer_attributes
+      [:id, :name, :email, :phone, :company_name, :delivery_notes, :street_address, :town, :state, :postcode, :country]
+    end
+
 end

@@ -7,6 +7,7 @@ class Order < ApplicationRecord
 
   has_person_name
 
+  accepts_nested_attributes_for :customer
   accepts_nested_attributes_for :order_items, allow_destroy: true, reject_if: :all_blank
 
   # Validations
