@@ -2,12 +2,11 @@ class CustomersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_customer, only: [:show, :edit, :update, :destroy]
 
-  # GET /customers
   def index
     if params[:query].present?
       @customers = Customer.search_by_name(params[:query])
     else
-      @customers = Customer.all
+      @customers = Customer.order(updated_at: :desc)
     end
   end
 
