@@ -32,15 +32,22 @@
         <p>0467 849 053</p>
       </dd>
     </div>
-  </dl>
-  <dl class="mt-4 grid grid-cols-1 leading-6">
-    <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
-      <dt class="font-bold uppercase">Notes</dt>
-      <dd class="mt-2">
-        <p>From customer: "<%= @order.customer.delivery_notes %>"</p>
-        <p class="mt-2">From FtoU: "<%= @order.notes %>"</p>
-      </dd>
-    </div>
+    <% if @order.customer.delivery_notes.present? %>
+      <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
+        <dt class="font-bold uppercase">Customer notes</dt>
+        <dd class="mt-2">
+          <p><%= @order.customer.delivery_notes %></p>
+        </dd>
+      </div>
+    <% end %>
+    <% if @order.customer.delivery_notes.present? && user_signed_in? %>
+      <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
+        <dt class="font-bold uppercase">Staff notes</dt>
+        <dd class="mt-2">
+          <p><%= @order.notes %></p>
+        </dd>
+      </div>
+    <% end %>
   </dl>
 
   <!-- !Order Items -->

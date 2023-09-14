@@ -1,85 +1,89 @@
 <%# app/views/orders/new.html.erb %>
-<div class="max-w-screen-md">
+<div id="new-order-form">
   <header class="my-6 lg:text-lg">
     <h1 class="text-3xl">Order Form</h1>
   </header>
-</div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-20">
-  <fieldset>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-20">
 
     <!-- !Order Items -->
-    <h2 class="text-xl mb-4">
-     <%= badge_tag('1', extra_classes: 'sm:mr-2') %>  Which products and how much
-    </h2>
-
-    <%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" }, class: "mb-6" do %>
-      <div class="flex gap-x-4 items-center">
-        <span class="flex items-center gap-2">
-          <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-input w-64" %>
-          <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-12" %>
-        </span>
-        <%= submit_tag "Add", class: "btn p-3" %>
-      </div>
-    <% end %>
-
-    <div class="mt-6 p-6 border border-1 border-stone-600/30 dark:border-stone-400/50">
-      <%= render 'items_table', order: @order, order_items: @order_items %>
-    </div>
-
-    <div class="mt-6 prose prose-stone prose-sm dark:prose-invert">
-      <p>
-        <strong>IMPORTANT:</strong>
-        <br>
-        <ul>
-          <li>Split firewood is measured by the bucket-load (approx. half a tonne)</li>
-          <li>There is a 2-bucket minimum per order</li>
-          <li>Delivery fees start at $50 (Rosny and Hobart areas)</li>
-        </ul>
-      </p>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <!-- !Customer Details -->
-    <%= form_with model: @order, local: true do |form| %>
+    <fieldset>
       <h2 class="text-xl mb-4">
-        <%= badge_tag('2', extra_classes: 'sm:mr-2') %> Delivery address
+       <%= badge_tag('1', extra_classes: 'sm:mr-2') %> Add products to your order
       </h2>
-      <div class="my-4 p-6 bg-stone-100 dark:bg-stone-950 w-full">
-         <p class="mb-3">Please provide a delivery address</p>
-         <div data-controller="places">
-           <%= form.label "Address finder" %>
-           <input data-places-target="autocomplete" type="text" placeholder="Enter address" class="form-input w-full bg-white dark:bg-stone-900">
-           <input data-places-target="street" type="hidden" name="order[street_address]">
-           <input data-places-target="town" type="hidden" name="order[town]">
-           <input data-places-target="state" type="hidden" name="order[state]">
-           <input data-places-target="postcode" type="hidden" name="order[postcode]">
-           <input data-places-target="country" type="hidden" name="order[country]">
+
+      <%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" }, class: "mb-6" do %>
+        <div class="flex gap-x-2 items-center">
+          <span class="flex items-center gap-x-2">
+            <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-input min-w-64 pr-10" %>
+            <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-12" %>
+            <%= submit_tag "Add", class: "btn p-3" %>
+          </span>
+        </div>
+      <% end %>
+
+      <div class="mt-6 p-6 border border-1 border-stone-600/30 dark:border-stone-400/50">
+        <%= render 'items_table', order: @order, order_items: @order_items %>
+      </div>
+
+      <div class="mt-6 prose prose-stone prose-sm dark:prose-invert">
+        <p>
+          <strong>IMPORTANT:</strong>
+          <br>
+          <ul>
+            <li>Split firewood is measured per bucket-load (approx. half a tonne)</li>
+            <li>There is a 2-bucket minimum per order</li>
+            <li>Delivery fees start at $50 (Rosny and Hobart areas)</li>
+          </ul>
+        </p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <!-- !Customer Details -->
+      <%= form_with model: @order, local: true do |form| %>
+        <h2 class="text-xl mb-4">
+          <%= badge_tag('2', extra_classes: 'sm:mr-2') %> Delivery address
+        </h2>
+        <div class="my-4 p-6 bg-stone-100 dark:bg-stone-950 w-full">
+           <p class="mb-3">Please provide a delivery address</p>
+           <div data-controller="places">
+             <%= form.label "Address finder" %>
+             <input data-places-target="autocomplete" type="text" placeholder="Enter address" class="form-input w-full bg-white dark:bg-stone-900">
+             <input data-places-target="street" type="hidden" name="order[street_address]">
+             <input data-places-target="town" type="hidden" name="order[town]">
+             <input data-places-target="state" type="hidden" name="order[state]">
+             <input data-places-target="postcode" type="hidden" name="order[postcode]">
+             <input data-places-target="country" type="hidden" name="order[country]">
+           </div>
          </div>
-       </div>
 
-      <h2 class="mt-8 text-xl mb-4">
-        <%= badge_tag('3', extra_classes: 'sm:mr-2') %> Contact info
-      </h2>
-      <div class="my-4">
-       <%= form.label :name, "Full name" %>
-       <%= form.text_field :name, class: "form-input w-full", required: true %>
-      </div>
-      <div class="my-4">
-       <%= form.label :phone, "Phone number" %>
-       <%= form.text_field :phone, class: "form-input w-full", required: true %>
-      </div>
-      <div class="my-4">
-       <%= form.label :email, "Email address" %>
-       <%= form.text_field :email, class: "form-input w-full" %>
-      </div>
-      <div class="my-4">
-       <%= form.label :delivery_notes %>
-       <%= form.text_area :delivery_notes, rows: 5, class: "form-input w-full" %>
-      </div>
-      <%= form.submit "Place Order", class: "btn btn--primary" %>
-
-    <% end %>
-  </fieldset>
+        <h2 class="mt-8 text-xl mb-4">
+          <%= badge_tag('3', extra_classes: 'sm:mr-2') %> Contact info
+        </h2>
+        <div class="my-4">
+         <%= form.label :name, "Full name" %>
+         <%= form.text_field :name, class: "form-input w-full", required: true %>
+        </div>
+        <div class="my-4">
+         <%= form.label :phone, "Phone number" %>
+         <%= form.text_field :phone, class: "form-input w-full", required: true %>
+        </div>
+        <div class="my-4">
+         <%= form.label :email, "Email address" %>
+         <%= form.text_field :email, class: "form-input w-full" %>
+        </div>
+        <div class="my-4">
+         <%= form.label :delivery_notes %>
+         <%= form.text_area :delivery_notes, rows: 5, class: "form-input w-full" %>
+        </div>
+        <%= form.button "Place Order", type: "submit", class: "btn btn--primary",
+            data: {
+              controller: "scroll-to-top",
+              action: "click->scroll-to-top#jump"
+            }
+        %>
+      <% end %>
+    </fieldset>
+  </div>
 </div>

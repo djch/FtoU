@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: %i[ new ]
+  before_action :authenticate_user!, except: %i[ new create ]
   before_action :set_order, only: %i[ show edit update destroy ]
 
   # GET /orders
@@ -74,11 +74,12 @@ class OrdersController < ApplicationController
     customer.update(address_params)
 
     if @order.save
+      @order_items = @order.order_items.reload
       session.delete(:order_data)
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
-            'order_form', partial: 'orders/confirmation', locals: { order: @order }
+            'new-order-form', partial: 'orders/confirmation', locals: { order: @order, order_items: @order_items }
           )
         end
         format.html { redirect_to some_path, notice: 'Order was successfully created.' }
