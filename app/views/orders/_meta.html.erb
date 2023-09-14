@@ -23,6 +23,16 @@
       </div>
       <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
         <dt class="flex-none">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
+          </svg>
+        </dt>
+        <dd class="leading-6">
+          Received <%= local_time_ago(@order.created_at) %>
+        </dd>
+      </div>
+      <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+        <dt class="flex-none">
           <span class="sr-only">Delivery scheduled for</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
             <path d="M6.5 3c-1.051 0-2.093.04-3.125.117A1.49 1.49 0 002 4.607V10.5h9V4.606c0-.771-.59-1.43-1.375-1.489A41.568 41.568 0 006.5 3zM2 12v2.5A1.5 1.5 0 003.5 16h.041a3 3 0 015.918 0h.791a.75.75 0 00.75-.75V12H2z" />

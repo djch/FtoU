@@ -1,6 +1,6 @@
 <tr>
   <th scope="row" colspan="2" class="px-0 pb-0 pt-6 text-right font-normal">Subtotal</th>
-  <td class="pb-0 pl-8 pr-0 pt-6 text-right tabular-nums">
+  <td class="pb-0 pl-8 pr-0 pt-6 text-right tabular-nums font-bold">
     <%= short_number_to_currency(@order.price, unit: '$') %>
   </td>
 </tr>
@@ -14,9 +14,11 @@
     <% end %>
   </td>
 </tr>
-<tr>
-  <th scope="row" colspan="2" class="pt-4 text-right font-semibold">Total</th>
-  <td class="pb-0 pl-8 pr-0 pt-4 text-right font-semibold tabular-nums">
-    <%= short_number_to_currency(@order.total_price, unit: '$') %>
-  </td>
-</tr>
+<% if user_signed_in? %>
+  <tr>
+    <th scope="row" colspan="2" class="pt-4 text-right font-semibold">Total</th>
+    <td class="pb-0 pl-8 pr-0 pt-4 text-right font-semibold tabular-nums">
+      <%= short_number_to_currency(@order.total_price, unit: '$') %>
+    </td>
+  </tr>
+<% end %>

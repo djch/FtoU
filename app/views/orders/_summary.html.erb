@@ -1,7 +1,9 @@
 <%# app/views/orders/_summary.html.erb %>
 <div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-16">
   <!-- !Delivery Info -->
-  <h2 class="mb-4 text-xl leading-6">Order Summary</h2>
+  <h1 class="font-bold text-2xl/tight">
+    Order<% if user_signed_in? %> #<%= @order.id %><% else %> Summary<% end %>
+  </h1>
   <% if @order.delivery_date.present? %>
     <p>Scheduled for delivery on <%= local_time(@order.delivery_date) %></p>
   <% end %>
@@ -11,7 +13,7 @@
       <dd class="mt-2">
         <p class="mb-2"><%= @order.name %></p>
         <p class="mb-2">
-          <% if @order.company_name %>
+          <% if @order.company_name.present? %>
             <%= @order.company_name %><br>
           <% end %>
           <%= @order.street_address %><br>
@@ -41,7 +43,7 @@
       </div>
     <% end %>
     <% if @order.customer.delivery_notes.present? && user_signed_in? %>
-      <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
+      <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">
         <dt class="font-bold uppercase">Staff notes</dt>
         <dd class="mt-2">
           <p><%= @order.notes %></p>
