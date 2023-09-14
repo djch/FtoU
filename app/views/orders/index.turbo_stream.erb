@@ -1,2 +1,2 @@
-<%= turbo_stream.replace 'orders_list', partial: 'orders_list', locals: { orders: @orders } %>
-<%= turbo_stream.replace 'orders_filters', partial: 'orders_filters', locals: {} %>
+<%= turbo_stream.replace 'orders_list', partial: 'list', locals: { orders: @orders } %>
+<%= turbo_stream.replace 'orders_filters', partial: 'list_filters', locals: {} %>
