@@ -1,21 +1,25 @@
-<%= form_with(model: @customer, class: "max-w-screen-md") do |form| %>
-  <div class="my-4">
+<%= form_with(model: @customer, class: "max-w-screen-sm grid gap-6 grid-cols-1 md:grid-cols-2") do |form| %>
+  <div>
     <%= form.label :name %>
-    <%= form.text_field :name, class: "form-input w-64", required: true %>
+    <%= form.text_field :name, class: "form-input w-full", required: true %>
   </div>
-  <div class="my-4">
+  <div>
+    <%= form.label :company_name %>
+    <%= form.text_field :company_name, class: "form-input w-full" %>
+  </div>
+  <div>
     <%= form.label :phone %>
-    <%= form.text_field :phone, class: "form-input w-48", required: true %>
+    <%= form.text_field :phone, class: "form-input w-full", required: true %>
   </div>
-  <div class="my-4">
+  <div>
     <%= form.label :email %>
-    <%= form.text_field :email, class: "form-input w-80" %>
+    <%= form.text_field :email, class: "form-input w-full" %>
   </div>
-  <div class="my-4">
+  <div class="col-span-full">
     <%= form.label :delivery_notes %>
-    <%= form.text_area :delivery_notes, rows: 5, class: "form-input w-96" %>
+    <%= form.text_area :delivery_notes, rows: 4, class: "form-input w-full" %>
   </div>
-  <div class="my-4 p-4 bg-stone-100 dark:bg-stone-950 w-96">
+  <div class="col-span-full p-4 bg-stone-100 dark:bg-stone-950">
     <% if @customer.street_address.present? %>
       <h2 class="text-lg/tight">Current delivery address:</h2>
       <p class="my-2">
