@@ -126,25 +126,26 @@ class OrdersController < ApplicationController
   end
 
   private
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    def order_params
-      params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee, :product_ids => [])
-    end
+  def set_order
+    @order = Order.find(params[:id])
+  end
 
-    def session_order_items
-      (session[:order_data] || { "items" => [] })["items"].map do |item|
-        { product_id: item["product_id"], quantity: item["quantity"] }
-      end
-    end
+  def order_params
+    params.require(:order).permit(:paid, :status, :delivery_date, :notes, :delivery_fee, :name, :company_name, :phone, :product_ids => [])
+  end
 
-    def customer_params
-      params.require(:order).permit(:name, :email, :phone)
+  def session_order_items
+    (session[:order_data] || { "items" => [] })["items"].map do |item|
+      { product_id: item["product_id"], quantity: item["quantity"] }
     end
+  end
 
-    def address_params
-      params.require(:order).permit(:street_address, :town, :state, :postcode, :country)
-    end
+  def customer_params
+    params.require(:order).permit(:name, :email, :phone, :company_name, :delivery_notes)
+  end
+
+  def address_params
+    params.require(:order).permit(:street_address, :town, :state, :postcode, :country)
+  end
 end

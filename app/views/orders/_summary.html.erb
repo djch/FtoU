@@ -9,15 +9,15 @@
     <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
       <dt class="font-bold uppercase">To</dt>
       <dd class="mt-2">
-        <p class="mb-2"><%= @order.customer.name %></p>
+        <p class="mb-2"><%= @order.name %></p>
         <p class="mb-2">
-          <% if @order.customer.company_name %>
-            <%= @order.customer.company_name %><br>
+          <% if @order.company_name %>
+            <%= @order.company_name %><br>
           <% end %>
-          <%= @order.customer.street_address %><br>
-          <%= @order.customer.town %>, <%= @order.customer.state %> <%= @order.customer.postcode %>
+          <%= @order.street_address %><br>
+          <%= @order.town %>, <%= @order.state %> <%= @order.postcode %>
         </p>
-        <p><%= @order.customer.phone %></p>
+        <p><%= @order.phone %></p>
       </dd>
     </div>
     <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">

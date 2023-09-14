@@ -13,12 +13,10 @@
       </h2>
 
       <%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" }, class: "mb-6" do %>
-        <div class="flex gap-x-2 items-center">
-          <span class="flex items-center gap-x-2">
-            <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-input min-w-64 pr-10" %>
-            <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-12" %>
-            <%= submit_tag "Add", class: "btn p-3" %>
-          </span>
+        <div class="flex flex-wrap gap-3 items-center">
+          <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-input min-w-64 pr-10" %>
+          <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-[3.5rem]" %>
+          <%= submit_tag "Add to order", class: "btn p-3" %>
         </div>
       <% end %>
 
@@ -61,23 +59,29 @@
         <h2 class="mt-8 text-xl mb-4">
           <%= badge_tag('3', extra_classes: 'sm:mr-2') %> Contact info
         </h2>
-        <div class="my-4">
-         <%= form.label :name, "Full name" %>
-         <%= form.text_field :name, class: "form-input w-full", required: true %>
+        <div class="mb-6 grid gap-6 grid-cols-1 lg:grid-cols-2">
+          <div>
+           <%= form.label :name, "First and last name" %>
+           <%= form.text_field :name, class: "form-input w-full", required: true %>
+          </div>
+          <div>
+           <%= form.label :company_name %>
+           <%= form.text_field :company_name, class: "form-input w-full"%>
+          </div>
+          <div>
+           <%= form.label :phone, "Phone number" %>
+           <%= form.text_field :phone, class: "form-input w-full", required: true %>
+          </div>
+          <div>
+           <%= form.label :email, "Email address" %>
+           <%= form.text_field :email, class: "form-input w-full" %>
+          </div>
+          <div class="col-span-full">
+           <%= form.label :delivery_notes %>
+           <%= form.text_area :delivery_notes, rows: 4, class: "form-input w-full" %>
+          </div>
         </div>
-        <div class="my-4">
-         <%= form.label :phone, "Phone number" %>
-         <%= form.text_field :phone, class: "form-input w-full", required: true %>
-        </div>
-        <div class="my-4">
-         <%= form.label :email, "Email address" %>
-         <%= form.text_field :email, class: "form-input w-full" %>
-        </div>
-        <div class="my-4">
-         <%= form.label :delivery_notes %>
-         <%= form.text_area :delivery_notes, rows: 5, class: "form-input w-full" %>
-        </div>
-        <%= form.button "Place Order", type: "submit", class: "btn btn--primary",
+        <%= form.button "Place this order", type: "submit", class: "btn btn--primary",
             data: {
               controller: "scroll-to-top",
               action: "click->scroll-to-top#jump"

@@ -5,6 +5,8 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy, inverse_of: :order
   has_many :products, through: :order_items
 
+  has_person_name
+
   accepts_nested_attributes_for :order_items, allow_destroy: true, reject_if: :all_blank
 
   # Validations
@@ -12,7 +14,7 @@ class Order < ApplicationRecord
   validates :status, presence: true, inclusion: { in: %w(pending confirmed cancelled delivered) }
   validates_associated :order_items
 
-  before_create :copy_customer_address
+  before_create :copy_customer_details
 
   # Scopes
   scope :recently_created, -> { order(created_at: :desc) }
@@ -54,7 +56,13 @@ class Order < ApplicationRecord
 
   private
 
-    def copy_customer_address
+    def copy_customer_details
+      # Contact
+      self.first_name     = customer.first_name
+      self.last_name      = customer.last_name
+      self.company_name   = customer.company_name
+      self.phone          = customer.phone
+      # Address
       self.street_address = customer.street_address
       self.town           = customer.town
       self.state          = customer.state
