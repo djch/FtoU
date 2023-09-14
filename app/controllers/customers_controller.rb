@@ -2,22 +2,21 @@ class CustomersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_customer, only: [:show, :edit, :update, :destroy]
 
+  # GET /customers
   def index
-    def index
-
-      if params[:query].present?
-        @customers = Customer.search_by_name(params[:query])
-      else
-        @customers = Customer.all
-      end
+    if params[:query].present?
+      @customers = Customer.search_by_name(params[:query])
+    else
+      @customers = Customer.all
     end
-
   end
 
+  # GET /customers/new
   def new
     @customer = Customer.new
   end
 
+  # POST /customers
   def create
     @customer = Customer.new(customer_params)
 
@@ -33,12 +32,14 @@ class CustomersController < ApplicationController
     end
   end
 
+  # GET /customers/1
   def show
   end
 
   def edit
   end
 
+  # PATCH/PUT /orders/1
   def update
     if @customer.update(customer_params)
       redirect_to @customer, notice: 'Customer updated'
@@ -47,6 +48,7 @@ class CustomersController < ApplicationController
     end
   end
 
+  # DELETE /orders/1
   def destroy
     @customer.destroy
     redirect_to customers_path, notice: 'Customer deleted'
