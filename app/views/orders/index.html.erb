@@ -3,9 +3,13 @@
   <p>Browse to any order received through the online form</p>
 </header>
 
-<%= turbo_frame_tag 'orders_filters', class: "my-4" do %>
-  <%= render 'list_filters' %>
-<% end %>
+
+<div class="flex flex-wrap items-center gap-4 justify-between">
+  <%= link_to "New order", new_order_path, class: "btn" %>
+  <%= turbo_frame_tag 'orders_filters', class: "flex-wrap" do %>
+    <%= render 'list_filters' %>
+  <% end %>
+</div>
 
 <%= turbo_frame_tag 'orders_list' do %>
   <%= render 'list' %>
