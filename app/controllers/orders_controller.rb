@@ -55,6 +55,12 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params.except(:customer_attributes))
     @order.status = 'pending'
 
+    if session_order_items.empty?
+      flash[:error] = "You forgot to add any items to your order. Use the 'Add to order' button to select products."
+      redirect_to new_order_path
+      return
+    end
+
     # Fetch order items from the session
     session_order_items.each do |item|
       @order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])

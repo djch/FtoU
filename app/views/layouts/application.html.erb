@@ -33,9 +33,18 @@
       <hr class="my-4 border-b-1 border-stone-400/30" />
       <section id="messages">
         <% flash.each do |type, message| %>
-          <%= content_tag :div, message, class: 'italic text-green-700 text-center', role: "alert" %>
+          <% color_class, emoji = case type.to_sym
+                                  when :error
+                                    ['text-red-700', '❌']
+                                  when :notice
+                                    ['text-green-700', '✅']
+                                  else
+                                    ['text-stone-700', 'ℹ️']
+                                  end %>
+          <%= content_tag :div, raw("#{emoji} #{message}"), class: "italic #{color_class} text-center", role: "alert" %>
         <% end %>
       </section>
+
       <main class="my-6 sm:px-4">
         <%= yield %>
       </main>
