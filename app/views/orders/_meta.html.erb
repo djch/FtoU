@@ -13,7 +13,7 @@
         </span>
       </div>
       <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-stone-400/20 px-6 pt-6">
-        <dt class="flex-none">
+        <dt class="flex items-center text-stone-600">
           <span class="sr-only">Customer</span>
           <svg class="h-6 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clip-rule="evenodd" />
@@ -22,7 +22,7 @@
         <dd class="font-medium leading-6"><%= @order.customer.name %></dd>
       </div>
       <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
-        <dt class="flex-none">
+        <dt class="flex items-center text-stone-600">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
           </svg>
@@ -32,8 +32,7 @@
         </dd>
       </div>
       <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
-        <dt class="flex-none">
-          <span class="sr-only">Delivery scheduled for</span>
+        <dt class="flex items-center text-stone-600">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
             <path d="M6.5 3c-1.051 0-2.093.04-3.125.117A1.49 1.49 0 002 4.607V10.5h9V4.606c0-.771-.59-1.43-1.375-1.489A41.568 41.568 0 006.5 3zM2 12v2.5A1.5 1.5 0 003.5 16h.041a3 3 0 015.918 0h.791a.75.75 0 00.75-.75V12H2z" />
             <path d="M6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM13.25 5a.75.75 0 00-.75.75v8.514a3.001 3.001 0 014.893 1.44c.37-.275.61-.719.595-1.227a24.905 24.905 0 00-1.784-8.549A1.486 1.486 0 0014.823 5H13.25zM14.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
@@ -41,14 +40,14 @@
         </dt>
         <dd class="leading-6">
           <% if @order.delivery_date.present? %>
-            <%= local_time(@order.delivery_date) %>
+            Delivering <%= local_time(@order.delivery_date) %>
           <% else %>
             <p><em>Awaiting scheduling</em></p>
           <% end %>
         </dd>
       </div>
       <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
-        <dt class="flex-none">
+        <dt class="flex items-center text-stone-600">
           <span class="sr-only">Status</span>
           <svg class="h-6 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z" clip-rule="evenodd" />
