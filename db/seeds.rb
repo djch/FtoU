@@ -101,10 +101,11 @@ towns_and_postcodes = [
 50.times do
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
+  company_name = Faker::Company.name
 
   town_and_postcode = towns_and_postcodes.sample
 
-  order_date = (start_date + rand(30).days) # Random date within last 30 days
+  order_date = (start_date + rand(30).days)  # Random date within last 30 days
 
   customer = Customer.create!(
     first_name: first_name,
@@ -121,28 +122,36 @@ towns_and_postcodes = [
     updated_at: order_date
   )
 
-  # Generate a single order for each customer
-  delivery_date = order_date + rand(1..7).days
-  delivery_date = next_weekday(delivery_date) if delivery_date.saturday? || delivery_date.sunday?
+  Order.transaction do
+    # Generate a single order for each customer
+    delivery_date = order_date + rand(1..7).days
+    delivery_date = next_weekday(delivery_date) if delivery_date.saturday? || delivery_date.sunday?
 
-  order = customer.orders.create!(
-    status: ['pending', 'confirmed', 'cancelled', 'delivered'].sample,
-    delivery_date: delivery_date,
-    created_at: order_date,
-    updated_at: order_date,
-    delivery_fee: [50, 55, 60, 65].sample,
-    paid: [true, false].sample
-  )
-
-  # For each order, add between 1 to 3 unique order items
-  products_for_this_order = Product.all.sample(rand(1..3))
-  products_for_this_order.each do |product|
-    order.order_items.create!(
-      product: product,
-      quantity: (1..5).to_a.sample,
+    order = customer.orders.build(
+      status: ['pending', 'confirmed', 'cancelled', 'delivered'].sample,
+      delivery_date: delivery_date,
+      first_name: first_name,
+      last_name: last_name,
+      company_name: company_name,
+      phone: customer.phone,
       created_at: order_date,
-      updated_at: order_date
+      updated_at: order_date,
+      delivery_fee: [50, 55, 60, 65].sample,
+      paid: [true, false].sample
     )
+
+    # For each order, add between 1 to 3 unique order items
+    products_for_this_order = Product.all.sample(rand(1..Product.count))
+    products_for_this_order.each do |product|
+      order.order_items.build(
+        product: product,
+        quantity: (1..5).to_a.sample,
+        created_at: order_date,
+        updated_at: order_date
+      )
+    end
+
+    order.save!
   end
 end
 
