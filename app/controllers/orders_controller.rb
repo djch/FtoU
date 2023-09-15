@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: %i[ new create ]
   before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :set_offered_products, only: %i[ show new edit ]
 
   # GET /orders
   def index
@@ -17,7 +18,10 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
+    session.delete(:order_data)
     @order_items = @order.order_items
+    @products = Product.where(available: true)
+    Rails.logger.debug "Order persisted state: #{@order.persisted?}"
   end
 
   # GET /orders/new
@@ -28,7 +32,7 @@ class OrdersController < ApplicationController
       @order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
     end
 
-    @products = Product.all
+    @products = Product.where(available: true)
 
     # Initialize session data if not already present
     session[:order_data] ||= { "items" => [] }
@@ -146,6 +150,9 @@ class OrdersController < ApplicationController
       @order = Order.find(params[:id])
     end
 
+    def set_offered_products
+      @products = Product.where(available: true)
+    end
 
     def session_order_items
       (session[:order_data] || { "items" => [] })["items"].map do |item|

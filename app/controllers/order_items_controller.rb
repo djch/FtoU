@@ -1,38 +1,40 @@
 class OrderItemsController < ApplicationController
 
   def create
-    order_data = session[:order_data] || {}
-    order_data["items"] ||= []
+    Rails.logger.debug "Order ID from Params: #{params[:order_id]}"
 
     product_id = params[:product_id].to_i
     quantity = params[:quantity].to_i
 
-    # Find existing order item by product_id
-    existing_item = order_data["items"].find { |item| item["product_id"] == product_id }
-
-    if existing_item
-      # Update the quantity of the existing item
-      existing_item["quantity"] += quantity
+    if params[:order_id].present?
+      @order = Order.find(params[:order_id])
+      combine_or_add_item(product_id, quantity, @order.order_items)
+      @order_items = @order.order_items
+      # Assuming the persisted order item should be saved
+      @order.save!
     else
-      # Add a new order item
-      order_data["items"] << { "product_id" => product_id, "quantity" => quantity }
-    end
+      Rails.logger.debug "Entering session-based order logic"
+      order_data = session[:order_data] || {}
+      order_data["items"] ||= []
 
-    session[:order_data] = order_data
+      combine_or_add_item(product_id, quantity, order_data["items"])
 
-    @order = Order.new
-    @order_items = session_order_items.map do |item|
-      product = Product.find_by(id: item[:product_id])
-      OrderItem.new(product: product, quantity: item[:quantity])
-    end.compact
+      session[:order_data] = order_data
 
-    # Explicitly associate the order items with the @order instance
-    @order.order_items = @order_items
+      @order = Order.new
+      @order_items = session_order_items.map do |item|
+        product = Product.find_by(id: item[:product_id])
+        OrderItem.new(product: product, quantity: item[:quantity])
+      end.compact
 
-    # Create a temporary order instance for the view's rendering context
-    @temp_order = Order.new
-    session_order_items.each do |item|
-      @temp_order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
+      # Explicitly associate the order items with the @order instance
+      @order.order_items = @order_items
+
+      # Create a temporary order instance for the view's rendering context
+      @temp_order = Order.new
+      session_order_items.each do |item|
+        @temp_order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
+      end
     end
 
     respond_to do |format|
@@ -76,4 +78,25 @@ class OrderItemsController < ApplicationController
         { product_id: item["product_id"], quantity: item["quantity"] }
       end
     end
+
+    def combine_or_add_item(product_id, quantity, items)
+      existing_item = items.find { |item| item.respond_to?(:product_id) ? item.product_id == product_id : item["product_id"] == product_id }
+
+      if existing_item
+        # Update the quantity of the existing item
+        if existing_item.respond_to?(:quantity)
+          existing_item.quantity += quantity
+        else
+          existing_item["quantity"] += quantity
+        end
+      else
+        # Add a new order item
+        if items.first.is_a?(OrderItem) || items.is_a?(ActiveRecord::Associations::CollectionProxy)
+          items.build(product_id: product_id, quantity: quantity)
+        else
+          items << { "product_id" => product_id, "quantity" => quantity }
+        end
+      end
+    end
+
 end

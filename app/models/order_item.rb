@@ -12,6 +12,6 @@ class OrderItem < ApplicationRecord
   end
 
   def set_price
-    self.price ||= product.price * quantity
+    self.price = product.price * quantity
   end
 end

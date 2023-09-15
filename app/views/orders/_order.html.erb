@@ -19,7 +19,7 @@
       <span class="text-xs uppercase px-1.5 py-0.5 font-semibold <%= status_color_class(order.status) %>">
         <%= order.status %>
       </span>
-      <span class="text-xs uppercase px-1.5 py-0.5 font-semibold text-white dark:text-stone-800 <%= order.paid ? 'bg-green-600 dark:bg-green-400' : 'bg-red-600 dark:bg-red-400' %>">
+      <span class="text-xs uppercase px-1.5 py-0.5 font-semibold text-white dark:text-stone-800 <%= order.paid ? 'bg-green-600 dark:bg-green-400' : 'bg-amber-600 dark:bg-amber-400' %>">
         <%= order.paid ? 'Paid' : 'Unpaid' %>
       </span>
     </div>

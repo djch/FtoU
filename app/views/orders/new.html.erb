@@ -13,7 +13,9 @@
        <%= badge_tag('1', extra_classes: 'sm:mr-2') %> Add products to your order
       </h2>
 
-      <%= render partial: 'order_items/form', locals: { products: @products } %>
+     <%= turbo_frame_tag 'add-order-item' do %>
+       <%= render partial: "order_items/form", locals: { products: @products, order: @order } %>
+     <% end %>
 
       <div class="mt-6 p-6 border border-1 border-stone-600/30 dark:border-stone-400/50">
         <%= render 'items_table', order: @order, order_items: @order_items %>

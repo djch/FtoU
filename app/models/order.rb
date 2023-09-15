@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   include Addressable
 
   belongs_to :customer
-  has_many :order_items, dependent: :destroy, inverse_of: :order
+  has_many :order_items, -> { order(created_at: :asc) }, dependent: :destroy, inverse_of: :order
   has_many :products, through: :order_items
 
   has_person_name
