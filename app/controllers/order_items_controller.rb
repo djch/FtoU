@@ -45,8 +45,9 @@ class OrderItemsController < ApplicationController
   def destroy
     if params[:id]
       # Destroying an OrderItem from a finalized order in the database
-      order_item = OrderItem.find(params[:id])
-      order_item.destroy
+      @order_item = OrderItem.find(params[:id])
+      @order = @order_item.order
+      @order_item.destroy
     else
       # Destroying an OrderItem from an unsubmitted order in the session
       product_id = params[:product_id].to_i
