@@ -28,7 +28,7 @@
 
     <fieldset>
       <!-- !Customer Details -->
-      <%= form_with model: @order, local: true do |form| %>
+      <%= form_with model: @order do |form| %>
         <h2 class="text-xl mb-4">
           <%= badge_tag('2', extra_classes: 'sm:mr-2') %> Delivery address
         </h2>

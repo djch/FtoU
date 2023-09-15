@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: %i[ new create ]
   before_action :set_order, only: %i[ show edit update destroy ]
-  before_action :set_offered_products, only: %i[ show new edit ]
+  before_action :set_offered_products, only: %i[ show new edit destroy ]
 
   # GET /orders
   def index
@@ -59,12 +59,6 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params.except(:customer_attributes))
     @order.status = 'pending'
 
-    if session_order_items.empty?
-      flash[:error] = "You forgot to add any items to your order. Use the 'Add to order' button to select products."
-      redirect_to new_order_path
-      return
-    end
-
     # Fetch order items from the session
     session_order_items.each do |item|
       @order.order_items.build(product_id: item[:product_id], quantity: item[:quantity])
@@ -96,16 +90,18 @@ class OrdersController < ApplicationController
       @order_items = @order.order_items.reload
       session.delete(:order_data)
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
-            'new-order-form', partial: 'orders/confirmation', locals: { order: @order, order_items: @order_items }
-          )
-        end
-        format.html { redirect_to some_path, notice: 'Order was successfully created.' }
+        format.turbo_stream
+        format.html { redirect_to root_url, notice: 'Order was successfully created.' }
       end
     else
-      render :new
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append('messages', partial: 'shared/errors', locals: { errors: @order.errors }), status: :unprocessable_entity
+        end
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
+
   end
 
   # PATCH/PUT /orders/1

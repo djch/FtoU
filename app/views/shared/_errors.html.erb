@@ -1,5 +1,5 @@
 <div class="text-red-600 font-medium my-4">
-  <h2>Please fix the following <%= pluralize(errors.count, "error") %> and try again</h2>
+  <h2>There was a problem with your submission. Please fix and try again:</h2>
   <ul class="list-disc list-inside">
     <% errors.each do |error| %>
       <li><%= error.full_message %></li>

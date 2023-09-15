@@ -73,7 +73,7 @@ class Order < ApplicationRecord
 
     def at_least_one_order_item
       if order_items.empty? || order_items.all? { |item| item.marked_for_destruction? }
-        errors.add(:base, 'Order should have at least one item.')
+        errors.add(:base, "You forgot to add any items to your order. Use the 'Add to order' button to select products.")
       end
     end
 end
