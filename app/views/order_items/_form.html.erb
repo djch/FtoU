@@ -1,0 +1,7 @@
+<%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" }, class: "mb-6" do %>
+  <div class="flex flex-wrap gap-3 items-center">
+    <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-input min-w-64 pr-10" %>
+    <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-[3.5rem]" %>
+    <%= submit_tag "Add to order", class: "btn p-3" %>
+  </div>
+<% end %>

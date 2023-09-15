@@ -13,13 +13,7 @@
        <%= badge_tag('1', extra_classes: 'sm:mr-2') %> Add products to your order
       </h2>
 
-      <%= form_tag order_items_path, method: :post, remote: true, data: { turbo_frame: "order-summary" }, class: "mb-6" do %>
-        <div class="flex flex-wrap gap-3 items-center">
-          <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-input min-w-64 pr-10" %>
-          <%= number_field_tag :quantity, 1, min: 1, class: "form-input w-[3.5rem]" %>
-          <%= submit_tag "Add to order", class: "btn p-3" %>
-        </div>
-      <% end %>
+      <%= render partial: 'order_items/form', locals: { products: @products } %>
 
       <div class="mt-6 p-6 border border-1 border-stone-600/30 dark:border-stone-400/50">
         <%= render 'items_table', order: @order, order_items: @order_items %>
