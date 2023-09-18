@@ -17,7 +17,7 @@
       <% if user_signed_in? %>
         <nav class="flex flex-wrap gap-5 justify-between mb-4">
           <div class="flex flex-wrap gap-x-5 gap-y-3">
-            <%= link_to "Schedule", '#', class: "lg:text-lg/none font-bold text-orange-700 underline" %>
+            <%= link_to "Schedule", deliveries_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
             <%= link_to "Orders", orders_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
             <%= link_to "Products", products_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
             <%= link_to "Customers", customers_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>

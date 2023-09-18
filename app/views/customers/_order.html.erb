@@ -6,10 +6,10 @@
     </svg>
     <div class="ml-4 flex min-w-0 flex-1 gap-2">
       <span class="truncate font-medium">Order #<%= order.id %></span>
-      <span class="flex-shrink-0 text-stone-400"><%= short_number_to_currency(order.total_price, unit: '$') %></span>
+      <span class="flex-shrink-0 text-stone-600"><%= short_number_to_currency(order.total_price, unit: '$') %></span>
     </div>
   </div>
   <div class="ml-4 flex-shrink-0">
-    <a href="#" class="font-medium text-orange-700">View</a>
+    <%= link_to "View", order_path(order), class: "text-orange-700" %>
   </div>
 </li>

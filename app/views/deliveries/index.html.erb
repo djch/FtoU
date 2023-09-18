@@ -1,0 +1,16 @@
+<%= week_calendar(number_of_weeks: 2, attribute: :delivery_date, events: @orders) do |date, orders| %>
+  <div class="mb-2">
+    <%= date.day.ordinalize %>
+  </div>
+
+  <% orders.each do |order| %>
+    <div class="p-1.5 text-sm border-l border-blue-500">
+      <%= link_to "##{order.id} #{order.customer.name.familiar}", order_path(order) %>
+      <div class="text-xs leading-tight">
+        <%= local_time(order.delivery_date, '%-I%p') %>
+        <%= order.town %>
+        <br><%= number_to_currency(order.total_price, unit: '$') %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
