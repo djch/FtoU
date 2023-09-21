@@ -96,7 +96,7 @@ class OrdersController < ApplicationController
     else
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.append('messages', partial: 'shared/errors', locals: { errors: @order.errors }), status: :unprocessable_entity
+          render turbo_stream: turbo_stream.update('messages', partial: 'shared/errors', locals: { errors: @order.errors }), status: :unprocessable_entity
         end
         format.html { render :new, status: :unprocessable_entity }
       end
