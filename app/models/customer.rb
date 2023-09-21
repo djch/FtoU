@@ -8,5 +8,7 @@ class Customer < ApplicationRecord
 
   has_many :orders
 
+  validates :first_name, presence: { message: "and last name are required." }
+  validates :last_name, presence: { message: "and first name are required." }
   validates :phone, presence: true
 end
