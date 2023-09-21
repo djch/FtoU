@@ -41,7 +41,7 @@
                                   else
                                     ['text-stone-700', 'ℹ️']
                                   end %>
-          <%= content_tag :div, raw("#{emoji} #{message}"), class: "italic #{color_class} text-center", role: "alert" %>
+          <%= content_tag :div, raw("#{emoji} #{message}"), class: "#{color_class} text-center", role: "alert" %>
         <% end %>
       </section>
 
