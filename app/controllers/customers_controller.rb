@@ -40,10 +40,16 @@ class CustomersController < ApplicationController
 
   # PATCH/PUT /orders/1
   def update
+
     if @customer.update(customer_params)
       redirect_to @customer, notice: 'Customer updated'
     else
-      render :edit
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('messages', partial: 'shared/errors', locals: { errors: @customer.errors }), status: :unprocessable_entity
+        end
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 

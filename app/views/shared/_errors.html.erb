@@ -1,6 +1,6 @@
 <div class="text-red-600 font-medium my-4">
   <h2>There was a problem with your submission. Please fix and try again:</h2>
-  <ul class="list-disc list-inside">
+  <ul class="list-disc list-inside py-3 pl-2 space-y-1.5">
     <% errors.each do |error| %>
       <li><%= error.full_message %></li>
     <% end %>
