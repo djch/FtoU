@@ -18,7 +18,7 @@
     <%= short_number_to_currency(price_to_show, unit: '$') %>
   </td>
   <%# Only allow order items to be removed if the user is staff or it's not finalised %>
-  <% if !order_item.persisted? || user_signed_in? %>
+  <% if !order_item.persisted? || user_signed_in? && controller_name != 'sheets' %>
     <td class="py-4 pl-6 pr-0 text-right align-middle tabular-nums">
       <% if order_item.persisted? %>
         <%= button_to order_item_path(order_item), method: :delete, remote: true, data: { turbo: "true" }, class: "text-orange-700" do %>

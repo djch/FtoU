@@ -1,5 +1,6 @@
 <%# app/views/orders/_summary.html.erb %>
-<div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-16">
+<% @order_items ||= @order.order_items %>
+<div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12">
   <!-- !Delivery Info -->
   <h1 class="font-bold text-2xl/tight">
     Order<% if user_signed_in? %> #<%= @order.id %><% else %> Summary<% end %>
@@ -7,7 +8,7 @@
   <% if @order.delivery_date.present? %>
     <p>Scheduled for delivery on <%= local_time(@order.delivery_date) %></p>
   <% end %>
-  <dl class="mt-4 grid grid-cols-1 leading-6 sm:grid-cols-2">
+  <dl class="mt-2 grid grid-cols-1 leading-6 sm:grid-cols-2">
     <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
       <dt class="font-bold uppercase">To</dt>
       <dd class="mt-2">
@@ -54,6 +55,6 @@
 
   <!-- !Order Items -->
   <div class="mt-16">
-    <%= render 'items_table', order: @order, order_items: @order_items %>
+    <%= render 'orders/items_table', order: @order, order_items: @order_items %>
   </div>
 </div>
