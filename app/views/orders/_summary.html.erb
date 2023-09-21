@@ -1,6 +1,6 @@
 <%# app/views/orders/_summary.html.erb %>
 <% @order_items ||= @order.order_items %>
-<article class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12 dark:bg-stone-800">
+<article class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-500/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12 dark:bg-stone-800">
   <%= turbo_frame_tag "summary_inner_#{@order.id}" do %>
     <!-- !Delivery Info -->
     <h1 class="font-bold text-2xl/tight print:pt-4">
@@ -10,7 +10,7 @@
       <p>Delivering on <%= local_time(@order.delivery_date) %></p>
     <% end %>
     <dl class="mt-2 grid grid-cols-1 leading-6 sm:grid-cols-2">
-      <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
+      <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/30 sm:pl-4 sm:pt-6">
         <dt class="font-bold uppercase">To</dt>
         <dd class="mt-2">
           <p class="mb-2"><%= @order.name %></p>
@@ -24,7 +24,7 @@
           <p><%= @order.phone %></p>
         </dd>
       </div>
-      <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">
+      <div class="mt-6 border-t border-stone-400/30 pt-6 sm:pr-4">
         <dt class="font-bold uppercase">From</dt>
         <dd class="mt-2">
           <p class="mb-2">Firewood To U</p>
@@ -37,7 +37,7 @@
         </dd>
       </div>
       <% if @order.customer.delivery_notes.present? %>
-        <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
+        <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/30 sm:pl-4 sm:pt-6">
           <dt class="font-bold uppercase">Customer notes</dt>
           <dd class="mt-2">
             <p><%= @order.customer.delivery_notes %></p>
@@ -45,7 +45,7 @@
         </div>
       <% end %>
       <% if @order.customer.delivery_notes.present? && user_signed_in? %>
-        <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">
+        <div class="mt-6 border-t border-stone-400/30 pt-6 sm:pr-4">
           <dt class="font-bold uppercase">Staff notes</dt>
           <dd class="mt-2">
             <p><%= @order.notes %></p>
@@ -55,7 +55,7 @@
     </dl>
 
     <!-- !Order Items -->
-    <div class="mt-16">
+    <div class="mt-16 mb-6">
       <%= render 'orders/items_table', order: @order, order_items: @order_items %>
     </div>
   <% end %>
