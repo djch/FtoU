@@ -15,7 +15,7 @@
   <tbody id="order-items-list">
     <%= render partial: 'orders/item', collection: @order_items, as: :order_item %>
   </tbody>
-  <tfoot id="order-totals">
+  <tfoot class="border-t border-stone-200 dark:border-stone-400" id="order-totals">
     <%= render partial: 'orders/items_totals', locals: { order: @order } %>
   </tfoot>
 </table>

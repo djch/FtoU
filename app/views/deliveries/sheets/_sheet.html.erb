@@ -1,4 +1,4 @@
-<article class="py-12 px-16 shadow-sm ring-1 ring-stone-400/30 dark:bg-stone-800 print:p-0 print:ring-0 print:min-h-[247mm]">
+<article class="relative py-12 px-16 shadow-sm ring-1 ring-stone-400/30 dark:bg-stone-800 print:p-0 print:ring-0 print:min-h-[247mm]">
   <%= turbo_frame_tag "summary_inner_#{order.id}", src: order_path(order.id) do %>
     Loading...
   <% end %>
