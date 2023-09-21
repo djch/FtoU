@@ -55,6 +55,11 @@ end
 # Customers & Orders
 # -----------------------------------------------------------------------------
 
+# Disable Mailchimp callbacks for seeding
+Customer.skip_callback(:create, :after, :add_to_mailchimp)
+Customer.skip_callback(:update, :after, :update_in_mailchimp)
+Customer.skip_callback(:destroy, :after, :remove_from_mailchimp)
+
 # Clear existing records
 OrderItem.delete_all
 Order.delete_all
