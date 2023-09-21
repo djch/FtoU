@@ -2,9 +2,11 @@
 <tr class="leading-tight border-b border-stone-200 dark:border-stone-500" id="order-item-<%= order_item.product.id %>">
   <td class="max-w-0 px-0 py-5 align-middle">
     <div class="truncate"><%= order_item.product.title %></div>
-    <p class="mt-1 text-sm text-stone-700 dark:text-stone-400">
+    <p class="mt-1 text-sm text-stone-700 dark:text-stone-400 print:hidden">
+      <% unit_price = (order_item.price / order_item.quantity) %>
+      <%= short_number_to_currency(unit_price, unit: '$') %>
       <% if order_item.product.unit == 'bucket' %>
-        per ½ tonne bucket
+        per half-tonne bucket
       <% elsif order_item.product.unit == 'bag' %>
         per 12kg bag
       <% end %>
@@ -18,7 +20,7 @@
     <%= short_number_to_currency(price_to_show, unit: '$') %>
   </td>
   <%# Only allow order items to be removed if the user is staff or it's not finalised %>
-  <% if !order_item.persisted? || user_signed_in? && controller_name != 'sheets' %>
+  <% if !order_item.persisted? || user_signed_in? && order_item.order.status == 'pending' %>
     <td class="py-4 pl-6 pr-0 text-right align-middle tabular-nums">
       <% if order_item.persisted? %>
         <%= button_to order_item_path(order_item), method: :delete, remote: true, data: { turbo: "true" }, class: "text-orange-700" do %>

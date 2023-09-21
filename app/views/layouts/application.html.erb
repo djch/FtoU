@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="print:text-[14px]">
   <head>
     <title>Firewood to U</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,7 +12,7 @@
   </head>
 
   <body class="text-stone-950 bg-white dark:text-stone-50 dark:bg-stone-900">
-    <div class="container mx-auto max-w-screen-xl min-h-screen p-4">
+    <div class="container mx-auto max-w-screen-xl min-h-screen p-4 print:p-0">
       <header class="mb-4 pb-2 border-b border-stone-400/30 print:hidden">
         <h2 class="text-2xl mb-4">FtoU Online</h2>
         <% if user_signed_in? %>
@@ -46,7 +46,7 @@
         <% end %>
       </section>
 
-      <main class="my-6 sm:px-4">
+      <main class="my-6 sm:px-4 print:my-0">
         <%= yield %>
       </main>
     </div>

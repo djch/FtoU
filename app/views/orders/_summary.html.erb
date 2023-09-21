@@ -1,60 +1,62 @@
 <%# app/views/orders/_summary.html.erb %>
 <% @order_items ||= @order.order_items %>
-<div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12">
-  <!-- !Delivery Info -->
-  <h1 class="font-bold text-2xl/tight">
-    Order<% if user_signed_in? %> #<%= @order.id %><% else %> Summary<% end %>
-  </h1>
-  <% if @order.delivery_date.present? %>
-    <p>Scheduled for delivery on <%= local_time(@order.delivery_date) %></p>
-  <% end %>
-  <dl class="mt-2 grid grid-cols-1 leading-6 sm:grid-cols-2">
-    <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
-      <dt class="font-bold uppercase">To</dt>
-      <dd class="mt-2">
-        <p class="mb-2"><%= @order.name %></p>
-        <p class="mb-2">
-          <% if @order.company_name.present? %>
-            <%= @order.company_name %><br>
-          <% end %>
-          <%= @order.street_address %><br>
-          <%= @order.town %>, <%= @order.state %> <%= @order.postcode %>
-        </p>
-        <p><%= @order.phone %></p>
-      </dd>
-    </div>
-    <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">
-      <dt class="font-bold uppercase">From</dt>
-      <dd class="mt-2">
-        <p class="mb-2">Firewood To U</p>
-        <p class="mb-2">
-          165 Mornington Rd
-          <br>
-          Mornington, TAS 7018
-        </p>
-        <p>0467 849 053</p>
-      </dd>
-    </div>
-    <% if @order.customer.delivery_notes.present? %>
+<article class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-400/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12 dark:bg-stone-800">
+  <%= turbo_frame_tag "summary_inner_#{@order.id}" do %>
+    <!-- !Delivery Info -->
+    <h1 class="font-bold text-2xl/tight print:pt-4">
+      Order<% if user_signed_in? %> #<%= @order.id %><% else %> Summary<% end %>
+    </h1>
+    <% if @order.delivery_date.present? %>
+      <p>Delivering on <%= local_time(@order.delivery_date) %></p>
+    <% end %>
+    <dl class="mt-2 grid grid-cols-1 leading-6 sm:grid-cols-2">
       <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
-        <dt class="font-bold uppercase">Customer notes</dt>
+        <dt class="font-bold uppercase">To</dt>
         <dd class="mt-2">
-          <p><%= @order.customer.delivery_notes %></p>
+          <p class="mb-2"><%= @order.name %></p>
+          <p class="mb-2">
+            <% if @order.company_name.present? %>
+              <%= @order.company_name %><br>
+            <% end %>
+            <%= @order.street_address %><br>
+            <%= @order.town %>, <%= @order.state %> <%= @order.postcode %>
+          </p>
+          <p><%= @order.phone %></p>
         </dd>
       </div>
-    <% end %>
-    <% if @order.customer.delivery_notes.present? && user_signed_in? %>
       <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">
-        <dt class="font-bold uppercase">Staff notes</dt>
+        <dt class="font-bold uppercase">From</dt>
         <dd class="mt-2">
-          <p><%= @order.notes %></p>
+          <p class="mb-2">Firewood To U</p>
+          <p class="mb-2">
+            165 Mornington Rd
+            <br>
+            Mornington, TAS 7018
+          </p>
+          <p>0467 849 053</p>
         </dd>
       </div>
-    <% end %>
-  </dl>
+      <% if @order.customer.delivery_notes.present? %>
+        <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/20 sm:pl-4 sm:pt-6">
+          <dt class="font-bold uppercase">Customer notes</dt>
+          <dd class="mt-2">
+            <p><%= @order.customer.delivery_notes %></p>
+          </dd>
+        </div>
+      <% end %>
+      <% if @order.customer.delivery_notes.present? && user_signed_in? %>
+        <div class="mt-6 border-t border-stone-400/20 pt-6 sm:pr-4">
+          <dt class="font-bold uppercase">Staff notes</dt>
+          <dd class="mt-2">
+            <p><%= @order.notes %></p>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
 
-  <!-- !Order Items -->
-  <div class="mt-16">
-    <%= render 'orders/items_table', order: @order, order_items: @order_items %>
-  </div>
-</div>
+    <!-- !Order Items -->
+    <div class="mt-16">
+      <%= render 'orders/items_table', order: @order, order_items: @order_items %>
+    </div>
+  <% end %>
+</article>
