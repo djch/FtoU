@@ -24,7 +24,7 @@
   <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-1">
     <dt class="font-semibold leading-6 uppercase tracking-tight">Address</dt>
     <dd class="mt-1 leading-6 sm:mt-2">
-      <%= @customer.street_address %>
+      <%= @customer.street_address.titleize %>
       <br><%= @customer.town %>, <%= @customer.state %>
       <br><%= @customer.postcode %>
     </dd>

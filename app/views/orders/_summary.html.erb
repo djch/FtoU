@@ -18,7 +18,7 @@
             <% if @order.company_name.present? %>
               <%= @order.company_name %><br>
             <% end %>
-            <%= @order.street_address %><br>
+            <%= @order.street_address.titleize %><br>
             <%= @order.town %>, <%= @order.state %> <%= @order.postcode %>
           </p>
           <p><%= @order.phone %></p>
