@@ -2,13 +2,11 @@
 <tr class="leading-tight border-b border-dotted border-stone-300 dark:border-stone-600" id="order-item-<%= order_item.product.id %>">
   <td class="max-w-0 px-0 py-5 align-middle">
     <div class="truncate"><%= order_item.product.title %></div>
-    <p class="mt-1 text-sm text-stone-700 dark:text-stone-400 print:hidden">
-      <% unit_price = (order_item.price / order_item.quantity) %>
-      <%= short_number_to_currency(unit_price, unit: '$') %>
+    <p class="mt-1 text-sm text-stone-600 dark:text-stone-400 print:hidden">
       <% if order_item.product.unit == 'bucket' %>
-        per half-tonne bucket
+        Per half-tonne bucket
       <% elsif order_item.product.unit == 'bag' %>
-        per 12kg bag
+        Per 12kg bag
       <% end %>
     </p>
   </td>
