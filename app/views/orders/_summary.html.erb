@@ -7,7 +7,7 @@
       Order<% if user_signed_in? %> #<%= @order.id %><% else %> Summary<% end %>
     </h1>
     <% if @order.delivery_date.present? %>
-      <p>Delivering on <%= local_time(@order.delivery_date) %></p>
+      <p>Delivering <%= local_time(@order.delivery_date, format: "%A %B %d, %Y %l:%M%P") %></p>
     <% end %>
     <dl class="mt-2 grid grid-cols-1 leading-6 sm:grid-cols-2">
       <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/30 sm:pl-4 sm:pt-6">

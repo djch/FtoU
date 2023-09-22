@@ -10,6 +10,9 @@
       <%= local_date(sanitize(params[:start_date])) %> – <%= local_date(sanitize(params[:end_date])) %>
     <% end %>
   </p>
+  <div class="mt-4 flex items-center justify-center gap-4">
+    <%= button_tag 'Click to print', data: { controller: 'print', action: 'click->print#launch' }, class: 'btn' %>
+  </div>
 </header>
 
 <div class="mx-auto max-w-screen-md space-y-6">
