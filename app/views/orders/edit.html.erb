@@ -1,6 +1,17 @@
 <%# app/views/orders/edit.html.erb %>
+
 <%= turbo_frame_tag 'add-order-item' do %>
   <div class="pt-6 border-t border-stone-400/30">
     <%= render partial: "order_items/form", locals: { products: @products, order: @order } %>
   </div>
+<% end %>
+
+<%= turbo_frame_tag 'delivery-date-form' do %>
+  <%= form_with(model: @order, data: { turbo_frame: 'delivery-date-form' }) do |form| %>
+    <div class="flex flex-wrap gap-2 items-center">
+      <%= form.label :delivery_date, "Delivery Date", class: 'sr-only' %>
+      <%= form.datetime_field :delivery_date, class: 'form-input px-2 tracking-tighter leading-none' %>
+      <%= form.submit 'Save', class: 'btn py-2 px-3 text-sm leading-normal' %>
+    </div>
+  <% end %>
 <% end %>

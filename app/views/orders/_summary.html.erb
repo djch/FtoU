@@ -1,14 +1,16 @@
 <%# app/views/orders/_summary.html.erb %>
-<% @order_items ||= @order.order_items %>
-<article class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-500/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12 dark:bg-stone-800">
+<article class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-500/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12 dark:bg-stone-800" id="order-summary">
+  <% @order_items ||= @order.order_items %>
   <%= turbo_frame_tag "summary_inner_#{@order.id}" do %>
     <!-- !Delivery Info -->
     <h1 class="font-bold text-2xl/tight print:pt-4">
       Order<% if user_signed_in? %> #<%= @order.id %><% else %> Summary<% end %>
     </h1>
-    <% if @order.delivery_date.present? %>
-      <p>Delivering <%= local_time(@order.delivery_date, format: "%A %B %d, %Y %l:%M%P") %></p>
-    <% end %>
+    <div id="delivery-date">
+      <% if @order.delivery_date.present? %>
+        <p>Delivering <%= local_time(@order.delivery_date, format: "%A %B %d, %Y at %l:%M%P") %></p>
+      <% end %>
+    </div>
     <dl class="mt-2 grid grid-cols-1 leading-6 sm:grid-cols-2">
       <div class="mt-8 sm:mt-6 sm:border-t sm:border-stone-400/30 sm:pl-4 sm:pt-6">
         <dt class="font-bold uppercase">To</dt>

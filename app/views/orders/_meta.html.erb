@@ -39,10 +39,14 @@
         </svg>
       </dt>
       <dd class="leading-6">
-        <% if @order.delivery_date.present? %>
-          Delivering <%= local_time(@order.delivery_date) %>
-        <% else %>
-          <p><em>Awaiting scheduling</em></p>
+        <%= turbo_frame_tag 'delivery-date-form' do %>
+          <%= link_to edit_order_path(@order), data: { turbo_frame: 'delivery-date-form' }, class: 'underline cursor-pointer' do %>
+            <% if @order.delivery_date.present? %>
+              <%= local_time(@order.delivery_date) %>
+            <% else %>
+              <p><em>Click to schedule</em></p>
+            <% end %>
+          <% end %>
         <% end %>
       </dd>
     </div>

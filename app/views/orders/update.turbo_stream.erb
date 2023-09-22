@@ -1,3 +1,13 @@
-<%= turbo_stream.replace "order-meta-section" do %>
+<%# app/views/orders/update.turbo_stream.erb %>
+
+<%= turbo_stream.update "order-meta-section" do %>
   <%= render partial: 'orders/meta', locals: { order: @order } %>
+<% end %>
+
+<%= turbo_stream.replace "delivery-date" do %>
+  <div id="delivery-date">
+    <% if @order.delivery_date.present? %>
+      <p>Delivering <%= local_time(@order.delivery_date, format: "%A %B %d, %Y at %l:%M%P") %></p>
+    <% end %>
+  </div>
 <% end %>
