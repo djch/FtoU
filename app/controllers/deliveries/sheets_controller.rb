@@ -10,7 +10,9 @@ module Deliveries
         date = Date.parse(params[:date])
         @orders = Order.where(status: 'confirmed').where(delivery_date: date).order(:delivery_date)
       else
-        @orders = []  # or however you want to handle this case
+        # Default to today's date when no parameters are provided and redirect
+        today = Date.current
+        redirect_to delivery_sheets_path(date: today)
       end
     end
 
