@@ -15,12 +15,7 @@ module Deliveries
     end
 
     def show
-      if params[:id]
-        @order = [Order.find(params[:id])]
-      else
-        redirect_to deliveries_sheets_path, alert: "Invalid parameters."
-        return
-      end
+      @order = Order.find(params[:id])
     end
 
   end
