@@ -1,6 +1,15 @@
 <article class="relative py-12 px-16 shadow-sm ring-1 ring-stone-500/30 dark:bg-stone-800 print:p-0 print:ring-0 print:shadow-none print:min-h-[247mm]">
-  <%= turbo_frame_tag "summary_inner_#{order.id}", src: order_path(order.id) do %>
-    Loading...
+  <% if order.status == 'confirmed' %>
+    <%= turbo_frame_tag "summary_inner_#{order.id}", src: order_path(order.id) do %>
+      Loading...
+    <% end %>
+    <div class="mt-16 flex items-baseline justify-end gap-3 print:absolute print:inset-x-0 print:bottom-0">
+      <span class="uppercase font-bold tracking-wide">Recipient's signature:</span>
+      <span class="w-1/2 border-b border-stone-700/50 border-dashed">&nbsp;</span>
+    </div>
+  <% else %>
+    ⚠️ Order #<%= order.id %> has not been confirmed.
+    Your must confirm each order and schedule a delivery time before printing.
   <% end %>
   <div class="mt-16 flex items-baseline justify-end gap-3 print:absolute print:inset-x-0 print:bottom-0">
     <span class="uppercase font-bold tracking-wide">Recipient's signature:</span>
