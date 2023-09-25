@@ -9,6 +9,8 @@ class CustomersController < ApplicationController
     else
       @customers = Customer.order(updated_at: :desc)
     end
+
+    set_page_and_extract_portion_from @customers
   end
 
   # GET /customers/new
