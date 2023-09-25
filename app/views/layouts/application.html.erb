@@ -32,7 +32,7 @@
           </nav>
         <% end %>
       </header>
-      <section id="messages">
+      <section id="messages" class="print:hidden">
         <% flash.each do |type, message| %>
           <% color_class, emoji = case type.to_sym
                                   when :error

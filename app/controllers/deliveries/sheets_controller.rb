@@ -1,6 +1,9 @@
 module Deliveries
-  class SheetsController < ApplicationController
 
+  class SheetsController < ApplicationController
+    before_action :authenticate_user!
+
+    # GET /delivery/sheets
     def index
       if params[:start_date] && params[:end_date]
         start_date = Date.parse(params[:start_date])
@@ -16,9 +19,10 @@ module Deliveries
       end
     end
 
+    # GET /delivery/sheets/1
     def show
       @order = Order.find(params[:id])
     end
-
   end
+
 end
