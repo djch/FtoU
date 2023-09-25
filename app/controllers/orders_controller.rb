@@ -5,10 +5,12 @@ class OrdersController < ApplicationController
 
   # GET /orders
   def index
-    @orders = Order.recently_created.where.not(customer: nil)
-    @orders = @orders.by_status(params[:status]).by_paid(params[:paid]).by_date(params[:date])
-    @orders = @orders.by_paid(params[:paid]) if params[:paid].present?
-    @orders = @orders.by_date(params[:date]) if params[:date].present?
+    @orders = Order.includes(:customer, :order_items)
+                   .recently_created
+                   .where.not(customer: nil)
+                   .by_status(params[:status])
+                   .by_paid(params[:paid])
+                   .by_date(params[:date])
 
     respond_to do |format|
       format.html

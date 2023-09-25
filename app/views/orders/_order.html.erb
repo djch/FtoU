@@ -12,7 +12,7 @@
     <%= number_to_currency(order.total_price, unit: '$') %>
   </td>
   <td class="whitespace-nowrap px-3 py-4">
-    <%= pluralize(order.order_items.count, 'product') %>
+    <%= pluralize(order.order_items.size, 'product') %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 capitalize">
     <div class="flex items-center gap-2">

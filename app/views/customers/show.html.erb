@@ -1,7 +1,12 @@
-<header class="mb-6">
-  <h1 class="font-bold text-2xl/tight"><%= @customer.name %></h1>
-  <p>Customer since <%= local_time_ago(@customer.created_at) %></p>
-  <div class="my-6 flex items-center gap-x-5">
+<header class="mb-6 flex flex-wrap items-center justify-between gap-6">
+  <div class="inline-flex items-center gap-4">
+    <%= avatar_for(@customer) %>
+    <div>
+      <h1 class="font-bold text-xl/tight"><%= @customer.name %></h1>
+      <p>Customer since <%= local_time_ago(@customer.created_at) %></p>
+    </div>
+  </div>
+  <div class="flex items-center gap-x-3">
     <%= link_to "Edit details", edit_customer_path(@customer), class: "btn" %>
     <%= button_to 'Destroy record', @customer,
           method: :delete,
@@ -50,7 +55,7 @@
     </dd>
   </div>
   <div class="border-t border-stone-400/20 px-4 py-6 sm:col-span-2">
-    <dt class="font-semibold leading-6 uppercase tracking-tight">Orders</dt>
+    <dt class="font-semibold leading-6 uppercase tracking-tight">History</dt>
     <dd class="mt-2">
       <ul role="list" class="divide-y divide-stone-100 border border-stone-400/50">
         <%= render partial: 'customers/order', collection: @customer.orders, as: :order %>

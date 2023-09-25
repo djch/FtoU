@@ -3,7 +3,7 @@
   <p>Look up customer info, update contact details and review order histories</p>
 </header>
 
-<div class="my-6 flex items-center justify-between">
+<div class="my-6 flex flex-wrap gap-6 items-center justify-between">
   <%= link_to "Add a new customer", new_customer_path, class: "btn" %>
   <%= form_with url: customers_path, method: :get do |form| %>
     <div class="relative">
@@ -19,7 +19,7 @@
 </div>
 
 <% if @customers.present? %>
-  <ul role="list" class="divide-y divide-stone-500/20 overflow-hidden ring-1 ring-gray-500/20">
+  <ul role="list" class="divide-y divide-stone-600 overflow-hidden ring-1 ring-stone-600">
     <%= render @customers %>
   </ul>
 <% else %>
