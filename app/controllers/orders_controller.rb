@@ -12,6 +12,8 @@ class OrdersController < ApplicationController
                    .by_paid(params[:paid])
                    .by_date(params[:date])
 
+    set_page_and_extract_portion_from @orders
+
     respond_to do |format|
       format.html
       format.turbo_stream

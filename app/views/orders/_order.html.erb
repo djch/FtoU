@@ -1,38 +1,50 @@
-<tr id="<%= dom_id order %>">
-  <td class="whitespace-nowrap py-4 pl-4 pr-3 sm:pl-0">
-    #<%= order.id %>
-  </td>
-  <td class="whitespace-nowrap px-3 py-4">
-    <%= local_date(order.created_at) %>
-  </td>
-  <td class="whitespace-nowrap px-3 py-4">
-    <%= link_to order.customer.name.familiar, customer_path(order.customer), data: { turbo: "false" } %>
-  </td>
-  <td class="whitespace-nowrap px-3 py-4">
-    <%= number_to_currency(order.total_price, unit: '$') %>
-  </td>
-  <td class="whitespace-nowrap px-3 py-4">
-    <%= pluralize(order.order_items.size, 'product') %>
-  </td>
-  <td class="whitespace-nowrap px-3 py-4 capitalize">
-    <div class="flex items-center gap-2">
-      <span class="text-xs uppercase px-1.5 py-0.5 font-semibold <%= status_color_class(order.status) %>">
+<li id="<%= dom_id order %>" class="relative group flex justify-between p-4 hover:bg-stone-500/10">
+  <div class="flex gap-x-4 pr-6 sm:w-1/2 sm:flex-none">
+    <div class="hidden sm:block">
+      <figure class="p-1 flex items-center justify-center h-12 w-12 rounded bg-stone-200 text-stone-700 dark:text-stone-500 dark:bg-stone-800 group-hover:text-orange-700" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-8 h-8">
+          <path d="M6.5 3c-1.051 0-2.093.04-3.125.117A1.49 1.49 0 002 4.607V10.5h9V4.606c0-.771-.59-1.43-1.375-1.489A41.568 41.568 0 006.5 3zM2 12v2.5A1.5 1.5 0 003.5 16h.041a3 3 0 015.918 0h.791a.75.75 0 00.75-.75V12H2z" />
+          <path d="M6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM13.25 5a.75.75 0 00-.75.75v8.514a3.001 3.001 0 014.893 1.44c.37-.275.61-.719.595-1.227a24.905 24.905 0 00-1.784-8.549A1.486 1.486 0 0014.823 5H13.25zM14.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+        </svg>
+      </figure>
+    </div>
+    <div class="min-w-0 flex-auto">
+      <p class="font-semibold text-lg/6">
+        <%= link_to order, data: { turbo_frame: "_top" }, class: "font-bold no-underline" do %>
+          <span class="absolute inset-x-0 -top-px bottom-0"></span>
+          Order #<%= order.id %>
+        <% end %>
+      </p>
+      <p class="mt-0.5 flex items-center gap-x-2 text-base/5 tracking-tight">
+        <% if controller_name == 'customers' %>
+          <span>Placed <%= local_time_ago(order.created_at) %></span>
+        <% else %>
+          <span><%= order.customer.name.familiar %></span>
+          <span><%= local_date(order.created_at) %></span>
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <div class="flex items-center justify-between gap-x-6 sm:w-1/2 sm:flex-none">
+    <div class="flex-grow">
+      <p class="leading-6 tracking-tight">
+        <%= short_number_to_currency(order.total_price, unit: '$') %>
+        <%= '+delivery' unless order.delivery_fee.present? %>
+      </p>
+      <p class="mt-0.5 text-base/5 text-stone-600 dark:text-stone-400">
+       <%= pluralize(order.order_items.size, 'product') %>
+      </p>
+    </div>
+    <div class="hidden md:flex flex-grow items-center justify-end gap-2">
+      <span class="text-sm uppercase px-2 py-1 font-semibold <%= status_color_class(order.status) %>">
         <%= order.status %>
       </span>
-      <span class="text-xs uppercase px-1.5 py-0.5 font-semibold text-white dark:text-stone-800 <%= order.paid ? 'bg-green-600 dark:bg-green-400' : 'bg-amber-600 dark:bg-amber-400' %>">
+      <span class="text-sm uppercase px-2 py-1 font-semibold text-white dark:text-stone-800 <%= order.paid ? 'bg-green-600 dark:bg-green-400' : 'bg-amber-600 dark:bg-amber-400' %>">
         <%= order.paid ? 'Paid' : 'Unpaid' %>
       </span>
     </div>
-  </td>
-  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right sm:pr-0">
-    <%= link_to order_path(order),
-        data: { turbo: "false" },  # Break out of the turbo frame to navigate
-        class: "inline-flex items-center gap-x-0.5 leading-none text-orange-700" do
-    %>
-      View<span class="sr-only">, Order <%= order.id %></span>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-      </svg>
-    <% end %>
-  </td>
-</tr>
+    <svg class="h-5 w-5 flex-none group-hover:text-orange-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
+    </svg>
+  </div>
+</li>

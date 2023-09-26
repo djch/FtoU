@@ -1,15 +1,15 @@
 <%= form_with url: orders_path, method: :get, local: true, class: "flex flex-wrap items-center gap-2" do |f| %>
 
   <!-- By date -->
-  <%= f.label :date, "Filter by date received", class: "sr-only" %>
+  <%= f.label :date, "Filter by date placed", class: "sr-only" %>
   <%= f.select :date, options_for_select([
-    ['Received any time', ''],
-    ['Received today', 'today'],
-    ['Received yesterday', 'yesterday'],
-    ['Received this week', 'this_week'],
-    ['Received last week', 'last_week'],
-    ['Received this month', 'this_month'],
-    ['Received last month', 'last_month']
+    ['Placed any time', ''],
+    ['Placed today', 'today'],
+    ['Placed yesterday', 'yesterday'],
+    ['Placed this week', 'this_week'],
+    ['Placed last week', 'last_week'],
+    ['Placed this month', 'this_month'],
+    ['Placed last month', 'last_month']
   ], params[:date]), {}, { onchange: 'this.form.submit();', class: 'form-input w-auto pr-10' } %>
 
   <!-- By Status -->
