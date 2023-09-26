@@ -1,4 +1,4 @@
-<li id="<%= dom_id customer %>" class="relative group flex justify-between p-4 hover:bg-stone-500/10">
+<li id="<%= dom_id customer %>" class="relative group flex justify-between p-4 hover:bg-stone-500/10 lg:text-lg">
   <div class="flex gap-x-4 pr-6 sm:w-1/2 sm:flex-none">
     <%= avatar_for(customer) %>
     <div class="min-w-0 flex-auto">
@@ -8,7 +8,7 @@
           <%= customer.name %>
         <% end %>
       </p>
-      <p class="mt-1 flex items-center gap-x-1 text-sm/5 tracking-tight text-stone-600 dark:text-stone-400">
+      <p class="mt-1 flex items-center gap-x-1 text-sm/5 lg:text-base/5 tracking-tight text-stone-600 dark:text-stone-400">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
           <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
         </svg>
@@ -20,10 +20,10 @@
     <div class="hidden sm:block">
       <% if customer.orders.any? %>
         <p class="leading-6"><%= pluralize(customer.orders.size, 'order') %></p>
-        <p class="mt-1 text-sm/5 text-stone-600 dark:text-stone-400">Last <%= local_time_ago(customer.orders.last.created_at) %></p>
+        <p class="mt-1 text-sm/5 lg:text-base/5 text-stone-600 dark:text-stone-400">Last <%= local_time_ago(customer.orders.last.created_at) %></p>
       <% end %>
     </div>
-    <svg class="h-6 w-6 flex-none group-hover:text-orange-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <svg class="h-5 w-5 flex-none group-hover:text-orange-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
       <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
     </svg>
   </div>
