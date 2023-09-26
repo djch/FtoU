@@ -3,7 +3,7 @@
     <%= avatar_for(customer) %>
     <div class="min-w-0 flex-auto">
       <p class="font-semibold leading-6">
-        <%= link_to customer, class: "font-bold no-underline" do %>
+        <%= link_to customer, data: { turbo_frame: "_top" }, class: "font-bold no-underline" do %>
           <span class="absolute inset-x-0 -top-px bottom-0"></span>
           <%= customer.name %>
         <% end %>
