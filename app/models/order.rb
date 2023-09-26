@@ -79,6 +79,6 @@ class Order < ApplicationRecord
     end
 
     def confirm_order
-      self.status = 'confirmed'
+      self.status = 'confirmed' unless delivery_date.nil?
     end
 end
