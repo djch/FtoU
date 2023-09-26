@@ -16,6 +16,7 @@ class Order < ApplicationRecord
   validates_associated :order_items
 
   before_create :copy_customer_details
+  before_save :confirm_order, if: :will_save_change_to_delivery_date?
 
   # Scopes
   scope :recently_created, -> { order(created_at: :desc) }
@@ -75,5 +76,9 @@ class Order < ApplicationRecord
       if order_items.empty? || order_items.all? { |item| item.marked_for_destruction? }
         errors.add(:base, "You forgot to add any items to your order. Use the 'Add to order' button to select products.")
       end
+    end
+
+    def confirm_order
+      self.status = 'confirmed'
     end
 end
