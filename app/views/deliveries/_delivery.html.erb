@@ -1,0 +1,40 @@
+<%# app/views/deliveries/_delivery.html.erb %>
+<li class="relative flex space-x-4 py-5 px-8 xl:static">
+  <%# Image here? %>
+  <div class="flex-auto">
+    <h3 class="pr-10 font-semibold lg:text-lg xl:pr-0 inline-flex items-center gap-2">
+      <%= link_to "Order ##{delivery.id}", delivery, class: "no-underline font-bold hover:underline" %>
+    </h3>
+    <dl class="mt-2 flex flex-col text-stone-600 xl:flex-row tracking-tight">
+      <div class="flex items-start">
+        <dt class="mt-0.5">
+          <span class="sr-only">Customer</span>
+        </dt>
+        <dd><%= link_to delivery.customer.name.familiar, delivery.customer, class: "no-underline hover:underline" %></dd>
+      </div>
+      <div class="mt-2 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+        <dt class="mt-0.5">
+          <span class="sr-only">Total price</span>
+        </dt>
+        <dd><%= short_number_to_currency(delivery.total_price, unit: '$') %></dd>
+      </div>
+      <div class="mt-2 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+        <dt class="mt-0.5">
+          <span class="sr-only">Delivery at</span>
+        </dt>
+        <dd><%= local_time(delivery.delivery_date, format: "%I:%M%P") %></dd>
+      </div>
+      <div class="mt-2 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+        <dt class="mt-0.5">
+          <span class="sr-only">Location</span>
+        </dt>
+        <dd><%= delivery.town %>, <%= delivery.postcode %></dd>
+      </div>
+    </dl>
+  </div>
+  <div class="absolute right-0 top-6 xl:relative xl:right-auto xl:top-auto xl:self-center">
+    <div>
+
+    </div>
+  </div>
+</li>
