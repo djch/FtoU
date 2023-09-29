@@ -17,7 +17,7 @@ module ApplicationHelper
       initials = person.name.initials
       bg_color = colors[initials.sum % colors.length]
     else
-      bg_color = 'bg-stone-600 dark:bg-stone-400'
+      bg_color = 'bg-stone-500 dark:bg-stone-300'
     end
 
     content_tag :span, class: "inline-flex #{size} items-center justify-center rounded-full #{bg_color}" do
