@@ -5,7 +5,7 @@
     <h3 class="pr-10 font-semibold lg:text-lg xl:pr-0 inline-flex items-center gap-2">
       <%= link_to "Order ##{delivery.id}", delivery, data: { turbo_frame: "_top" }, class: "no-underline font-bold hover:underline" %>
     </h3>
-    <dl class="mt-2 flex flex-col text-stone-600 xl:flex-row tracking-tight">
+    <dl class="mt-1 flex flex-col text-stone-600 xl:flex-row tracking-tight">
       <div class="flex items-start">
         <dt class="mt-0.5">
           <span class="sr-only">Customer</span>
@@ -14,19 +14,19 @@
           <%= link_to delivery.customer.name.familiar, delivery.customer, data: { turbo_frame: "_top" }, class: "no-underline hover:underline" %>
         </dd>
       </div>
-      <div class="mt-2 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+      <div class="mt-1 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
         <dt class="mt-0.5">
           <span class="sr-only">Total price</span>
         </dt>
         <dd><%= short_number_to_currency(delivery.total_price, unit: '$') %></dd>
       </div>
-      <div class="mt-2 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+      <div class="mt-1 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
         <dt class="mt-0.5">
           <span class="sr-only">Delivery at</span>
         </dt>
         <dd><%= local_time(delivery.delivery_date, format: "%I:%M%P") %></dd>
       </div>
-      <div class="mt-2 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+      <div class="mt-1 flex items-start xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
         <dt class="mt-0.5">
           <span class="sr-only">Location</span>
         </dt>
