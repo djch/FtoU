@@ -56,6 +56,16 @@ class Order < ApplicationRecord
     price + (delivery_fee || 0)
   end
 
+  def item_summary
+    summary = order_items.includes(:product)
+                         .group_by { |item| item.product.unit }
+                         .map do |unit, items|
+                           "#{items.sum(&:quantity)} #{unit.pluralize(items.sum(&:quantity))}"
+                         end
+
+    summary.join(" + ")
+  end
+
   private
 
     def copy_customer_details

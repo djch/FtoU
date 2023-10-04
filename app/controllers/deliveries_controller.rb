@@ -1,5 +1,6 @@
 class DeliveriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_order, only: [:edit, :update]
 
   def index
     @selected_date = params[:date]&.to_date || Date.current
@@ -25,6 +26,33 @@ class DeliveriesController < ApplicationController
                      .where.not(status: ['cancelled', 'pending'])
                      .order(:delivery_date)
     end
+
+    @pending_orders = Order.includes(:order_items, :customer)
+                           .where(status: 'pending')
+                           .order(:created_at)
   end
 
+  def edit
+  end
+
+  def update
+    @order = Order.find(params[:id])
+
+    if @order.update(order_params)
+      redirect_to deliveries_path(date: @order.delivery_date)
+    else
+      # Handle the error, maybe render the edit form again with the errors
+      render :edit
+    end
+  end
+
+  private
+
+    def set_order
+      @order = Order.find(params[:id])
+    end
+
+    def order_params
+      params.require(:order).permit(:delivery_date, :delivery_fee, :notes, :paid)
+    end
 end

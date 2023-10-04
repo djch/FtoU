@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
   # Schedule
   get 'deliveries', to: 'deliveries#index', as: :deliveries
+  get 'deliveries/:id/edit', to: 'deliveries#edit', as: :edit_delivery
+  patch 'deliveries/:id', to: 'deliveries#update', as: :update_delivery
+
   get 'deliveries/sheets', to: 'deliveries/sheets#index', as: :delivery_sheets
   get 'deliveries/sheets/:id', to: 'deliveries/sheets#show', as: :delivery_sheet
 

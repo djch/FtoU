@@ -48,7 +48,7 @@
       <% end %>
       <% if @order.customer.delivery_notes.present? && user_signed_in? %>
         <div class="mt-6 border-t border-stone-400/30 pt-6 sm:pr-4">
-          <dt class="font-bold uppercase">Staff notes</dt>
+          <dt class="font-bold uppercase">Driver notes</dt>
           <dd class="mt-2">
             <p><%= @order.notes %></p>
           </dd>
