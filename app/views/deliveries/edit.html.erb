@@ -1,8 +1,8 @@
 <%= turbo_frame_tag 'pending_list' do %>
   <%= form_for @order, url: update_delivery_path(@order), method: :patch do |form| %>
-    <dl class="max-w-screen-sm mx-auto p-4 bg-white border border-stone-500/20 shadow-sm"">
+    <dl class="max-w-screen-sm mx-auto p-4 bg-white border border-stone-500/20 shadow-sm dark:bg-stone-900 dark:border-stone-100/20">
       <div class="pb-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0 border-b border-stone-400/30">
-        <dt class="text-right font-semibold leading-6"></dt>
+        <dt class="sm:text-right font-semibold leading-6"></dt>
         <dd class="mt-1 leading-6 sm:col-span-2 sm:mt-0">
           <h2 class="text-lg">
             Scheduling
@@ -11,7 +11,7 @@
         </dd>
       </div>
       <div class="py-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0">
-        <dt class="text-right font-semibold leading-6">Customer</dt>
+        <dt class="sm:text-right font-semibold leading-6">Customer</dt>
         <dd class="mt-1 leading-6 sm:col-span-2 sm:mt-0">
           <p class="mb-2">
             <%= link_to @order.name, @order.customer, data: { turbo_frame: "_top" } %>
@@ -27,27 +27,27 @@
         </dd>
       </div>
       <div class="py-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0">
-        <dt class="text-right font-semibold leading-6">Items</dt>
+        <dt class="sm:text-right font-semibold leading-6">Items</dt>
         <dd class="mt-1 leading-6 sm:col-span-2 sm:mt-0">
           <%= @order.item_summary %>
           <p><%= short_number_to_currency(@order.price, unit: '$') %></p>
         </dd>
       </div>
       <div class="py-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0">
-        <dt class="text-right font-semibold leading-6">Customer note</dt>
+        <dt class="sm:text-right font-semibold leading-6">Customer note</dt>
         <dd class="mt-1 leading-6 sm:col-span-2 sm:mt-0">
           <p><%= @order.customer.delivery_notes %></p>
         </dd>
       </div>
 
       <div class="py-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0">
-        <dt class="text-right font-semibold leading-6">
+        <dt class="sm:text-right font-semibold leading-6">
           <%= form.label :delivery_fee, "Delivery fee ($)" %>
         </dt>
         <%= form.number_field :delivery_fee, step: 10.0, class: "form-input w-24 px-2 tracking-tighter leading-none shadow-inner", required: true %>
       </div>
       <div class="py-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0">
-        <dt class="text-right font-semibold leading-6">
+        <dt class="sm:text-right font-semibold leading-6">
           <%= form.label :delivery_date, "Delivering at" %>
         </dt>
         <dd class="mt-1 leading-6 sm:col-span-2 sm:mt-0">
@@ -55,7 +55,7 @@
         </dd>
       </div>
       <div class="py-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0">
-        <dt class="text-right font-semibold leading-6">
+        <dt class="sm:text-right font-semibold leading-6">
           <%= form.label :notes, "Driver note" %>
         </dt>
         <dd class="mt-1 leading-6 sm:col-span-2 sm:mt-0">
@@ -63,7 +63,7 @@
         </dd>
       </div>
       <div class="py-3 px-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:px-0">
-        <dt class="text-right font-semibold leading-6">
+        <dt class="sm:text-right font-semibold leading-6">
           <%= form.label :paid, "Paid?" %>
         </dt>
         <dd class="mt-1 leading-6 sm:col-span-2 sm:mt-0">

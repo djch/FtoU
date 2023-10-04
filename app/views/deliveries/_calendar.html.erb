@@ -15,10 +15,10 @@
       </svg>
     <% end %>
   </div>
-  <div class="mt-6 grid grid-cols-7 leading-6 text-stone-500">
+  <div class="mt-6 grid grid-cols-7 leading-6 text-stone-500 dark:text-stone-400">
     <div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
   </div>
-  <div class="isolate mt-2 grid grid-cols-7 gap-px bg-stone-200 shadow ring-1 ring-stone-200">
+  <div class="isolate mt-2 grid grid-cols-7 gap-px bg-stone-200 shadow ring-1 ring-stone-200 dark:bg-stone-800 dark:ring-stone-700">
     <!-- Add padding for days before the start of the month -->
     <% start_day = @date.wday %>
     <% (start_day == 0 ? 6 : start_day - 1).times do %>
@@ -27,7 +27,7 @@
     <!-- Date Buttons -->
     <% (1..Time.days_in_month(@month, @year)).each do |day| %>
       <% current_date = Date.new(@year, @month, day) %>
-      <%= link_to deliveries_path(date: current_date), data: { turbo_action: "replace", turbo_frame: "schedule" }, class: "bg-white py-1.5 no-underline hover:bg-stone-100 focus:z-10 #{'text-orange-700 font-semibold' if current_date == @selected_date}", role: "button" do %>
+      <%= link_to deliveries_path(date: current_date), data: { turbo_action: "replace", turbo_frame: "schedule" }, class: "bg-white py-1.5 no-underline hover:bg-stone-100 focus:z-10 dark:bg-stone-950 dark:hover:bg-stone-900 #{'text-orange-700 font-semibold' if current_date == @selected_date}", role: "button" do %>
         <time datetime="<%= current_date %>" class="mx-auto flex h-7 w-7 items-center justify-center rounded-full"><%= day %></time>
       <% end %>
     <% end %>
