@@ -32,4 +32,7 @@
       <% end %>
     <% end %>
   </div>
+  <p class="mt-6 text-center">
+    <%= link_to "Print delivery notes", delivery_sheets_path(date: @selected_date), data: { turbo_frame: "_top" }, class: 'btn' %>
+  </p>
 </div>
