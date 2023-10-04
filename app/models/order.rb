@@ -22,6 +22,8 @@ class Order < ApplicationRecord
   scope :recently_created, -> { order(created_at: :desc) }
   scope :by_status, -> (status) { where(status: status) if status.present? }
   scope :by_paid, -> (paid) { where(paid: ActiveModel::Type::Boolean.new.cast(paid)) if paid.present? }
+  scope :for_delivery_date, ->(date) { where(delivery_date: date.beginning_of_day..date.end_of_day) }
+  scope :for_month, ->(date) { where(delivery_date: date.beginning_of_month..date.end_of_month) }
 
   # Class Methods
   def self.by_date(date)
@@ -41,6 +43,10 @@ class Order < ApplicationRecord
     else
       all
     end
+  end
+
+  def self.delivery_counts_for_month(date)
+    for_month(date).group("DATE(delivery_date)").count
   end
 
   # Instance Methods

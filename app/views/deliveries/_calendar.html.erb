@@ -1,14 +1,14 @@
 <% month_names = Date::MONTHNAMES %>
 <div class="mt-10 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
   <div class="flex items-center">
-    <%= link_to deliveries_path(year: @date.prev_month.year, month: @date.prev_month.month, date: @selected_date), class: "-m-1.5 flex flex-none items-center justify-center p-1.5 text-stone-400 hover:text-stone-500" do %>
+    <%= link_to deliveries_path(year: @displayed_date.prev_month.year, month: @displayed_date.prev_month.month, date: @selected_date), class: "-m-1.5 flex flex-none items-center justify-center p-1.5 text-stone-400 hover:text-stone-500" do %>
       <span class="sr-only">Previous month</span>
       <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
       </svg>
     <% end %>
-    <div class="flex-auto font-bold"><%= month_names[@date.month] %></div>
-    <%= link_to deliveries_path(year: @date.next_month.year, month: @date.next_month.month, date: @selected_date), class: "-m-1.5 flex flex-none items-center justify-center p-1.5 text-stone-400 hover:text-stone-500" do %>
+    <div class="flex-auto font-bold"><%= month_names[@displayed_date.month] %></div>
+    <%= link_to deliveries_path(year: @displayed_date.next_month.year, month: @displayed_date.next_month.month, date: @selected_date), class: "-m-1.5 flex flex-none items-center justify-center p-1.5 text-stone-400 hover:text-stone-500" do %>
       <span class="sr-only">Next month</span>
       <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
@@ -20,7 +20,7 @@
   </div>
   <div class="isolate mt-2 grid grid-cols-7 gap-px bg-stone-200 shadow ring-1 ring-stone-200 dark:bg-stone-800 dark:ring-stone-700">
     <!-- Add padding for days before the start of the month -->
-    <% start_day = @date.wday %>
+    <% start_day = @displayed_date.wday %>
     <% (start_day == 0 ? 6 : start_day - 1).times do %>
       <div></div>
     <% end %>
