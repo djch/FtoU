@@ -3,30 +3,29 @@ class DeliveriesController < ApplicationController
   before_action :set_order, only: [:edit, :update]
 
   def index
+    # Determine the selected date and fetch deliveries for that date
     @selected_date = params[:date]&.to_date || Date.current
+    start_of_selected_date = @selected_date.beginning_of_day
+    end_of_selected_date = @selected_date.end_of_day
+    @orders = Order.includes(:order_items, :customer)
+                   .where(delivery_date: start_of_selected_date..end_of_selected_date)
+                   .where.not(status: ['cancelled', 'pending'])
+                   .order(:delivery_date)
 
     # Determine the displayed month and year
-    @year = params[:year]&.to_i || @selected_date.year
-    @month = params[:month]&.to_i || @selected_date.month
-    @date = Date.new(@year, @month, 1)
+    @displayed_month = params[:month]&.to_i || @selected_date.month
+    @displayed_year = params[:year]&.to_i || @selected_date.year
+    @date = Date.new(@displayed_year, @displayed_month, 1)
 
-    start_time = @selected_date.beginning_of_day
-    end_time = @selected_date.end_of_day
+    # Fetch delivery counts for the entire displayed month
+    start_of_month = @date.beginning_of_month
+    end_of_month = @date.end_of_month
+    @deliveries_count_by_date = Order.where(delivery_date: start_of_month..end_of_month)
+                                     .where.not(status: ['cancelled', 'pending'])
+                                     .group("DATE(delivery_date)")
+                                     .count
 
-    if params[:date]
-      # Query the Order model based on the delivery_date field
-      @orders = Order.includes(:order_items, :customer)
-                     .where(delivery_date: start_time..end_time)
-                     .where.not(status: ['cancelled', 'pending'])
-                     .order(:delivery_date)
-    else
-      # Default to showing today's orders if no date parameter is provided
-      @orders = Order.includes(:order_items, :customer)
-                     .where(delivery_date: Date.current.beginning_of_day..Date.current.end_of_day)
-                     .where.not(status: ['cancelled', 'pending'])
-                     .order(:delivery_date)
-    end
-
+    # Fetch pending orders
     @pending_orders = Order.includes(:order_items, :customer)
                            .where(status: 'pending')
                            .order(:created_at)
