@@ -1,16 +1,9 @@
-<%# app/views/deliveries/update.turbo_steam.erb %>
+<%# app/views/deliveries/update.turbo_stream.erb %>
 
-<%= turbo_stream.update "pending_section" do %>
-  <%= render partial: 'pending_section', locals: { current_date: @order.delivery_date } %>
+<%= turbo_stream.replace 'pending_section' do %>
+  <%= turbo_frame_tag 'pending_section', src: deliveries_path %>
 <% end %>
 
-<%= turbo_stream.update "schedule" do %>
-  <div class="lg:grid lg:grid-cols-12 lg:gap-x-16">
-    <!-- Calendar Navigation -->
-    <%= render partial: 'calendar', locals: { displayed_date: @displayed_date,
-                                              selected_date: (params[:date]&.to_date || Date.current),
-                                              deliveries_count_by_date: @deliveries_count_by_date } %>
-    <!-- Confirmed Orders List (for selected date) -->
-    <%= render partial: 'confirmed_section', locals: { orders: @orders, selected_date: (params[:date]&.to_date || Date.current) } %>
-  </div>
+<%= turbo_stream.replace 'schedule' do %>
+  <%= turbo_frame_tag 'schedule', src: deliveries_path(date: @order.delivery_date.to_date) %>
 <% end %>
