@@ -1,18 +1,14 @@
 module DeliveriesHelper
   def display_dots_for_date(date, deliveries_count_by_date)
     count = deliveries_count_by_date[date] || 0
+    return "&nbsp;".html_safe if count.zero?
 
-    case count
-    when 0
-      "&nbsp;".html_safe
-    when 1..4
-      content_tag(:span, "•")
-    when 5..8
-      content_tag(:span, "•") + content_tag(:span, "•")
-    when 9..12
-      content_tag(:span, "•") * 3
-    else
-      content_tag(:span, "•") * 4
+    number_of_dots = [count, 14].min
+
+    dots = (1..number_of_dots).map do
+      content_tag(:span, "•", class: "h-[0.25rem]") * 3
     end
+
+    dots.join.html_safe
   end
 end

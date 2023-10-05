@@ -46,7 +46,7 @@ class Order < ApplicationRecord
   end
 
   def self.delivery_counts_for_month(date)
-    for_month(date).group("DATE(delivery_date)").count
+    for_month(date).group("DATE(delivery_date AT TIME ZONE 'UTC' AT TIME ZONE '#{Time.zone.name}')").count
   end
 
   # Instance Methods
