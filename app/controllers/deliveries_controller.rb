@@ -19,7 +19,6 @@ class DeliveriesController < ApplicationController
     if @order.update(order_params)
       redirect_to deliveries_path(date: @order.delivery_date)
     else
-      # Handle the error, maybe render the edit form again with the errors
       render :edit
     end
   end

@@ -1,0 +1,20 @@
+<%# app/views/deliveries/_pending_section.html.erb %>
+<%= turbo_frame_tag 'pending_section' do %>
+  <section class="relative min-h-[20svh] overflow-y-auto px-6 pb-4 mb-8 rounded-lg bg-yellow-50 dark:bg-yellow-400/20">
+    <header class="sticky top-0 bg-yellow-50/80 backdrop-blur py-3 mb-4 border-b border-yellow-400/30 dark:border-stone-400 dark:bg-stone-800/80">
+      <h2 class="text-lg md:text-xl flex gap-3 items-center sm:justify-between">
+        Pending Orders
+        <%= badge_tag(@pending_orders.count, extra_classes: 'text-sm/none bg-yellow-600') %>
+      </h2>
+    </header>
+    <%= turbo_frame_tag 'pending_list' do %>
+      <% if @pending_orders.present? %>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+          <%= render partial: 'deliveries/order', collection: @pending_orders %>
+        </ul>
+      <% else %>
+        <p class="my-8 text-center">👍 All pending orders have been scheduled</p>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>

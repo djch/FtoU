@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def badge_tag(content, extra_classes: '')
     base_classes = "h-8 w-8 inline-flex items-center justify-center rounded-full bg-emerald-700 px-1.5 py-0.5 font-semibold tracking-tighter text-white dark:bg-emerald-400 dark:text-stone-800"
-    combined_classes = [base_classes, extra_classes].join(' ')
+    combined_classes = [extra_classes, base_classes].join(' ')
     content_tag :span, content, class: combined_classes
   end
 
