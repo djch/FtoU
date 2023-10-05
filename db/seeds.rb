@@ -66,7 +66,7 @@ Order.delete_all
 Customer.delete_all
 
 # Define the start date as 30 days ago from today
-start_date = Date.today - 30.days
+start_date = Date.today - 50.days
 
 # Helper method to ensure delivery dates don't fall on weekends
 def next_weekday(date)
@@ -103,11 +103,14 @@ towns_and_postcodes = [
   { town: "Geeveston", postcode: "7116" }
 ]
 
+pending_order_count = 0
+delivery_counts = Hash.new(0)
+
 # Start from 30 days ago and go up to today
 (start_date..Date.today).each do |current_day|
 
   # Decide the number of orders for the day
-  orders_for_the_day = rand(5..15)
+  orders_for_the_day = rand(5..12)
 
   orders_for_the_day.times do
     # Use 'current_day' as your current_day
@@ -139,42 +142,44 @@ towns_and_postcodes = [
 
   Order.transaction do
     # Determine the order status
-    order_status = [
-      'confirmed',
-      'confirmed',
-      'confirmed',
-      'confirmed',
-      'confirmed',
-      'confirmed',
-      'delivered',
-      'delivered',
-      'delivered',
-      'delivered',
-      'delivered',
-      'pending',
-    ].sample
+    order_statuses = [
+      'confirmed', 'confirmed', 'confirmed', 'confirmed', 'confirmed',
+      'confirmed', 'confirmed', 'confirmed', 'confirmed', 'confirmed',
+      'delivered', 'delivered', 'delivered', 'delivered', 'delivered',
+      'delivered', 'delivered', 'delivered', 'delivered', 'pending'
+    ]
+    order_status = order_statuses.sample
 
-    # Determine the delivery date based on order status
-    delivery_date = case order_status
-                    when 'confirmed'
-                      # 1 to 2 weeks after the current_day and on a weekday
-                      next_weekday(current_day + rand(7..14).days)
-                    when 'delivered'
-                      days_difference = (current_day - start_date).to_i
-                      if days_difference == 0
-                        next_weekday(current_day)
-                      else
-                        next_weekday(current_day - rand(1..days_difference).days)
-                      end
-                    else
-                      nil
-                    end
+    if order_status == 'pending' && pending_order_count >= 12
+      order_status = ['confirmed', 'delivered'].sample
+    else
+      pending_order_count += 1 if order_status == 'pending'
+    end
 
-    # For "confirmed" orders, set delivery time between 9 am and 5 pm
-    if order_status == 'confirmed'
-      # Convert hours and minutes to seconds and then add them together
-      delivery_seconds = rand(9..17).hours.to_i + rand(0..59).minutes.to_i
-      delivery_date = delivery_date + delivery_seconds.seconds
+    # First, determine the delivery date
+    if order_status == 'confirmed' || order_status == 'delivered'
+        proposed_delivery_date = current_day + rand(7..14).days
+        proposed_delivery_date = next_weekday(proposed_delivery_date)
+
+        while delivery_counts[proposed_delivery_date] >= 12
+            proposed_delivery_date = next_weekday(proposed_delivery_date + 1.day)
+        end
+
+        delivery_date = proposed_delivery_date
+        delivery_counts[delivery_date] += 1
+    else
+        delivery_date = nil
+    end
+
+    # If the delivery date is in the past, the order is 'delivered'
+    if delivery_date && delivery_date <= Date.today
+        order_status = 'delivered'
+    end
+
+    # Set delivery time for all orders with a delivery date
+    if delivery_date
+        delivery_seconds = rand(9..17).hours.to_i + [0, 15, 30, 45].sample.minutes.to_i
+        delivery_date = delivery_date + delivery_seconds.seconds
     end
 
     order = customer.orders.build(
@@ -206,3 +211,6 @@ towns_and_postcodes = [
     end
   end
 end
+
+# Past orders should have been delivered already
+Order.where("delivery_date <= ?", Date.today).update_all(status: 'delivered')
