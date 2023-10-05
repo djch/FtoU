@@ -110,13 +110,17 @@ towns_and_postcodes = [
 
   town_and_postcode = towns_and_postcodes.sample
 
-  order_date = (start_date + rand(30).days)  # Random date within last 30 days
+  order_date = (start_date + rand(30).days)  # Random date within the last 30 days
+
+  # Ensure phone numbers and emails match the expected patterns
+  phone_number = "04#{Faker::Number.number(digits: 8)}"
+  email_address = Faker::Internet.email(name: "#{first_name}_#{last_name}".downcase)
 
   customer = Customer.create!(
     first_name: first_name,
     last_name: last_name,
-    phone: "04#{Faker::Number.number(digits: 8)}",
-    email: Faker::Internet.email(name: "#{first_name}_#{last_name}".downcase),
+    phone: phone_number,
+    email: email_address,
     street_address: "#{Faker::Number.number(digits: 3)} #{Faker::Address.street_name} St",
     town: town_and_postcode[:town],
     state: "TAS",
@@ -128,29 +132,50 @@ towns_and_postcodes = [
   )
 
   Order.transaction do
-    # Generate a single order for each customer
-    delivery_date = order_date + rand(1..7).days
-    delivery_date = next_weekday(delivery_date) if delivery_date.saturday? || delivery_date.sunday?
+  # Determine the order status
+  order_status = ['pending', 'confirmed', 'delivered'].sample
 
-    order = customer.orders.build(
-      status: ['pending', 'confirmed', 'cancelled', 'delivered'].sample,
-      delivery_date: delivery_date,
-      first_name: first_name,
-      last_name: last_name,
-      company_name: company_name,
-      phone: customer.phone,
-      created_at: order_date,
-      updated_at: order_date,
-      delivery_fee: [50, 55, 60, 65].sample,
-      paid: [true, false].sample
-    )
+  # Determine the delivery date based on order status
+  delivery_date = case order_status
+                    when 'confirmed'
+                      # 1 to 2 weeks after the order was placed and on a weekday
+                      next_weekday(order_date + rand(7..14).days)
+                    when 'delivered'
+                      # Any day in the past
+                      days_difference = (order_date - start_date).to_i
+                      order_date - rand(1..days_difference).days
+                    else
+                      nil
+                    end
+
+
+  # For "confirmed" orders, set delivery time between 9 am and 5 pm
+  if order_status == 'confirmed'
+    # Convert hours and minutes to seconds and then add them together
+    delivery_seconds = rand(9..17).hours.to_i + rand(0..59).minutes.to_i
+    delivery_date = delivery_date + delivery_seconds.seconds
+  end
+
+  order = customer.orders.build(
+    status: order_status,
+    delivery_date: delivery_date,
+    first_name: first_name,
+    last_name: last_name,
+    company_name: company_name,
+    phone: customer.phone,
+    created_at: order_date,
+    updated_at: order_date,
+    delivery_fee: order_status == 'pending' ? nil : [50, 60, 70, 80].sample,
+    paid: order_status == 'confirmed' ? [true, false].sample : false
+  )
+
 
     # For each order, add between 1 to 3 unique order items
     products_for_this_order = Product.all.sample(rand(1..Product.count))
     products_for_this_order.each do |product|
       order.order_items.build(
         product: product,
-        quantity: (1..5).to_a.sample,
+        quantity: (1..6).to_a.sample,
         created_at: order_date,
         updated_at: order_date
       )
