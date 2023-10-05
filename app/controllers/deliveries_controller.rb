@@ -1,27 +1,33 @@
 class DeliveriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_order, only: [:edit, :update]
+  before_action :set_selected_date,
+                :set_displayed_date,
+                :fetch_orders_for_selected_date,
+                :fetch_deliveries_count,
+                :fetch_pending_orders,
+                only: [:index, :update]
 
+  # GET /deliveries
   def index
-    set_selected_date
-    set_displayed_date
-    fetch_orders_for_selected_date
-    fetch_deliveries_count
-    fetch_pending_orders
   end
 
+  # GET /deliveries/1/edit
   def edit
   end
 
+  # PATCH/PUT /orders/1
   def update
-    @order = Order.find(params[:id])
-
     if @order.update(order_params)
-      redirect_to deliveries_path(date: @order.delivery_date)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to deliveries_path(date: @order.delivery_date) }
+      end
     else
       render :edit
     end
   end
+
 
   private
 
