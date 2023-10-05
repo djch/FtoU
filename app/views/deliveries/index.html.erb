@@ -1,15 +1,18 @@
 <%# app/views/deliveries/index.html.erb %>
 
 <!-- <h1 class="mb-6 text-2xl leading-6 text-stone-900">Delivery Schedule</h1> -->
-<%= render partial: 'pending_list', locals: { current_date: @current_date } %>
 
-<%= turbo_frame_tag 'schedule' do %>
-  <div class="lg:grid lg:grid-cols-12 lg:gap-x-16">
-    <!-- Calendar Navigation -->
-    <%= render partial: 'calendar', locals: { displayed_date: @displayed_date,
-                                              selected_date: @selected_date,
-                                              deliveries_count_by_date: @deliveries_count_by_date } %>
-    <!-- Confirmed Orders List (for selected date) -->
-    <%= render partial: 'confirmed_list', locals: { orders: @orders, selected_date: @selected_date } %>
-  </div>
+<%= turbo_frame_tag 'deliveries_content' do %>
+  <%= render partial: 'pending_list', locals: { current_date: @current_date } %>
+
+  <%= turbo_frame_tag 'schedule' do %>
+    <div class="lg:grid lg:grid-cols-12 lg:gap-x-16">
+      <!-- Calendar Navigation -->
+      <%= render partial: 'calendar', locals: { displayed_date: @displayed_date,
+                                                selected_date: @selected_date,
+                                                deliveries_count_by_date: @deliveries_count_by_date } %>
+      <!-- Confirmed Orders List (for selected date) -->
+      <%= render partial: 'confirmed_list', locals: { orders: @orders, selected_date: @selected_date } %>
+    </div>
+  <% end %>
 <% end %>

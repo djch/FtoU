@@ -1,6 +1,6 @@
 <%# app/views/deliveries/_pending_list.html.erb %>
 <%= turbo_frame_tag 'pending_section' do %>
-  <section class="relative min-h-[40svh] overflow-y-scroll p-4 mb-8 rounded-lg bg-amber-50 dark:bg-amber-400/20">
+  <section class="relative min-h-[20svh] overflow-y-scroll p-4 mb-8 rounded-lg bg-amber-50 dark:bg-amber-400/20">
     <h2 class="text-lg md:text-xl mb-4 text-center">
       Pending Orders
       <% if @pending_orders.present? %>
@@ -13,7 +13,7 @@
           <%= render partial: 'deliveries/order', collection: @pending_orders %>
         </ul>
       <% else %>
-        <p class="my-8">👍 All pending orders have been scheduled</p>
+        <p class="my-8 text-center">👍 All pending orders have been scheduled</p>
       <% end %>
     <% end %>
   </section>

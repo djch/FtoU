@@ -78,7 +78,7 @@
     </dl>
     <div class="mt-4 mb-2 flex items-center justify-center gap-6">
       <%= form.submit "Confirm order", class: "btn btn--primary" %>
-      <%= link_to 'Never mind', deliveries_path, data: { turbo_frame: 'pending_section' } %>
+      <%= link_to 'Never mind', deliveries_path, data: { turbo_frame: 'deliveries_content' } %>
     </div>
   <% end %>
 <% end %>
