@@ -30,7 +30,7 @@
       <%= link_to deliveries_path(date: current_date), data: { turbo_action: "replace", turbo_frame: "schedule" }, class: "bg-white pt-3.5 pb-1 text-center leading-none tracking-tighter no-underline hover:bg-stone-100 focus:z-10 dark:bg-stone-950 dark:hover:bg-stone-900 #{'text-orange-700 font-semibold' if current_date == @selected_date}", role: "button" do %>
         <time datetime="<%= current_date %>" class="h-7 w-7">
           <span class="w-full"><%= day %></span>
-          <figure class="mb-1 px-1 flex flex-wrap items-center justify-center gap-[2.5px] text-[8px] leading-none text-blue-500 font-normal">
+          <figure class="mb-1 px-1 flex flex-wrap items-center justify-center gap-[2px] text-[9px] leading-none text-orange-700 font-normal">
             <%= display_dots_for_date(current_date, @deliveries_count_by_date) %>
           </figure>
         </time>
