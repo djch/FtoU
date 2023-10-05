@@ -12,8 +12,6 @@ class OrdersController < ApplicationController
                    .by_paid(params[:paid])
                    .by_date(params[:date])
 
-    @orders = @orders.where(delivery_date: params[:date]) if params[:date].present?
-
     set_page_and_extract_portion_from @orders
 
     respond_to do |format|
