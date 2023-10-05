@@ -6,7 +6,7 @@ module DeliveriesHelper
     number_of_dots = [count, 14].min
 
     dots = (1..number_of_dots).map do
-      content_tag(:span, "•", class: "h-[0.25rem]") * 3
+      content_tag(:span, "•", class: "h-[0.25rem]")
     end
 
     dots.join.html_safe
