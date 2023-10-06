@@ -22,4 +22,5 @@ module Deliveries
         params.require(:order).permit(:status, :paid)
       end
   end
+
 end
