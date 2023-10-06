@@ -97,4 +97,7 @@ Rails.application.configure do
   # Postmark
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { :api_token => Rails.application.credentials.dig(:postmark, :api_key) }
+
+  # TEMPORARY DEBUG
+  config.consider_all_requests_local = true
 end
