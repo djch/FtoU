@@ -83,8 +83,10 @@ gem "local_time", "~> 2.1"
 gem "name_of_person", "~> 1.1"
 gem "geared_pagination", "~> 1.1"
 
+# Search
 gem "pg_search", "~> 2.3"
 
-gem "simple_calendar", "~> 3.0"
-
+# Mailchimp API
 gem "gibbon", "~> 3.5"
+
+gem "postmark", "~> 1.24"

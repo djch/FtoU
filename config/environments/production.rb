@@ -93,4 +93,8 @@ Rails.application.configure do
 
   # Primary 'Firewoodtou' MailChimp audience under their account (pre-dates this project)
   config.mailchimp_list_id = '306c0adc8b'
+
+  # Postmark
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { :api_token => Rails.application.credentials.dig(:postmark, :api_key) }
 end
