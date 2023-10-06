@@ -16,5 +16,5 @@ test:
 
 production:
    <<: *default
-   url: <%= ENV[‘DATABASE_URL’] %>
-   database: ftou_prod
+   url: <%= ENV['DATABASE_URL'] %>
+   # database: ftou_prod
