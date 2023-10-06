@@ -63,6 +63,6 @@ class DeliveriesController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:delivery_date, :delivery_fee, :notes, :paid)
+      params.require(:order).permit(:delivery_date, :delivery_fee, :notes, :paid, :status)
     end
 end
