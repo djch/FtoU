@@ -100,4 +100,5 @@ Rails.application.configure do
 
   # TEMPORARY DEBUG
   config.consider_all_requests_local = true
+  config.log_level = :debug
 end
