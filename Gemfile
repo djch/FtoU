@@ -89,4 +89,4 @@ gem "pg_search", "~> 2.3"
 # Mailchimp API
 gem "gibbon", "~> 3.5"
 
-gem "postmark", "~> 1.24"
+gem "postmark-rails", "~> 0.22.1"
