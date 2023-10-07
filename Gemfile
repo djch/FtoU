@@ -90,3 +90,7 @@ gem "pg_search", "~> 2.3"
 gem "gibbon", "~> 3.5"
 
 gem "postmark-rails", "~> 0.22.1"
+
+gem "wicked_pdf", "~> 2.7"
+
+gem "wkhtmltopdf-binary", "~> 0.12.6"

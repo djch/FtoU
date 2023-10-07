@@ -1,5 +1,7 @@
 <header class="mb-8 text-center print:hidden">
-  <h1 class="font-bold text-2xl/tight">Delivery Note for Order #<%= @order.id %></h1>
+  <h1 class="font-bold text-2xl/tight">
+    Delivery Note for <%= link_to "Order ##{@order.id}", order_path(@order), class: "underline font-bold" %>
+  </h1>
   <div class="mt-4 flex items-center justify-center gap-4">
     <%= button_tag 'Print', data: { controller: 'print', action: 'click->print#launch' }, class: 'btn' %>
     <%= link_to 'Order Details', order_path(@order), class: "btn" %>
@@ -7,5 +9,11 @@
 </header>
 
 <div class="mx-auto max-w-screen-md">
-  <%= render partial: 'sheet', locals: { order: @order } %>
+  <% if request.format.pdf? %>
+    <!-- Customer receipt -->
+    <%= render partial: 'receipt', locals: { order: @order, order_items: @order.order_items } %>
+  <% else %>
+    <!-- Delivery Note for driver -->
+    <%= render partial: 'sheet', locals: { order: @order } %>
+  <% end %>
 </div>

@@ -23,6 +23,19 @@ module Deliveries
     # GET /delivery/sheets/1
     def show
       @order = Order.find(params[:id])
+
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render pdf: "order_receipt",
+                 page_size: 'A4',
+                 orientation: 'Portrait',
+                 template: "deliveries/sheets/show",
+                 formats: [:html],
+                 layout: 'layouts/pdf', # specify the layout
+                 print_media_type: true
+        end
+      end
     end
   end
 
