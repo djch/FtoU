@@ -91,6 +91,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Default site URL (for mailers etc.)
+  config.default_url_options[:host] = ENV["RAILS_DEFAULT_HOST"]
+
   # Primary 'Firewoodtou' MailChimp audience under their account (pre-dates this project)
   config.mailchimp_list_id = '306c0adc8b'
 
