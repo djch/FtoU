@@ -1,5 +1,5 @@
 <%# app/views/deliveries/_receipt.html.erb %>
-<article class="relative pt-12 text-xl" id="order-summary">
+<article class="min-h-[337mm] relative pt-12 text-xl" id="order-summary">
   <% @order_items ||= @order.order_items %>
   <header class="pb-12 border-b-2 border-stone-700">
     <%= image_tag wicked_pdf_asset_base64('logo.png'), class: "absolute top-4 right-0" %>
@@ -49,4 +49,8 @@
   <div class="mt-16 mb-6 border-t border-stone-600">
     <%= render 'orders/items_table', order: @order, order_items: @order_items %>
   </div>
+
+  <p class="font-mono text-base leading-tight absolute bottom-0 left-0">
+    PDF generated <%= Time.current.strftime("%B %d, %Y at %I:%M %p %Z") %>
+  </p>
 </article>

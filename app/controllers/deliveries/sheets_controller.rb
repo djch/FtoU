@@ -32,7 +32,7 @@ module Deliveries
                  orientation: 'Portrait',
                  template: "deliveries/sheets/show",
                  formats: [:html],
-                 layout: 'layouts/pdf', # specify the layout
+                 layout: 'layouts/pdf',
                  print_media_type: true
         end
       end
