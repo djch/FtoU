@@ -8,7 +8,7 @@
   <thead class="border-b border-stone-300 dark:border-stone-500">
     <tr>
       <th scope="col" class="px-0 py-3 font-bold">
-        <% if request.format.pdf? %>
+        <% if @pdf %>
           Items
         <% else %>
           <span class="print:hidden">Items</span>

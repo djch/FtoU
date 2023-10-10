@@ -1,6 +1,7 @@
 module Deliveries
 
   class SheetsController < ApplicationController
+    include PdfGeneration
     before_action :authenticate_user!
 
     # GET /delivery/sheets
@@ -27,13 +28,7 @@ module Deliveries
       respond_to do |format|
         format.html
         format.pdf do
-          render pdf: "order_receipt",
-                 page_size: 'A4',
-                 orientation: 'Portrait',
-                 template: "deliveries/sheets/show",
-                 formats: [:html],
-                 layout: 'layouts/pdf',
-                 print_media_type: true
+          render wicked_pdf_params.merge(assigns: { order: @order, is_pdf: true })
         end
       end
     end
