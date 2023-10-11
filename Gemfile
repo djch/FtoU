@@ -86,11 +86,14 @@ gem "faker"
 # Search
 gem "pg_search", "~> 2.3"
 
-# Mailchimp API
+# Email & Mailchimp API
 gem "gibbon", "~> 3.5"
-
 gem "postmark-rails", "~> 0.22.1"
 
+# PDFs tools
 gem "wicked_pdf", "~> 2.7"
-
 gem "wkhtmltopdf-binary", "~> 0.12.6"
+
+# Error tracking
+gem "sentry-ruby", "~> 5.12"
+gem "sentry-rails", "~> 5.12"
