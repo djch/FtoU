@@ -75,7 +75,8 @@
         <%= form.button "Place this order", type: "submit", class: "btn btn--primary",
             data: {
               controller: "scroll-to-top",
-              action: "click->scroll-to-top#jump"
+              action: "click->scroll-to-top#jump",
+              turbo_submits_with: "Placing order..."
             }
         %>
       <% end %>

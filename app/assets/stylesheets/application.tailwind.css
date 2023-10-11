@@ -45,6 +45,10 @@
   .button_to {
     @apply inline-block font-medium underline;
   }
+
+  .btn:disabled {
+    @apply opacity-60 cursor-wait;
+  }
 }
 
 @import 'actiontext.css';
