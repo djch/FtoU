@@ -5,7 +5,7 @@
       <header class="sticky top-0 inset-x-0 z-50 bg-white/80 backdrop-blur py-6 border-b dark:border-stone-400 dark:bg-stone-800">
         <h2 class="text-lg md:text-xl flex gap-2 items-center sm:justify-between">
           <%= local_date(@selected_date, format: '%A, %B %-d %Y') %>
-          <%= badge_tag(@orders.count, extra_classes: 'text-sm/none bg-blue-700') %>
+          <%= badge_tag(@orders.count, extra_classes: 'text-sm/none bg-orange-700') %>
         </h2>
       </header>
       <% if @orders.present? %>

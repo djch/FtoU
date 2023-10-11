@@ -13,7 +13,7 @@
 
   <body class="text-stone-950 bg-white dark:text-stone-50 dark:bg-stone-900">
     <div class="container mx-auto max-w-screen-xl min-h-screen p-4 print:p-0">
-      <header class="mb-4 pb-4 border-b border-stone-400/30 print:hidden">
+      <header class="relative mb-4 pb-4 border-b border-stone-400/30 print:hidden">
         <h2 class="text-2xl">FtoU Online</h2>
         <% if user_signed_in? %>
           <nav class="mt-3 flex flex-wrap gap-5 justify-between">
@@ -24,12 +24,16 @@
               <%= link_to "Customers", customers_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
               <%= link_to "Staff", users_path, class: "lg:text-lg/none font-bold text-orange-700 underline" %>
             </div>
-            <div class="leading-none text-stone-500">
+            <div class="leading-none text-stone-500 dark:text-stone-300">
               Signed in as: <%= current_user.name %>
               |
               <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "underline" %>
             </div>
           </nav>
+        <% else %>
+          <div class="absolute py-2 top-0 right-0 text-stone-500 dark:text-stone-300">
+            <%= link_to 'Staff login', new_user_session_path, class: 'font-semibold hover:text-orange-700' %>
+          </div>
         <% end %>
       </header>
       <section id="messages" class="print:hidden">
@@ -45,7 +49,6 @@
           <%= content_tag :div, raw("#{emoji} #{message}"), class: "#{color_class} text-center", role: "alert" %>
         <% end %>
       </section>
-
       <main class="my-6 sm:px-4 print:my-0">
         <%= yield %>
       </main>
