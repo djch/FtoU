@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  require 'csv'
   before_action :authenticate_user!
   before_action :find_customer, only: [:show, :edit, :update, :destroy]
 
@@ -11,6 +12,11 @@ class CustomersController < ApplicationController
     end
 
     set_page_and_extract_portion_from @customers
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data generate_csv(@customers), filename: "ftou-customers-#{Date.today}.csv" }
+    end
   end
 
   # GET /customers/new
@@ -72,5 +78,41 @@ class CustomersController < ApplicationController
       params.require(:customer).permit(
         :name, :company_name, :phone, :email, :street_address, :town, :state, :postcode, :country, :delivery_notes
       )
+    end
+
+    def generate_csv(customers)
+      CSV.generate(headers: true) do |csv|
+        csv << [
+          "First name",
+          "Last name",
+          "Company",
+          "Phone",
+          "Email",
+          "Street Address",
+          "Town",
+          "State",
+          "Country",
+          "Notes",
+          "Order count",
+          "Last ordered on",
+        ]
+
+        customers.each do |customer|
+          csv << [
+            customer.first_name,
+            customer.last_name,
+            customer.company_name,
+            customer.phone,
+            customer.email,
+            customer.street_address,
+            customer.town,
+            customer.postcode,
+            customer.state,
+            customer.delivery_notes,
+            customer.orders.size,
+            customer.orders.last.created_at,
+          ]
+        end
+      end
     end
 end
