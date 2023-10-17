@@ -1,4 +1,5 @@
-module Addressable
+# app/models/concerns/delivery_addressable.rb
+module DeliveryAddressable
   extend ActiveSupport::Concern
 
   included do

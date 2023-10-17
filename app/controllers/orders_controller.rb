@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: %i[ new create ]
   before_action :set_order, only: %i[ show edit update destroy ]
-  before_action :set_offered_products, only: %i[ show new edit destroy ]
+  before_action :set_offered_products, only: %i[ show new edit create destroy ]
 
   # GET /orders
   def index

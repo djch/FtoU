@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-  include Addressable
+  include DeliveryAddressable
   include MailchimpSyncable
   include PgSearch::Model
 

@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  include Addressable
+  include DeliveryAddressable
 
   belongs_to :customer
   has_many :order_items, -> { order(created_at: :asc) }, dependent: :destroy, inverse_of: :order
