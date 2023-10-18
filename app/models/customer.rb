@@ -6,7 +6,7 @@ class Customer < ApplicationRecord
   pg_search_scope :search_by_name, against: [:first_name, :last_name], using: { tsearch: { prefix: true } }
   has_person_name
 
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   PHONE_REGEX = /\A(\+?\d{1,4}?[-.\s]?)?(\()?(\d{1,3}?)(?(2)\))[-.\s]?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,4}?)\z/
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
