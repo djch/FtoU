@@ -3,7 +3,6 @@
   <% @order_items ||= @order.order_items %>
   <%= turbo_frame_tag "summary_inner_#{@order.id}" do %>
     <!-- !Delivery Info -->
-    <%= image_tag 'logo.png', class: "absolute top-8 right-8 print:top-0 print:right-0", size: "160.5x78" %>
     <h1 class="font-bold text-2xl/tight print:pt-4">
       Order<% if user_signed_in? %> #<%= @order.id %><% else %> Summary<% end %>
     </h1>

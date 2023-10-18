@@ -1,5 +1,6 @@
 <article class="relative py-12 px-16 shadow-sm ring-1 ring-stone-500/30 dark:bg-stone-800 print:p-0 print:ring-0 print:shadow-none print:min-h-[247mm]">
   <% if order.status == 'confirmed' %>
+    <%= image_tag 'logo.png', class: "absolute top-8 right-8 print:top-0 print:right-0", size: "160.5x78" %>
     <%= turbo_frame_tag "summary_inner_#{order.id}", src: order_path(order.id) do %>
       Loading...
     <% end %>
