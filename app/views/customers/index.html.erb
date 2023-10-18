@@ -6,7 +6,7 @@
 <div class="my-6 flex flex-wrap gap-6 items-center justify-between">
   <%= link_to "Add a new customer", new_customer_path, class: "btn" %>
   <div class="flex items-center gap-6">
-    <%= link_to "Export to CSV", customers_path(format: :csv), class: "text-orange-700" %>
+    <%= link_to "Export to CSV", customers_path(format: :csv), class: "tracking-tight text-stone-700 dark:text-stone-400" %>
     <%= form_with url: customers_path, method: :get do |form| %>
       <div class="relative">
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">

@@ -16,8 +16,9 @@
     <%= form.text_field :email, class: "form-input w-full" %>
   </div>
   <div class="col-span-full">
-    <%= form.label :delivery_notes %>
+    <%= form.label :delivery_notes, 'Notes' %>
     <%= form.text_area :delivery_notes, rows: 4, class: "form-input w-full" %>
+    <%= content_tag :span, '⚠️ The customer may see these notes', class: "text-sm text-stone-600 dark:text-stone-300" %>
   </div>
   <div class="col-span-full p-4 bg-stone-100 dark:bg-stone-950">
     <% if @customer.street_address.present? %>
