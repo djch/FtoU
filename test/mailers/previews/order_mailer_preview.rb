@@ -5,4 +5,9 @@ class OrderMailerPreview < ActionMailer::Preview
     order = Order.last
     OrderMailer.confirmation_for_customer(order)
   end
+
+  def notification_for_staff
+    order = Order.last
+    OrderMailer.notification_for_staff(order)
+  end
 end

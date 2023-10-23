@@ -1,0 +1,11 @@
+<p>Hi,</p>
+<p>
+  This is an automated notification from FtoU Online.
+</p>
+<p>
+  <strong><%= @order.customer.name %> has placed an order for <%= @order.item_summary %> (<%= link_to "Order ##{@order.id}", order_url(@order) %>)</strong><br>
+</p>
+<ul>
+  <li>You can review the full details in the attached receipt PDF (that has also been sent to the customer).</li>
+  <li>The order can be confirmed and scheduled for delivery through the <%= link_to 'Deliveries section', deliveries_url %> of FtoU Online.</li>
+</ul>

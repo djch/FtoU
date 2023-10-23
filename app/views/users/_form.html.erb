@@ -1,3 +1,4 @@
+<%# app/views/users/_form.html.erb %>
 <%= form_with(model: user) do |form| %>
 
   <div class="my-4">
@@ -19,13 +20,20 @@
       <%= form.password_field :password_confirmation, class: "form-input w-full", required: true %>
     </div>
   <% end %>
+  <div class="my-2 inline-flex items-start gap-x-2">
+    <%= form.check_box :receive_order_notifications, class: "form-checkbox h-5 w-5 text-orange-600" %>
+    <div class="leading-tight">
+      <%= form.label :receive_order_notifications, "Receive order notification emails?", class: "mb-1 font-semibold" %>
+      <span>Sends an email whenever a customer places an order</span>
+    </div>
+  </div>
   <div class="my-6">
     <% if user.new_record? %>
       <%= form.submit 'Create this user', class: "btn btn--primary block w-full" %>
     <% else %>
       <%= form.submit 'Save changes', class: "btn btn--primary block w-full" %>
       <p class="my-3 text-center text-sm">
-        Note: If <%= user.name.first %>'s password needs changing, they should reset it via the login page or contact Getbusi
+        Note: If <%= user.name.first %>'s password needs changing, they should reset it via the <%= link_to 'the reset form', new_user_password_path %> or contact Getbusi
       </p>
     <% end %>
   </div>

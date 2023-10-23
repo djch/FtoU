@@ -96,6 +96,7 @@ class OrdersController < ApplicationController
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to root_url, notice: 'Order was successfully created.' }
+        OrderMailer.notification_for_staff(@order).deliver_now
         OrderMailer.confirmation_for_customer(@order).deliver_now
       end
 
