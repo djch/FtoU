@@ -97,3 +97,5 @@ gem "wkhtmltopdf-binary", "~> 0.12.6"
 # Error tracking
 gem "sentry-ruby", "~> 5.12"
 gem "sentry-rails", "~> 5.12"
+
+gem "spina", "~> 2.17"

@@ -29,5 +29,8 @@ Rails.application.routes.draw do
   get 'deliveries/sheets/:id', to: 'deliveries/sheets#show', as: :delivery_sheet
 
   # The root path route ("/")
-  root "orders#new"
+  # root "orders#new"
+
+  # The public website
+  mount Spina::Engine => '/'
 end
