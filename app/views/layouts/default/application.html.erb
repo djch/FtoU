@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= current_spina_account.name %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= current_page.seo_title %></title>
+    <meta name="description" content="<%= current_page.description %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
@@ -10,9 +11,11 @@
     <%= javascript_importmap_tags %>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google_maps_api_key) %>&libraries=places&callback=initMap"></script>
   </head>
-  <body class="font-promo">
+  <body class="font-promo cont">
     <%= render 'default/shared/navigation' %>
 
-    <%= yield %>
+    <div class="container mx-auto">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -49,6 +49,14 @@
   .btn:disabled {
     @apply opacity-60 cursor-wait;
   }
+
+  #navToggle:checked ~ #navLinks {
+      transform: translateY(0);
+  }
+
+  #navToggle:checked ~ #navLinks div {
+      box-shadow: 0 15px 70px 5px rgba(38, 27, 35, 0.15);
+  }
 }
 
 @import 'actiontext.css';
