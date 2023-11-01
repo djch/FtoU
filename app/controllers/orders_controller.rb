@@ -51,6 +51,11 @@ class OrdersController < ApplicationController
         nil
       end
     end.compact
+
+    current_page = OpenStruct.new(
+      seo_title: "Order Form", description: "Place a delivery order from Firewood To U"
+    )
+    render layout: "layouts/default/application"
   end
 
   # GET /orders/1/edit

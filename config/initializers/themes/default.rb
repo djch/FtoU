@@ -21,8 +21,22 @@ Spina::Theme.register do |theme|
   # - Option
   # - Repeater
   theme.parts = [
-    {name: "text", title: "Body", hint: "Your main text content", part_type: "Spina::Parts::Text"},
-    {name: "hero", title: "Hero", hint: "The big photo at the top",  part_type: "Spina::Parts::Image"}
+    # Homepage
+    {name: "hero", title: "Hero", hint: "The big photo at the top",  part_type: "Spina::Parts::Image"},
+    {name: "headline", title: "Headline", hint: "Big title text over hero image",  part_type: "Spina::Parts::Line"},
+    {name: "subhead", title: "Subheadline", hint: "Optional smaller text under the title",  part_type: "Spina::Parts::MultiLine"},
+    # Pages
+    {name: "text", title: "Body", hint: "Main text content", part_type: "Spina::Parts::Text"},
+    # Strips
+    # A repeating element for the homepage
+    { name: "heading", title: "Heading", part_type: "Spina::Parts::Line" },
+    { name: "image", title: "Image", part_type: "Spina::Parts::Image" },
+    {
+      name: "strips",
+      title: "Strips",
+      parts: %w(heading text image),
+      part_type: "Spina::Parts::Repeater",
+    },
   ]
 
   # View templates
@@ -30,7 +44,7 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    {name: "homepage", title: "Homepage", parts: %w[hero text]},
+    {name: "homepage", title: "Homepage", parts: %w[hero headline subhead strips]},
     {name: "show", title: "Page", parts: %w[text]}
   ]
 

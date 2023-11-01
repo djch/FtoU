@@ -1,3 +1,32 @@
-<%= content.image_tag(:hero, {resize_to_fill: [4480, 2520]}, {class: 'absolute inset-x-0 w-full h-[75svh] object-cover object-top z-10'}) %>
+<div class="relative h-[75svh] isolate overflow-hidden pt-32">
+  <%= content.image_tag(:hero, {resize_to_fill: [4480, 2520]}, {class: 'absolute inset-0 -z-10 h-full w-full object-cover object-left-top'}) %>
+  <div class="absolute bottom-0 inset-x-0 md:relative md:bottom-auto md:inset-x-auto max-w-screen-md text-center md:text-left pt-36 md:pt-40 md:pl-20">
+    <h1 class="my-0 p-4 md:p-8 bg-stone-900/70 font-extrabold leading-tight text-2xl sm:text-3xl md:text-5xl text-white">
+      <%= content(:headline) %>
+    </h1>
+    <div class="p-4 sm:py-6 sm:px-8 bg-white/80 backdrop-blur">
+      <h2 class="my-0 text-lg leading-tight font-medium sm:text-xl md:text-2xl">
+        <%= content(:subhead) %>
+      </h2>
+      <div class="mt-5 flex items-center gap-x-4 justify-center sm:justify-start">
+        <a href="/orders/new" class="no-underline py-2.5 px-5 rounded sm:text-lg font-bold uppercase bg-amber-700 text-white">Order online</a>
+        <a href="tel:0467849053" class="no-underline py-2.5 px-4 rounded sm:text-lg font-bold uppercase bg-stone-100">Call us</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= content.html :text %>
+<%# content.html :text %>
+
+<% repeater(:strips) do |strip| %>
+  <div class="p-8 md:p-12 odd:bg-stone-100">
+    <div class="max-w-screen-xl mx-auto ">
+      <h2 class="mb-6 text-2xl lg:text-3xl tracking-normal text-amber-700">
+        <%= strip.content(:heading) %>
+      </h2>
+      <div class="prose prose-stone md:prose-lg max-w-full">
+        <%= strip.content.html :text %>
+      </div>
+    </div>
+  </div>
+<% end %>

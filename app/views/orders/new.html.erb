@@ -1,7 +1,12 @@
 <%# app/views/orders/new.html.erb %>
-<div id="new-order-form">
-  <header class="my-6 lg:text-lg">
-    <h1 class="mb-3 text-3xl">Order Form</h1>
+
+<%# Attributes for Spina CMS page layout %>
+<% content_for :seo_title, "Order Form" %>
+<% content_for :description, "Place a delivery order from Firewood To U" %>
+
+<div class="container pt-40 pb-8 px-4 md:px-8 max-w-screen-xl mx-auto" id="new-order-form">
+  <header class="mb-6 lg:text-lg">
+    <h1 class="mb-2 text-3xl">Order Form</h1>
     <p>Split firewood is per bucket-load (approx. half a tonne). There is a 2-bucket minimum per order.</p>
   </header>
 
@@ -9,8 +14,8 @@
 
     <!-- !Order Items -->
     <fieldset>
-      <h2 class="text-xl mb-4">
-       <%= badge_tag('1', extra_classes: 'sm:mr-2') %> Add products to your order
+      <h2 class="text-xl tracking-normal mb-4">
+       <%= badge_tag('1', extra_classes: 'mr-1 sm:mr-2') %> Add products to your order
       </h2>
 
      <%= turbo_frame_tag 'add-order-item' do %>
@@ -29,8 +34,8 @@
     <fieldset>
       <!-- !Customer Details -->
       <%= form_with model: @order do |form| %>
-        <h2 class="text-xl mb-4">
-          <%= badge_tag('2', extra_classes: 'sm:mr-2') %> Delivery address
+        <h2 class="text-xl tracking-normal mb-4">
+          <%= badge_tag('2', extra_classes: 'mr-1 sm:mr-2') %> Delivery address
         </h2>
         <div class="my-4 p-6 bg-stone-100 dark:bg-stone-950 w-full">
            <p class="mb-3">Please provide a delivery address</p>
@@ -45,8 +50,8 @@
            </div>
          </div>
 
-        <h2 class="mt-8 text-xl mb-4">
-          <%= badge_tag('3', extra_classes: 'sm:mr-2') %> Contact info
+        <h2 class="mt-8 text-xl tracking-normal mb-4">
+          <%= badge_tag('3', extra_classes: 'mr-1 sm:mr-2') %> Contact info
         </h2>
         <%= form.fields_for :customer do |customer_form| %>
           <div class="mb-6 grid gap-6 grid-cols-1 lg:grid-cols-2">
@@ -72,7 +77,7 @@
             </div>
           </div>
         <% end %>
-        <%= form.button "Place this order", type: "submit", class: "btn btn--primary",
+        <%= form.button "Place this order", type: "submit", class: "no-underline py-2.5 px-5 rounded font-bold bg-amber-700 text-white",
             data: {
               controller: "scroll-to-top",
               action: "click->scroll-to-top#jump",
