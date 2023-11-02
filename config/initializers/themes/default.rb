@@ -21,22 +21,36 @@ Spina::Theme.register do |theme|
   # - Option
   # - Repeater
   theme.parts = [
+    # Layout parts
+    {name: "about", title: "About blurb", hint: "Short intro of the company", part_type: "Spina::Parts::Text"},
+    {name: "abn", title: "ABN", hint: "The company ABN for displayed in the site footer", part_type: "Spina::Parts::Line"},
+    {name: "hours", title: "Operating hours", hint: "Typical opening hours of the business", part_type: "Spina::Parts::MultiLine"},
+    {name: "facebook", title: "Facebook URL", hint: "Link to the company Facebook page", part_type:  "Spina::Parts::Line"},
     # Homepage
     {name: "hero", title: "Hero", hint: "The big photo at the top",  part_type: "Spina::Parts::Image"},
     {name: "headline", title: "Headline", hint: "Big title text over hero image",  part_type: "Spina::Parts::Line"},
     {name: "subhead", title: "Subheadline", hint: "Optional smaller text under the title",  part_type: "Spina::Parts::MultiLine"},
     # Pages
     {name: "text", title: "Body", hint: "Main text content", part_type: "Spina::Parts::Text"},
-    # Strips
-    # A repeating element for the homepage
+    # Strips — a repeating prose element for the homepage
     { name: "heading", title: "Heading", part_type: "Spina::Parts::Line" },
-    { name: "image", title: "Image", part_type: "Spina::Parts::Image" },
+    { name: "image", title: "Foreground Image", hint: "Displayed next to text", part_type: "Spina::Parts::Image" },
+    {
+      name: "bg_image",
+      title: "Background Image",
+      hint: "Displayed behind text and foreground image",
+      part_type: "Spina::Parts::Image",
+    },
     {
       name: "strips",
       title: "Strips",
-      parts: %w(heading text image),
+      parts: %w(heading text image bg_image),
       part_type: "Spina::Parts::Repeater",
     },
+    # Testimonials — horizontal scrolling strip for the homepage
+    #
+    # Directions – a specific strip for showing the address and map etc.
+    #
   ]
 
   # View templates
@@ -65,7 +79,7 @@ Spina::Theme.register do |theme|
   # Layout parts (optional)
   # You can create global content that doesn't belong to one specific page. We call these layout parts.
   # You only have to reference the name of the parts you want to have here.
-  theme.layout_parts = []
+  theme.layout_parts = %w(about abn hours facebook)
 
   # Resources (optional)
   # Think of resources as a collection of pages. They are managed separately in Spina
@@ -76,5 +90,5 @@ Spina::Theme.register do |theme|
   theme.plugins = []
 
   # Embeds (optional)
-  theme.embeds = []
+  theme.embeds = %w(button)
 end

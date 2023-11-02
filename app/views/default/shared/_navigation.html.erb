@@ -5,21 +5,21 @@
     <!-- Navigation -->
     <nav class="flex items-center gap-x-8">
       <!-- Left links -->
-      <div class="hidden sm:block space-x-8">
+      <nav class="hidden sm:block space-x-8">
         <% nav_items[0..1].each do |item| %>
           <%= link_to item.menu_title, item.materialized_path, class: "no-underline text-white font-bold text-xl drop-shadow-lg hover:underline hover:underline-offset-2" %>
         <% end %>
-      </div>
+      </nav>
       <!-- Logo -->
       <%= link_to '/', class: "relative block" do %>
         <%= image_tag 'logo.png', class: "-mt-5", size: "180" %>
       <% end %>
       <!-- Right links -->
-      <div class="hidden sm:block space-x-8">
+      <nav class="hidden sm:block space-x-8">
         <% nav_items[2..-1].each do |item| %>
           <%= link_to item.menu_title, item.materialized_path, class: "no-underline text-white font-bold text-xl drop-shadow-lg hover:underline hover:underline-offset-2" %>
         <% end %>
-      </div>
+      </nav>
     </nav>
   </div>
 </header>
