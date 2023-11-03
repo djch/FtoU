@@ -1,11 +1,11 @@
 <% nav_items ||= Spina::Navigation.find_by(name: "main").navigation_items.roots.sorted %>
-<footer class="p-8 sm:px-6 md:px-12 lg:px-16 lg:py-12 text-white bg-amber-700">
+<footer class="p-8 sm:px-6 md:px-12 lg:px-16 lg:py-10 text-white bg-amber-700">
   <div class="max-w-screen-xl mx-auto grid grid-cols-4 md:gap-12 lg:gap-16">
     <div class="col-span-4 lg:col-span-2">
-      <h2 class="my-4 tracking-normal font-bold text-xl">About <%= current_account.name %></h2>
-      <%= current_account.content.html(:about) %>
+      <h2 class="my-4 tracking-normal font-bold text-xl">About <%= current_spina_account.name %></h2>
+      <%= current_spina_account.content.html(:about) %>
       <div class="mt-4">
-        © <%= current_account.name %>
+        © <%= current_spina_account.name %>
         <span class="mx-1">|</span>
         Website by <%= link_to "Getbusi", 'https://www.getbusi.com?utm_campaign=designedby&utm_content=ftou' %>
       </div>
@@ -24,20 +24,20 @@
       <h2 class="my-4 tracking-normal font-bold text-xl">Contact Info</h2>
       <div class="space-y-1.5 leading-snug">
         <p>
-          Phone: <%= link_to current_account.phone, "tel:#{current_account.phone}" %>
+          Phone: <%= link_to current_spina_account.phone, "tel:#{current_spina_account.phone}" %>
         </p>
         <p>
-          Email: <%= link_to current_account.email, "mailto:#{current_account.email}" %>
+          Email: <%= link_to current_spina_account.email, "mailto:#{current_spina_account.email}" %>
         </p>
         <p>
-          Address: <%= current_account.address %>, <%= current_account.city %>, Tasmania <%= current_account.postal_code %>
+          Address: <%= current_spina_account.address %>, <%= current_spina_account.city %>, Tasmania <%= current_spina_account.postal_code %>
         </p>
         <p>
-          ABN: <%= current_account.content(:abn) %>
+          ABN: <%= current_spina_account.content(:abn) %>
         </p>
       </div>
       <p class="mt-4">
-        <span class="font-semibold">Hours:</span><br><%= current_account.content(:hours) %>
+        <span class="font-semibold">Hours:</span><br><%= current_spina_account.content(:hours) %>
       </p>
     </div>
   </div>
