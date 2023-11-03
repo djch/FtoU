@@ -3,6 +3,10 @@
 # This file is used for all theme configuration.
 # It's where you define everything that's editable in Spina CMS.
 
+Rails.application.reloader.to_prepare do
+  Spina::Part.register(Spina::Parts::AvailableProducts)
+end
+
 Spina::Theme.register do |theme|
   # All views are namespaced based on the theme's name
   theme.name = "default"
@@ -27,11 +31,12 @@ Spina::Theme.register do |theme|
     {name: "hours", title: "Operating hours", hint: "Typical opening hours of the business", part_type: "Spina::Parts::MultiLine"},
     {name: "facebook", title: "Facebook URL", hint: "Link to the company Facebook page", part_type:  "Spina::Parts::Line"},
     # Homepage
-    {name: "hero", title: "Hero", hint: "The big photo at the top",  part_type: "Spina::Parts::Image"},
+    {name: "hero", title: "Hero Image", hint: "The big photo at the top",  part_type: "Spina::Parts::Image"},
     {name: "headline", title: "Headline", hint: "Big title text over hero image",  part_type: "Spina::Parts::Line"},
     {name: "subhead", title: "Subheadline", hint: "Optional smaller text under the title",  part_type: "Spina::Parts::MultiLine"},
     # Pages
     {name: "text", title: "Body", hint: "Main text content", part_type: "Spina::Parts::Text"},
+    {name: "available_products", title: "Available Products", hint: "", part_type: "Spina::Parts::AvailableProducts"},
     # Strips — a repeating prose element for the homepage
     { name: "heading", title: "Heading", part_type: "Spina::Parts::Line" },
     { name: "image", title: "Foreground Image", hint: "Displayed next to text", part_type: "Spina::Parts::Image" },
@@ -58,22 +63,25 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    {name: "homepage", title: "Homepage", parts: %w[hero headline subhead strips]},
-    {name: "show", title: "Page", parts: %w[text]}
+    { name: "homepage", title: "Homepage", parts: %w[hero headline subhead strips] },
+    { name: "products", title: "Product page", parts: %w[text available_products] },
+    { name: "show", title: "Page", parts: %w[text] }
   ]
 
   # Custom pages
   # Some pages should not be created by the user, but generated automatically.
   # By naming them you can reference them in your code.
   theme.custom_pages = [
-    {name: "homepage", title: "Homepage", deletable: false, view_template: "homepage"}
+    { name: "homepage", title: "Homepage", deletable: false, view_template: "homepage" },
+    { name: "products", title: "Products page", deletable: true, view_template: "products" },
   ]
 
   # Navigations (optional)
   # If your project has multiple navigations, it can be useful to configure multiple
   # navigations.
   theme.navigations = [
-    {name: "main", label: "Main navigation"}
+    { name: "main", label: "Main navigation" },
+    # { name: "footer", label: "Footer links" }
   ]
 
   # Layout parts (optional)

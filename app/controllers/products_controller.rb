@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.all
+    @products = Product.by_price
   end
 
   # GET /products/new
@@ -69,6 +69,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:title, :price, :unit, :description, :available)
+      params.require(:product).permit(:title, :price, :unit, :image, :description, :available)
     end
 end
