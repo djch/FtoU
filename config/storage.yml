@@ -8,7 +8,7 @@ local:
 
 cloudflare:
   service: S3
-  endpoint: https://<%= Rails.application.credentials.dig(:cloudflare, :account_id) %>.r2.cloudflarestorage.com
+  endpoint: https://<%= Rails.application.credentials.dig(:cloudflare, :account_id) %>.r2.cloudflarestorage.com/<%= Rails.application.credentials.dig(:cloudflare, :bucket) %>
   access_key_id: <%= Rails.application.credentials.dig(:cloudflare, :access_key_id) %>
   secret_access_key: <%= Rails.application.credentials.dig(:cloudflare, :secret_access_key) %>
   region: auto
