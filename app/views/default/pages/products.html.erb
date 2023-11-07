@@ -16,7 +16,7 @@
             <%= image_tag main_app.url_for(product.image), alt: product.title, class: "h-full w-full object-cover object-center" if product.image.attached? %>
           </div>
           <div class="relative mt-2 leading-tight">
-            <h3 class="mt-0 mb-1 text-xl/tight tracking-normal"><%= product.title %></h3>
+            <h2 class="mt-0 mb-1 text-xl/tight tracking-normal"><%= product.title %></h2>
             <div class="text-base"><%= product.description %></div>
           </div>
           <div class="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-lg p-4">
