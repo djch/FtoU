@@ -1,8 +1,17 @@
-<div class="container min-h-[80svh] pt-40 pb-16 px-4 md:px-8 max-w-screen-xl mx-auto prose prose-stone lg:prose-lg">
-  <h1 class="text-2xl md:text-3xl lg:text-4xl">
+<div class="container min-h-[80svh] pt-40 pb-16 px-4 md:px-8 max-w-screen-xl mx-auto">
+  <h1 class="mb-8 text-2xl md:text-3xl lg:text-4xl">
     <%= current_page.title %>
   </h1>
-  <%= content.html(:text) %>
+
+  <div class="prose prose-stone lg:prose-lg max-w-full">
+    <%= content.html(:text) %>
+  </div>
+
+  <div class="mt-16 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <% images(:gallery) do |image| %>
+      <%= content.image_tag image, resize_to_fill: [800, 600] %>
+    <% end %>
+  </div>
 </div>
 
 <%= render 'default/shared/footer' %>

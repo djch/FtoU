@@ -37,6 +37,7 @@ Spina::Theme.register do |theme|
     # Pages
     {name: "text", title: "Body", hint: "Main text content", part_type: "Spina::Parts::Text"},
     {name: "available_products", title: "Available Products", hint: "", part_type: "Spina::Parts::AvailableProducts"},
+    {name: "gallery", title: "Gallery", hint: "Optional gallery of company imagery", part_type: "Spina::Parts::ImageCollection"},
     # Strips — a repeating prose element for the homepage
     { name: "heading", title: "Heading", part_type: "Spina::Parts::Line" },
     { name: "image", title: "Foreground Image", hint: "Displayed next to text", part_type: "Spina::Parts::Image" },
@@ -65,7 +66,7 @@ Spina::Theme.register do |theme|
   theme.view_templates = [
     { name: "homepage", title: "Homepage", parts: %w[hero headline subhead strips] },
     { name: "products", title: "Product page", parts: %w[text available_products] },
-    { name: "show", title: "Page", parts: %w[text] }
+    { name: "show", title: "Page", parts: %w[text gallery] }
   ]
 
   # Custom pages
