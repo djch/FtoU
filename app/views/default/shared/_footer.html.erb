@@ -35,10 +35,13 @@
         <p>
           ABN: <%= current_spina_account.content(:abn) %>
         </p>
+        <p>
+          <a class="mt-4 text-white flex items-center gap-1 no-underline rounded" href="<%= current_spina_account.content(:facebook) %>" target="_blank">
+            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+            <span>Get our latest news and offers</span>
+          </a>
+        </p>
       </div>
-      <p class="mt-4">
-        <span class="font-semibold">Hours:</span><br><%= current_spina_account.content(:hours) %>
-      </p>
     </div>
   </div>
 </footer>

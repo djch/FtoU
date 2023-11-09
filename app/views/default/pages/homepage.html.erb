@@ -38,7 +38,7 @@
 <% end %>
 
 <% if content(:testimonials).present? %>
-  <div class="w-full pt-12 pb-10 bg-stone-100">
+  <section class="w-full pt-12 pb-10 bg-stone-100">
     <h2 class="max-w-screen-xl mx-auto px-6 md:px-0 mb-8 text-xl md:text-2xl lg:text-3xl tracking-normal text-amber-700">
       What our customers have to say
     </h2>
@@ -46,7 +46,7 @@
       <% repeater(:testimonials) do |testimonial| %>
         <div class="px-8 py-6 w-80 bg-white shadow-lg rounded flex-shrink-0">
           <blockquote class="mb-2 break-words whitespace-normal">
-            <p>&ldquo;<%= testimonial.content(:quote) %>&rdquo;</p>
+            <p class="md:text-lg">&ldquo;<%= testimonial.content(:quote) %>&rdquo;</p>
             <footer class="pt-2">
               <cite class="italic font-semibold">— <%= testimonial.content(:citation) %></cite>
             </footer>
@@ -55,7 +55,11 @@
       <% end %>
     </div>
     <p class="text-center font-medium uppercase tracking-wide text-sm text-stone-500">scroll ←→</p>
-  </div>
+  </section>
 <% end %>
+
+<section class="relative">
+  <%= render 'default/pages/location' %>
+</section>
 
 <%= render 'default/shared/footer' %>

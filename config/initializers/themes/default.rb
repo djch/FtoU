@@ -29,6 +29,7 @@ Spina::Theme.register do |theme|
     {name: "about", title: "About blurb", hint: "Short intro of the company", part_type: "Spina::Parts::Text"},
     {name: "abn", title: "ABN", hint: "The company ABN for displayed in the site footer", part_type: "Spina::Parts::Line"},
     {name: "hours", title: "Operating hours", hint: "Typical opening hours of the business", part_type: "Spina::Parts::MultiLine"},
+    {name: "directions", title: "Directions", hint: "How to find the yard", part_type: "Spina::Parts::Line"},
     {name: "facebook", title: "Facebook URL", hint: "Link to the company Facebook page", part_type:  "Spina::Parts::Line"},
     # Homepage
     {name: "hero", title: "Hero Image", hint: "The big photo at the top",  part_type: "Spina::Parts::Image"},
@@ -62,8 +63,14 @@ Spina::Theme.register do |theme|
       parts: %w(quote citation),
       part_type: "Spina::Parts::Repeater",
     },
-    # Directions – a specific strip for showing the address and map etc.
-    #
+    # Location info / directions
+    {
+      name: "include_location_block",
+      title: "Include location block?",
+      hint: "Should the Google Map with business location be rendered on this page?",
+      options: ["yes", "no"],
+      part_type: "Spina::Parts::Option"
+    }
   ]
 
   # View templates
@@ -73,7 +80,7 @@ Spina::Theme.register do |theme|
   theme.view_templates = [
     { name: "homepage", title: "Homepage", parts: %w[hero headline subhead strips testimonials] },
     { name: "products", title: "Product page", parts: %w[text available_products] },
-    { name: "show", title: "Page", parts: %w[text gallery] }
+    { name: "show", title: "Page", parts: %w[text gallery include_location_block] }
   ]
 
   # Custom pages
@@ -95,7 +102,7 @@ Spina::Theme.register do |theme|
   # Layout parts (optional)
   # You can create global content that doesn't belong to one specific page. We call these layout parts.
   # You only have to reference the name of the parts you want to have here.
-  theme.layout_parts = %w(about abn hours facebook)
+  theme.layout_parts = %w(about abn directions hours facebook)
 
   # Resources (optional)
   # Think of resources as a collection of pages. They are managed separately in Spina
