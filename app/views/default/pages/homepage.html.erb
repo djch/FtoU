@@ -1,6 +1,6 @@
-<div class="relative h-[75svh] isolate overflow-hidden pt-32">
+<div class="relative h-[680px] xl:h-[800px] 2xl:h-[75svh] isolate overflow-hidden sm:pt-16 lg:pt-32">
   <%= content.image_tag(:hero, {resize_to_fill: [4480, 2520]}, {class: 'absolute inset-0 -z-10 h-full w-full object-cover object-left-top'}) %>
-  <div class="absolute bottom-0 inset-x-0 md:relative md:bottom-auto md:inset-x-auto max-w-screen-md text-center md:text-left pt-36 md:pt-40 md:pl-20">
+  <div class="container absolute bottom-0 inset-x-0 md:relative md:bottom-auto md:inset-x-auto max-w-screen-md text-center md:text-left pt-36 md:pt-40 md:pl-20">
     <h1 class="my-0 p-4 md:p-8 bg-stone-900/70 font-extrabold leading-tight text-2xl sm:text-3xl md:text-5xl text-white">
       <%= content(:headline) %>
     </h1>
