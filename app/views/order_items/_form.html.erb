@@ -5,7 +5,7 @@
 
   <div class="flex flex-wrap gap-3 items-center">
     <%= select_tag :product_id, options_from_collection_for_select(@products, :id, :title), class: "form-input min-w-64 pr-10" %>
-    <%= number_field_tag :quantity, 2, min: 2, class: "form-input w-[3.5rem]" %>
+    <%= number_field_tag :quantity, 2, min: 2, max: 8, class: "form-input w-[3.5rem]" %>
     <%= submit_tag "Add to order", class: "btn p-3" %>
   </div>
 <% end %>
