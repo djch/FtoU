@@ -54,7 +54,14 @@ Spina::Theme.register do |theme|
       part_type: "Spina::Parts::Repeater",
     },
     # Testimonials — horizontal scrolling strip for the homepage
-    #
+    {name: "quote", title: "Quote", hint: "What the customer said", part_type: "Spina::Parts::MultiLine"},
+    {name: "citation", title: "Customer name", hint: "Who said it", part_type: "Spina::Parts::Line"},
+    {
+      name: "testimonials",
+      title: "Testimonials",
+      parts: %w(quote citation),
+      part_type: "Spina::Parts::Repeater",
+    },
     # Directions – a specific strip for showing the address and map etc.
     #
   ]
@@ -64,7 +71,7 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    { name: "homepage", title: "Homepage", parts: %w[hero headline subhead strips] },
+    { name: "homepage", title: "Homepage", parts: %w[hero headline subhead strips testimonials] },
     { name: "products", title: "Product page", parts: %w[text available_products] },
     { name: "show", title: "Page", parts: %w[text gallery] }
   ]

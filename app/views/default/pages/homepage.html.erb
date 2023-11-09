@@ -37,4 +37,24 @@
   </div>
 <% end %>
 
- <%= render 'default/shared/footer' %>
+<% if content(:testimonials).present? %>
+  <div class="w-full pt-12 pb-10 bg-stone-100">
+    <h2 class="max-w-screen-xl mx-auto px-6 md:px-0 mb-8 text-xl md:text-2xl lg:text-3xl tracking-normal text-amber-700">
+      What our customers have to say
+    </h2>
+    <div class="pb-6 px-6 flex overflow-x-auto gap-6 whitespace-nowrap">
+      <% repeater(:testimonials) do |testimonial| %>
+        <div class="px-8 py-6 w-80 bg-white shadow-lg rounded flex-shrink-0">
+          <blockquote class="mb-2 break-words whitespace-normal">
+            <p>&ldquo;<%= testimonial.content(:quote) %>&rdquo;</p>
+            <footer class="pt-2">
+              <cite class="italic font-semibold">— <%= testimonial.content(:citation) %></cite>
+            </footer>
+          </blockquote>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= render 'default/shared/footer' %>
