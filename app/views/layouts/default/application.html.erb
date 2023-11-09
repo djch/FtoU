@@ -4,6 +4,7 @@
     <title><%= content_for?(:seo_title) ? yield(:seo_title) : current_page.seo_title %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : current_page.description %>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#314a94" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
