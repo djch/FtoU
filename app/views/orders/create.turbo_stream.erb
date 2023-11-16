@@ -1,5 +1,5 @@
-<%= turbo_stream.update('messages', "") %>
 
+<%= turbo_stream.update('messages', "") %>
 <%= turbo_stream.replace(
     'new-order-form', partial: 'orders/confirmation', locals: { order: @order, order_items: @order_items }
 ) %>

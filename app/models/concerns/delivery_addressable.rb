@@ -16,7 +16,7 @@ module DeliveryAddressable
       def street_address_contains_number
         unless street_address =~ /\d/
           # Sometimes Google Places lets you choose made up addresses, as long as the street name exists
-          errors.add(:street_address, "we couldn't validate that delivery address")
+          errors.add(:street_address, "does not seem to exist in Google's database. Is it valid?")
         end
       end
   end

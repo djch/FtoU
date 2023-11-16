@@ -25,7 +25,6 @@ class OrdersController < ApplicationController
     session.delete(:order_data)
     @order_items = @order.order_items
     @products = Product.where(available: true)
-    Rails.logger.debug "Order persisted state: #{@order.persisted?}"
   end
 
   # GET /orders/new
@@ -79,22 +78,18 @@ class OrdersController < ApplicationController
 
     customer = Customer.find_by(email: email) || Customer.find_by(phone: phone)
     customer ||= Customer.new(email: email)
-
     customer_data = order_params.slice(:street_address, :town, :state, :postcode, :country).merge(order_params[:customer_attributes])
+    customer.assign_attributes(customer_data)
 
-    if customer.new_record?
-      customer.assign_attributes(customer_data)
-      unless customer.save
-        @order.errors.add(:customer, :invalid, message: "Customer details are invalid.")
-        render :new and return
-      end
+    if customer.valid? || customer.save
+      @order.customer = customer
     else
-      customer.update(customer_data)
+      customer.errors.each do |attribute, message|
+        @order.errors.add("customer_#{attribute}", message)
+      end
     end
 
-    # Step 3: Associate the Order with the Customer
-    @order.customer = customer
-
+    # Step 3: Save Order and handle potential validation errors
     if @order.save
       @order_items = @order.order_items.reload
       session.delete(:order_data)
@@ -104,7 +99,6 @@ class OrdersController < ApplicationController
         OrderMailer.notification_for_staff(@order).deliver_now
         OrderMailer.confirmation_for_customer(@order).deliver_now
       end
-
     else
       respond_to do |format|
         format.turbo_stream do
@@ -113,7 +107,6 @@ class OrdersController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
       end
     end
-
   end
 
   # PATCH/PUT /orders/1
