@@ -11,7 +11,6 @@
   </header>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-20">
-
     <!-- !Order Items -->
     <fieldset>
       <h2 class="text-xl tracking-normal mb-4">
@@ -38,7 +37,7 @@
           <%= badge_tag('2', extra_classes: 'mr-1 sm:mr-2') %> Delivery address
         </h2>
         <div class="my-4 p-6 bg-stone-100 dark:bg-stone-950 w-full">
-           <p class="mb-3">Please provide a delivery address</p>
+           <p class="mb-3">Find your delivery address and then select it from the list</p>
            <div data-controller="places">
              <%= form.label "Address finder" %>
              <input data-places-target="autocomplete" type="text" placeholder="Start typing then select your address..." class="form-input w-full bg-white dark:bg-stone-900" required>

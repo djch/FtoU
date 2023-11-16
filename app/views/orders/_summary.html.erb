@@ -1,5 +1,5 @@
 <%# app/views/orders/_summary.html.erb %>
-<article class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-stone-500/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12 dark:bg-stone-800" id="order-summary">
+<article class="-mx-4 px-6 py-8 shadow-sm ring-1 ring-stone-500/30 sm:mx-0 sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:py-12 dark:bg-stone-800" id="order-summary">
   <% @order_items ||= @order.order_items %>
   <%= turbo_frame_tag "summary_inner_#{@order.id}" do %>
     <!-- !Delivery Info -->
