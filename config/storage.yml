@@ -21,6 +21,8 @@ amazon:
   region: ap-southeast-2
   bucket: ftou-web
   public: true
+  url: ":s3_alias_url"
+  s3_alias_url: "https://d1r6q494ac3wmm.cloudfront.net"
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
