@@ -12,9 +12,11 @@
     <%= javascript_importmap_tags %>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google_maps_api_key) %>&libraries=places&callback=initMap"></script>
   </head>
-  <body class="relative font-promo">
-    <%= render 'default/shared/navigation' %>
+  <body class="font-promo bg-sky-100">
 
-    <%= yield %>
+    <main class="relative container min-h-screen max-w-[1800px] mx-auto bg-white z-10">
+      <%= render 'default/shared/navigation' %>
+      <%= yield %>
+    </main>
   </body>
 </html>

@@ -1,14 +1,14 @@
-<div class="relative h-[600px] xl:h-[800px] 2xl:h-[75svh] isolate overflow-hidden sm:pt-16 lg:pt-32">
+<div class="relative isolate overflow-hidden h-[600px] lg:h-[70svh] sm:pt-12 lg:pt-20">
   <%= content.image_tag(:hero, {resize_to_fill: [4480, 2520]}, {class: 'absolute inset-0 -z-10 h-full w-full object-cover object-left-top'}) %>
-  <div class="container absolute bottom-0 inset-x-0 md:relative md:bottom-auto md:inset-x-auto max-w-screen-md text-center md:text-left pt-36 md:pt-40 md:pl-20">
-    <h1 class="my-0 p-4 md:p-8 bg-stone-900/70 font-extrabold leading-tight text-2xl sm:text-3xl md:text-5xl text-white">
+  <div class="container absolute bottom-0 inset-x-0 mx-auto lg:mx-0 lg:relative lg:bottom-auto lg:inset-x-auto max-w-screen-md text-center lg:text-left pt-36 lg:pt-40 lg:pl-20">
+    <h1 class="my-0 p-4 lg:p-8 bg-stone-900/70 font-extrabold leading-tight text-2xl sm:text-3xl lg:text-5xl text-white">
       <%= content(:headline) %>
     </h1>
     <div class="p-4 sm:py-6 sm:px-8 bg-white/80 backdrop-blur">
-      <h2 class="my-0 text-lg leading-tight font-medium sm:text-xl md:text-2xl">
+      <h2 class="my-0 text-lg leading-tight font-medium sm:text-xl lg:text-2xl">
         <%= content(:subhead) %>
       </h2>
-      <div class="mt-5 flex items-center gap-x-4 justify-center sm:justify-start">
+      <div class="mt-5 flex items-center gap-x-4 justify-center lg:justify-start">
         <a href="/orders/new" class="no-underline py-2.5 px-5 rounded sm:text-lg font-bold uppercase bg-amber-700 text-white">Order online</a>
         <a href="tel:0467849053" class="no-underline py-2.5 px-4 rounded sm:text-lg font-bold uppercase bg-stone-100">Call us</a>
       </div>
@@ -39,9 +39,11 @@
 
 <% if content(:testimonials).present? %>
   <section class="w-full pt-12 pb-10 bg-stone-100">
-    <h2 class="max-w-screen-xl mx-auto px-6 md:px-0 mb-8 text-xl md:text-2xl lg:text-3xl tracking-normal text-amber-700">
-      What our customers have to say
-    </h2>
+    <div class="relative z-10 px-8 md:px-12">
+      <h2 class="max-w-screen-xl mx-auto mb-8 text-xl md:text-2xl lg:text-3xl tracking-normal text-amber-700">
+        What our customers have to say
+      </h2>
+    </div>
     <div class="pb-6 px-6 flex overflow-x-auto gap-6 whitespace-nowrap">
       <% repeater(:testimonials) do |testimonial| %>
         <div class="px-8 py-6 w-80 bg-white shadow-lg rounded flex-shrink-0">
