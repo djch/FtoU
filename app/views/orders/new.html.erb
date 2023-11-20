@@ -23,11 +23,11 @@
        <%= render partial: "order_items/form", locals: { products: @products, order: @order } %>
      <% end %>
 
-      <div class="mt-6 p-6 border border-1 border-stone-600/30 dark:border-stone-400/50">
+      <div class="mt-6 p-6 border border-1 border-stone-600/30">
         <%= render 'items_table', order: @order, order_items: @order_items %>
       </div>
 
-      <div class="mt-4 prose prose-stone prose-sm dark:prose-invert">
+      <div class="mt-4 prose prose-stone prose-sm">
         <p>Delivery fees start at $50 (Rosny and Hobart areas). Further available.</p>
       </div>
     </fieldset>
@@ -38,11 +38,11 @@
         <h2 class="text-xl tracking-normal mb-4">
           <%= badge_tag('2', extra_classes: 'mr-1 sm:mr-2') %> Delivery address
         </h2>
-        <div class="my-4 p-6 bg-stone-100 dark:bg-stone-950 w-full">
+        <div class="my-4 p-6 bg-stone-100 w-full">
            <p class="mb-3">Find your delivery address and then select it from the list</p>
            <div data-controller="places">
              <%= form.label "Address finder" %>
-             <input data-places-target="autocomplete" type="text" placeholder="Start typing then select your address..." class="form-input w-full bg-white dark:bg-stone-900" required>
+             <input data-places-target="autocomplete" type="text" placeholder="Start typing then select your address..." class="form-input w-full bg-white" required>
              <input data-places-target="street" type="hidden" name="order[street_address]">
              <input data-places-target="town" type="hidden" name="order[town]">
              <input data-places-target="state" type="hidden" name="order[state]">
