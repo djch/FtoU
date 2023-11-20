@@ -4,7 +4,11 @@ class OrderMailer < ApplicationMailer
   def confirmation_for_customer(order)
     @order = order
     attach_receipt(@order)
-    mail(to: @order.customer.email, subject: "Your Order Confirmation (##{order.id})")
+    mail(
+      to: @order.customer.email,
+      reply_to: "Firewood To U <#{ENV.fetch('STAFF_CONTACT_EMAIL', 'firewoodtou@outlook.com')}>",
+      subject: "Your Order Confirmation (##{order.id})"
+    )
   end
 
   def notification_for_staff(order)
