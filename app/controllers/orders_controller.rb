@@ -81,13 +81,8 @@ class OrdersController < ApplicationController
     customer_data = order_params.slice(:street_address, :town, :state, :postcode, :country).merge(order_params[:customer_attributes])
     customer.assign_attributes(customer_data)
 
-    if customer.valid? || customer.save
-      @order.customer = customer
-    else
-      customer.errors.each do |attribute, message|
-        @order.errors.add("customer_#{attribute}", message)
-      end
-    end
+    customer_valid = customer.valid? || customer.save
+    @order.customer = customer if customer_valid
 
     # Step 3: Save Order and handle potential validation errors
     if @order.save
@@ -102,7 +97,8 @@ class OrdersController < ApplicationController
     else
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update('messages', partial: 'shared/errors', locals: { errors: @order.errors }), status: :unprocessable_entity
+          error_set = customer_valid ? @order.errors : customer.errors
+          render turbo_stream: turbo_stream.update('messages', partial: 'shared/errors', locals: { errors: error_set }), status: :unprocessable_entity
         end
         format.html { render :new, status: :unprocessable_entity }
       end
