@@ -6,7 +6,7 @@ class OrderMailer < ApplicationMailer
     attach_receipt(@order)
     mail(
       to: @order.customer.email,
-      reply_to: "Firewood To U <#{ENV.fetch('STAFF_CONTACT_EMAIL', 'firewoodtou@outlook.com')}>",
+      reply_to: "Firewood To U <#{ENV.fetch('STAFF_CONTACT_EMAIL', 'orders@firewoodtou.com.au')}>",
       subject: "Your Order Confirmation (##{order.id})"
     )
   end
@@ -16,7 +16,7 @@ class OrderMailer < ApplicationMailer
     @order = order
     attach_receipt(@order)
     mail(
-      to: "Staff <#{ENV.fetch('STAFF_CONTACT_EMAIL', 'firewoodtou@outlook.com')}>",
+      to: "Staff <#{ENV.fetch('STAFF_CONTACT_EMAIL', 'orders@firewoodtou.com.au')}>",
       cc: @recipients.map(&:email),
       subject: "Order placed by #{order.customer.name.familiar} (##{order.id})"
     )
