@@ -97,7 +97,7 @@ Rails.application.configure do
   config.action_mailer.asset_host = "https://#{ENV['RAILS_DEFAULT_HOST']}"
 
   # Primary 'Firewoodtou' MailChimp audience under their account (pre-dates this project)
-  config.mailchimp_list_id = '306c0adc8b'
+  config.mailchimp_list_id = '86ddb633ea'
 
   # Postmark
   config.action_mailer.delivery_method = :postmark
