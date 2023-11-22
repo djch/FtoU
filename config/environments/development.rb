@@ -70,6 +70,7 @@ Rails.application.configure do
 
   config.hosts << "ftou.test:3000"
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.asset_host = 'http://localhost:3000'
 
   # 'Getbusi Test' MailChimp audience under Firewoodtou's account
   config.mailchimp_list_id = '306c0adc8b'
