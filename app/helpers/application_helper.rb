@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def avatar_for(person, size: 'h-12 w-12', text_color: 'text-white dark:text-stone-800', color: false)
+  def avatar_for(person, size: 'h-12 w-12', text_color: 'text-white dark:text-stone-950', color: false)
     #  <%= avatar_for(@customer) %> || <%= avatar_for(@person, color: true) %>
     if color
       colors = [
@@ -17,7 +17,7 @@ module ApplicationHelper
       initials = person.name.initials
       bg_color = colors[initials.sum % colors.length]
     else
-      bg_color = 'bg-stone-500 dark:bg-stone-300'
+      bg_color = 'bg-stone-500 dark:bg-stone-400'
     end
 
     content_tag :span, class: "inline-flex #{size} items-center justify-center rounded-full #{bg_color}" do
