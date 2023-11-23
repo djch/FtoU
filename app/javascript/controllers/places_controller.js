@@ -4,18 +4,26 @@ export default class extends Controller {
   static targets = ['autocomplete', 'street', 'town', 'state', 'postcode', 'country']
 
   connect() {
-    if (window.google && window.google.maps && window.google.maps.places) {
-      this.initAutocomplete();
-    } else {
-      document.addEventListener('googleMapsLoaded', this.initAutocomplete.bind(this));
-    }
-
-    // Add keydown listener to the autocomplete target
+    this.loadGoogleMapsAPI();
     this.autocompleteTarget.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
+  loadGoogleMapsAPI() {
+    const apiKey = document.querySelector('meta[name="google-maps-key"]').content;
+
+    if (window.google && window.google.maps && window.google.maps.places) {
+      this.initAutocomplete();
+    } else {
+      let script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      window.initMap = this.initAutocomplete.bind(this);
+      document.head.appendChild(script);
+    }
+  }
+
   handleKeyDown(event) {
-    // If the key pressed was Enter, prevent the whole form from submitting
     if (event.key === 'Enter') {
       event.preventDefault();
     }

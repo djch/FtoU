@@ -3,12 +3,12 @@
   <head lang="en">
     <title>Firewood To U</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="google-maps-key" content="<%= Rails.application.credentials.dig(:google_maps_api_key) %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google_maps_api_key) %>&libraries=places&callback=initMap"></script>
   </head>
 
   <body class="text-stone-950 bg-white dark:text-stone-50 dark:bg-stone-900">
