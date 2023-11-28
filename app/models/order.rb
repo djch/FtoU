@@ -46,7 +46,16 @@ class Order < ApplicationRecord
   end
 
   def self.delivery_counts_for_month(date)
-    for_month(date).group("DATE(delivery_date AT TIME ZONE 'UTC' AT TIME ZONE '#{Time.zone.name}')").count
+    counts_by_date = {}
+    (date.beginning_of_month.to_date..date.end_of_month.to_date).each do |day|
+      start_of_day = day.beginning_of_day
+      end_of_day = day.end_of_day
+      count = where(delivery_date: start_of_day..end_of_day)
+                    .where.not(status: ['cancelled', 'pending'])
+                    .count
+      counts_by_date[day] = count
+    end
+    counts_by_date
   end
 
   # Instance Methods
