@@ -27,7 +27,7 @@
     <!-- Date Buttons -->
     <% (1..Time.days_in_month(@displayed_month, @displayed_year)).each do |day| %>
       <% current_date = Date.new(@displayed_year, @displayed_month, day) %>
-      <%= link_to deliveries_path(date: current_date), data: { turbo_action: "replace", turbo_frame: "schedule" }, class: "pt-3.5 pb-1 text-center leading-none tracking-tight no-underline focus:z-10 dark:bg-stone-950 #{ current_date == @selected_date ? 'text-white bg-orange-700 font-semibold' : 'bg-white'}", role: "button" do %>
+      <%= link_to deliveries_path(date: current_date), class: "pt-3.5 pb-1 text-center leading-none tracking-tight no-underline focus:z-10 dark:bg-stone-950 #{ current_date == @selected_date ? 'text-white bg-orange-700 font-semibold' : 'bg-white'}", role: "button" do %>
         <time datetime="<%= current_date %>" class="h-7 w-7">
           <span class="w-full"><%= day %></span>
           <%= content_tag :figure, class: "mb-1 px-1 flex flex-wrap items-center justify-center gap-[2px] text-[9px] leading-none font-normal #{current_date == @selected_date ? 'text-white' : 'text-orange-700'}" do %>
