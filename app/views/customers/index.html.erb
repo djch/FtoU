@@ -4,7 +4,7 @@
 </header>
 
 <div class="my-6 flex flex-wrap gap-6 items-center justify-between">
-  <%= link_to "Add a new customer", new_customer_path, class: "btn" %>
+  <%= link_to "+ New customer", new_customer_path, class: "btn btn--primary" %>
   <div class="flex items-center gap-6">
     <%= link_to "Export to CSV", customers_path(format: :csv), class: "tracking-tight text-stone-700 dark:text-stone-400" %>
     <%= form_with url: customers_path, method: :get do |form| %>

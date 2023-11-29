@@ -3,7 +3,7 @@
   <p>These people can log in to the FtoU Online tools</p>
 </header>
 
-<%= link_to 'Add another user', new_user_path, class: "btn" %>
+<%= link_to '+ New user', new_user_path, class: "btn btn--primary" %>
 
 <div id="users" class="max-w-screen-md my-6 divide-y divide-stone-400/50">
   <%= render @users %>

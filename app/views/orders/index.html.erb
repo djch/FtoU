@@ -5,7 +5,7 @@
 
 
 <div class="mb-6 flex flex-wrap items-center gap-4 justify-between">
-  <%= link_to "New order", new_order_path, class: "btn" %>
+  <%= link_to "+ New order", new_order_path, class: "btn btn--primary" %>
   <%= turbo_frame_tag 'orders_filters', class: "flex-wrap" do %>
     <%= render 'list_filters' %>
   <% end %>

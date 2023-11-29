@@ -3,7 +3,7 @@
   <p>These are all the products offered for delivery by FtoU</p>
 </header>
 
-<%= link_to 'Add a new product', new_product_path, class: "btn" %>
+<%= link_to '+ New product', new_product_path, class: "btn btn--primary" %>
 
 <ul role="list" class="my-6 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
   <%= render @products %>
