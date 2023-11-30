@@ -1,5 +1,21 @@
 <div class="relative isolate overflow-hidden h-[600px] xl:h-[680px] 2xl:h-[760px] sm:pt-12 lg:pt-20">
-  <%= content.image_tag(:hero, {resize_to_fill: [3584, 2016]}, {class: 'absolute inset-0 -z-10 h-full w-full object-cover object-left-top'}) %>
+  <% image_variants = {
+    extra_large: { resize_to_fill: [3600, 2024] },
+    large: { resize_to_fill: [1800, 1012] },
+    medium: { resize_to_fill: [1536, 864] },
+    small: { resize_to_fill: [640, 360] }
+  } %>
+  <% srcset = image_variants.flat_map do |_, variant|
+    normal_res = "#{content.image_url(:hero, variant)} #{variant[:resize_to_fill].first / 2}w"
+    high_res = "#{content.image_url(:hero, variant)} #{variant[:resize_to_fill].first}w 2x"
+    [normal_res, high_res]
+  end.join(', ') %>
+
+  <%= content.image_tag(:hero, {}, {
+    class: 'absolute inset-0 -z-10 h-full w-full object-cover object-left-top',
+    srcset: srcset,
+    sizes: '(max-width: 640px) 320px, (max-width: 1536px) 768px, 1800px'
+  }) %>
   <div class="container absolute bottom-0 inset-x-0 mx-auto lg:mx-0 lg:relative lg:bottom-auto lg:inset-x-auto max-w-screen-md text-center lg:text-left pt-36 lg:pt-40 lg:pl-20">
     <h1 class="my-0 p-4 lg:p-8 bg-stone-900/70 font-extrabold leading-tight text-2xl sm:text-3xl lg:text-5xl text-white">
       <%= content(:headline) %>
