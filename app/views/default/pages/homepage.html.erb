@@ -1,19 +1,20 @@
-<div class="relative isolate overflow-hidden h-[600px] xl:h-[680px] 2xl:h-[760px] sm:pt-12 lg:pt-20">
-  <% image_variants = {
-    extra_large: { resize_to_fill: [3600, 2024] },
-    large: { resize_to_fill: [1800, 1012] },
-    medium: { resize_to_fill: [1536, 864] },
-    small: { resize_to_fill: [640, 360] }
-  } %>
-  <% srcset = image_variants.flat_map do |_, variant|
-    normal_res = "#{content.image_url(:hero, variant)} #{variant[:resize_to_fill].first / 2}w"
-    high_res = "#{content.image_url(:hero, variant)} #{variant[:resize_to_fill].first}w 2x"
-    [normal_res, high_res]
-  end.join(', ') %>
+<% hero_variants = {
+  extra_large: { resize_to_fill: [3600, 2024] },
+  large: { resize_to_fill: [1800, 1012] },
+  medium: { resize_to_fill: [1536, 864] },
+  small: { resize_to_fill: [640, 360] }
+} %>
+<% regular_image_variants = {
+  large: { resize_to_fill: [1280, 1280] }, # 2x of 640px
+  medium: { resize_to_fill: [960, 960] },
+  small: { resize_to_fill: [640, 640] },
+  extra_small: { resize_to_fill: [320, 320] }
+} %>
 
-  <%= content.image_tag(:hero, {}, {
+
+<div class="relative isolate overflow-hidden h-[600px] xl:h-[680px] 2xl:h-[760px] sm:pt-12 lg:pt-20">
+  <%= responsive_image_tag(:hero, hero_variants, {
     class: 'absolute inset-0 -z-10 h-full w-full object-cover object-left-top',
-    srcset: srcset,
     sizes: '(max-width: 640px) 320px, (max-width: 1536px) 768px, 1800px'
   }) %>
   <div class="container absolute bottom-0 inset-x-0 mx-auto lg:mx-0 lg:relative lg:bottom-auto lg:inset-x-auto max-w-screen-md text-center lg:text-left pt-36 lg:pt-40 lg:pl-20">
@@ -44,11 +45,17 @@
         </div>
       </div>
       <% if strip.content(:image).present? %>
-        <%= strip.content.image_tag(:image, {resize_to_fill: [1000, 1000]}, {class: 'w-full h-64 md:h-full md:w-1/3 lg:w-1/4 object-cover rounded'}) %>)
+        <%= responsive_image_tag(strip.content(:image), regular_image_variants, {
+          class: 'w-full h-64 md:h-full md:w-1/3 lg:w-1/4 object-cover rounded',
+          loading: 'lazy'
+        }) %>
       <% end %>
     </div>
     <% if strip.content(:bg_image).present? %>
-      <%= strip.content.image_tag(:bg_image, {resize_to_fill: [4480, 1280]}, {class: 'absolute inset-0 -z-10 h-full w-full object-cover brightness-[0.25] contrast-125'}) %>)
+      <%= responsive_image_tag(strip.content(:bg_image), hero_variants, {
+        class: 'absolute inset-0 -z-10 h-full w-full object-cover brightness-[0.25] contrast-125',
+        loading: 'lazy'
+      }) %>
     <% end %>
   </div>
 <% end %>

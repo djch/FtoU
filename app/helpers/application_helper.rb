@@ -36,4 +36,15 @@ module ApplicationHelper
     combined_classes = [base_classes, extra_classes].join(' ')
     content_tag :span, content, class: combined_classes
   end
+
+  def responsive_image_tag(image_name, variant_sizes, html_options = {})
+    # Generate srcset
+    srcset = variant_sizes.flat_map do |_, variant|
+      normal_res = "#{content.image_url(image_name, variant)} #{variant[:resize_to_fill].first / 2}w"
+      high_res = "#{content.image_url(image_name, variant)} #{variant[:resize_to_fill].first}w 2x"
+      [normal_res, high_res]
+    end.join(', ')
+
+    content.image_tag(image_name, {}, html_options.merge({srcset: srcset}))
+  end
 end
