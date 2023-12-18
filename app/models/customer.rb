@@ -14,5 +14,5 @@ class Customer < ApplicationRecord
   validates :first_name, presence: { message: "and last name are required." }
   validates :last_name, presence: { message: "and first name are required." }
   validates :phone, format: { with: PHONE_REGEX, message: "is not a valid phone number" }
-  validates :email, format: { with: EMAIL_REGEX, message: "is not a valid email address" }
+  validates :email, format: { with: EMAIL_REGEX, message: "is not a valid email address" }, allow_blank: true
 end

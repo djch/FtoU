@@ -2,6 +2,8 @@ class OrderMailer < ApplicationMailer
   include PdfGeneration
 
   def confirmation_for_customer(order)
+    return if order.customer.email.blank?
+
     @order = order
     attach_receipt(@order)
     mail(
